@@ -33,7 +33,7 @@
         }
         .modal {
           width: 90% !important;
-          height: 100% !important;
+          /*height: 100% !important;*/
         }
         {
           box-sizing: border-box;
@@ -84,9 +84,9 @@
 
         .tableDiv {
           position: fixed;
-          overflow-y: scroll;
-          overflow-x: scroll;
-          height: 430px;
+          overflow-y: auto;
+          overflow-x: auto;
+          height: 500px;
         }
 
         .imageDiv {
@@ -114,6 +114,11 @@
           border: 1px solid #ddd;
           font-size: 16px;
         }
+       #modalImage img {
+         height: 70%;
+         max-height: 400px;
+         width:auto;
+       }
 
 
      </style>
@@ -144,9 +149,10 @@
         <h5 style="display: none;" id="delete">{{to_delete}}</h5>
         <h5 style="display: none;" id="include_nutrBorders">{{include_nutrBorders}}</h5>
         <h5 style="display: none;" id="dict_nut_boundaries">{{dict_nut_boundaries}}</h5>
-        <div class="container"><div class="col s4">
-        <input onkeyup="myFunction()" placeholder="Enter Text Here" id="searchName" type="text" class="validate">
-        <label class="active" for="searchName">Search</label></div></div>
+        <div class="row" style="width:90%"><div class="col-2 offset-10">
+        <input onkeyup="myFunction()" placeholder="Search" id="searchName" type="text" class="validate">
+        <!--<label class="active" for="searchName">Search</label>-->
+        </div></div>
         <div class="" style="border: 1px solid #cecece; width:90%; margin: 0 auto;">
         <div class="row">
             <div class="col s12">
@@ -172,7 +178,7 @@
                   {% for row in rows %}
                     <tr>
                       <td>
-                        {{row["Recipe_title"]}}
+                        <a href='/recipedb/search_recipeInfo/{{row["Recipe_id"]}}'>{{row["Recipe_title"]}}</a>
                       </td>
                       <td>
                         <a href='/recipedb/search_region/{{row["Region"]}}' target="_blank">
@@ -198,7 +204,7 @@
                           class="btn waves-effect waves-light modal-trigger"
                           onclick='handleInfoClick({{row | tojson | safe | escape }})'
                         >
-                          Info!
+                          More Info
                         </button>
                       </td>
                     </tr>
@@ -223,13 +229,15 @@
 
         </div><br><br>
       </div>
-        <div id="modal1" class="modal">
+        <div id="modal1" class="modal" >
+          <div style="position: relative;">
+            <button class="modal-close red waves-effect btn-small" style="position: absolute; top: 0; right: 0; z-index: 8000000; font-size: 28px;">×</button>
           <div class="modal-content">
             <div class="row">
               <div class="imageDiv col s6">
-                <div id="modalImage"></div>
-                <h6 style=" text-align: center"><u><strong>RECIPE TITLE</strong></u></h6>
-                <div id="modalRecipeTitle"></div>
+                <div id="modalImage" class="center" style="padding-top:10%; padding-right: 10%"></div>
+                <!--<h6 style=" text-align: center"><u><strong>RECIPE TITLE</strong></u></h6>-->
+                <div id="modalRecipeTitle" style="font-size:25px; margin-top:10px"></div>
               </div>
 
 
@@ -237,9 +245,27 @@
               <div class="tableDiv col s6">
                 <!-- <input onkeyup="myFunction1()" placeholder="Search for ingriedients from the list. \\eg: Onion" id="searchName" type="text" class="validate">
                 <label class="active" for="searchName">Search</label> -->
+                <h5 style="text-align: center;">Estimated Nutritional Profile</h5>
 
-                <h5>Ingredients List for this Recipe: </h5>
-                <br><br>
+                <table class="modalTable table table-striped">
+                <thead>
+
+                  <tr>
+                    <th>Total Protein (g)</th>
+                    <th>Total Fat (g)</th>
+                    <th>Total Calories (KCal)</th>
+                    <th>Total Carbohydrates (g)</th>
+
+                  </tr>
+
+                </thead>
+                <tbody id="modalTableBody2">
+                </tbody>
+              </table>
+
+                <br>
+
+                <h5 style="text-align:center;">Recipe Elements</h5>
                 <table id= "modalTable" class="modalTable table table-striped">
                   <thead>
 
@@ -257,31 +283,7 @@
               <tbody id="modalTableBody">
               </tbody>
             </table>
-            <br><br>
-            <h5>Nutritional Profile for this Recipe: </h5>
-              <br><br>
-            <table class="modalTable table table-striped">
-              <thead>
-
-                <tr>
-                  <th>Total Protein (g)</th>
-                  <th>Total Fat (g)</th>
-                  <th>Total Calories (KCal)</th>
-                  <th>Total Carbohydrates (g)</th>
-
-                </tr>
-
-              </thead>
-              <tbody id="modalTableBody2">
-              </tbody>
-            </table>
           </div>
-          </div>
-          </div>
-          <div class="modal-footer">
-          <div class="row" style="margin-top: 8px; margin-bottom: 8px">
-          <div class="col s12 center-align">
-            <button class="modal-close waves-effect btn-small">Close</button>
           </div>
           </div>
           </div>
@@ -534,6 +536,7 @@
                       const ndbId = ingredient["ndb_id"];
                       const R_id = ingredient["ndb_id"];
                       const anchorTag = anchorTagForIngredientName(val, ndbId,R_id);
+                      anchorTag.style.textTransform = "capitalize";
                       tableData.appendChild(anchorTag);
 
                     // Checking Whether The Trim Is Happening Or Not!
@@ -579,8 +582,9 @@
           function addImageToModal() {
             let recipeImage = document.createElement('IMG');
             recipeImage.className = "responsive-img";
-            recipeImage.setAttribute('src', 'https://images.media-allrecipes.com/userphotos/720x405/4581739.jpg');
+            recipeImage.setAttribute('src', 'https://images.media-allrecipes.com/userphotos/560x315/1261441.jpg');
             recipeImage.setAttribute('alt', 'A Soup Bowl');
+            // recipeImage.setAttribute('width', 30)
             document.getElementById('modalImage').appendChild(recipeImage);
             return null;
           }
