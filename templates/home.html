@@ -1,0 +1,260 @@
+<!doctype html>
+<html>
+  <head>
+    <style type="text/css">
+    primary-footer{margin-top:10px;}
+    .footer-wrap{ background:#1a202c;padding-top:50px; margin-top:50px; padding-bottom:50px;}
+    .footer .panel{float:left; background:none; width:300px;}
+    .footer .panel .title h1{ color:#ffffff;}
+    .footer .panel .content{padding-top:25px;}
+    .footer .panel .content p{ color:#435059;}
+    .footer .panel .content .button a{ margin-top:30px; background:#d13f31;}
+    .footer .panel .content .button a:hover{ margin-top:30px; background:#1f7872;}
+    .footer .panel .content ul li{ list-style:url(/flavordb/static/images/arrow.png) inside;}
+    .footer .panel .content ul li a{text-decoration:none; color:#435059;}
+    .footer .panel .content ul li a:hover{color:#d13f31;}
+    .copyright-wrap{ background:#1f7872; overflow:hidden; padding:40px 0px 40px 0px;}
+    .copyright-wrap .panel{margin:0 auto; background:none;}
+    .copyright-wrap .panel .content p{ color:#ffffff; text-align:center; font-size:12px;}
+    .copyright-wrap .panel .content p a{ text-decoration:none; color:#ffffff;}
+    .copyright-wrap .panel .content p a:hover{ color:#1a202c;}
+    </style>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.0/nouislider.min.css"> -->
+    <link rel="stylesheet" href="/static/noUIslider.css">
+    <script src="/static/noUIslider.js" type="text/javascript"></script>
+
+  </head>
+   <body>
+   	  	{% extends 'nav.html' %}
+
+   	  	{% block content %}
+   	  	<div class="container pt-4">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="jumbotron text-center pt-3">
+						<h1>RecipeDB</h1>
+						<p> A resource for exploring recipes and their nutrional profiles.</p>
+						<div class="row text-center btn-group btn-block pt-3 mb-0 pb-0">
+							<a href="/" class="col-xs-12 col-md-2 btn btn-primary" role="button" id="fontsize">Search</a>
+							<a class="col-xs-12 col-md-2 btn btn-primary" role="button" id="cal_stats">Statistics</a>
+							<a href="/" class="col-xs-12 col-md-2 btn btn-primary" role="button" id="fontsize">How to Use</a>
+							<a href="/FAQ" class="col-xs-12 col-md-2 btn btn-primary" role="button" id="fontsize">FAQs</a>
+              <a href="/contactUs" class="col-xs-12 col-md-2 btn btn-primary" role="button" id="fontsize">Contact Us</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+
+      <div class="row">
+
+         <ul class="tabs tab-demo z-depth-1">
+        <li class="tab col s6"><a href="#test1">Basic</a></li>
+        <li class="tab col s6"><a class="active" href="#test2">Advanced</a></li>
+      </ul>
+      <div id="test1" class="col s12">
+      <form class="col s12 search-form" action = "{{ url_for('search_recipe') }}" method="POST">
+         <div class="row">
+           <div class="input-field col s4">
+             <h5>Continent</h5>
+             <input href="/" type="text" name="autocomplete_region" id="autocomplete_region" class="form-control query-field"
+             placeholder="Enter any region's name (e.g. Asian)"><br>
+           </div>
+           <div class="input-field col s4">
+             <h5>Country</h5>
+             <input href="/" type="text" name="autocomplete_cuisine" id="autocomplete_cuisine" class="form-control query-field"
+             placeholder="Enter any cuisine's name (e.g. Indian, Chinese,)"><br>
+            </div>
+            <div class="input-field col s4">
+              <h5>Recipe</h5>
+ 							<input href="/" type="text" name="autocomplete_recipe" class="form-control query-field"
+ 							placeholder="Enter any recipe's name (e.g. Indian Pizza)" id="autocomplete_recipe"> <br>
+            </div>
+          </div>
+
+              <h5>Ingredients </h5>
+              <div class="row">
+                <div class="input-field col s6">
+							<h6>Used </h6>
+              <input href="/" type="text" name="autocomplete_ingredient" class="form-control query-field"
+							placeholder="Enter any ingredient's name (e.g. Cheese)" id="autocomplete_ingredient"> <br>
+            </div>
+            <div style="display:none">
+              <input href="/" type="text" name="page" class="form-control query-field"
+							placeholder="Enter any ingredient's name (e.g. Cheese)" id="autocomplete_ingredient">
+            </div>
+              <div class="input-field col s6">
+              <h6>Not Used </h6><input href="/" type="text" name="autocomplete_noningredient" class="form-control query-field"
+							placeholder="Enter any ingredient's name (e.g. Cheese)" id="autocomplete_noningredient"> <br>
+            </div></div>
+            <div class="row">
+              <span class="switch">
+                <label>
+                  Off
+                  <input name="nutrRangeOn" value="on" type="checkbox" id="check-nutrient-search" onclick="toggleNutrSearch()">
+                  <span class="lever"></span>
+                  On
+                </label>
+              </span>
+              &nbsp &nbsp &nbsp
+              <span>Include nutrition based filtering</span>
+            </div>
+            <div id="range-rows" style="display:None">
+                <div class="row">
+                  <div class="col s12 m4">
+                      <center>
+                        <h6>Protein(g/serving) : </h6>
+                      </center>
+                  </div>
+                  <div class="input-field col s12 m8">
+                    <div class="range-field">
+                      <div class="test-slider"></div>
+                      <input name="proteinMin" class="min" style="display:none;" />
+                      <input name="proteinMax" class="max" style="display:none;" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s12 m4">
+                      <center>
+                        <h6>Fat(g/serving) : </h6>
+                      </center>
+                  </div>
+                  <div class="input-field col s12 m8">
+                    <div class="range-field">
+
+                      <div class="test-slider"></div>
+                      <input name="fatMin" class="min" style="display:none;" />
+                      <input name="fatMax" class="max" style="display:none;" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s12 m4">
+                      <center>
+                        <h6>Energy(Calories/serving) : </h6>
+                      </center>
+                  </div>
+                  <div class="input-field col s12 m8">
+                    <div class="range-field">
+
+                      <div class="test-slider"></div>
+                      <input name="energyMin" class="min" style="display:none;" />
+                      <input name="energyMax" class="max" style="display:none;" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s12 m4">
+                      <center>
+                        <h6>Carbohydrates(g/serving) : </h6>
+                      </center>
+                  </div>
+                  <div class="input-field col s12 m8">
+                    <div class="range-field">
+
+                      <div class="test-slider"></div>
+                      <input name="carbMin" class="min" style="display:none;" />
+                      <input name="CarbMax" class="max" style="display:none;" />
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+
+              <!-- <input href="/" type="text" name="page" class="form-control query-field"> -->
+
+							<div class="input-group-btn input-group-append">
+								<center><input role="button" class="btn btn-primary" type="submit" >Search</input></center>
+
+							</div>
+
+					</form>
+          <!-- <div>
+					<a href="{{ url_for('all_recipes') }}" target="_blank">Browse all Recipes</a>
+        </div> -->
+        </div>
+        <!-- <div id="test1" class="col s12">lol</div> -->
+
+			</div>
+    </div>
+
+	<script>
+		window.onload = function(event){
+		   if("{{empty|safe}}" == "yes"){
+		   	alert("We found 0 results for your search query!");
+		   }
+           document.getElementById("cal_stats").addEventListener ("click", loadStats, false);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+          var instance = M.Tabs.init(el, options);
+
+          });
+
+        function loadStats(){
+        	var form = $('<form></form>');
+
+            form.attr("method", "post");
+            form.attr("action", "/load_Calstats");
+            form.attr("target", "");
+            $(document.body).append(form);
+            form.submit();
+        }
+        [...document.getElementsByClassName("min")].forEach(elem => (elem.value = "20"));
+        [...document.getElementsByClassName("max")].forEach(elem => (elem.value = "80"));
+        [...document.getElementsByClassName('range-field')].forEach(rangeGroup => {
+          slider = rangeGroup.getElementsByClassName("test-slider")[0]
+          noUiSlider.create(slider, {
+           start: [0, 1000],
+           connect: true,
+           step: 1,
+           orientation: 'horizontal', // 'horizontal' or 'vertical'
+           range: {
+             'min': 0,
+             'max': 100
+           }
+          })
+
+
+          slider.noUiSlider.on('set.one', function (values) {
+            (rangeGroup.getElementsByClassName("min")[0]).value = (values[0]);
+            (rangeGroup.getElementsByClassName("max")[0]).value = (values[1]);
+        });
+        });
+
+          function toggleNutrSearch() {
+            var checkbox = document.getElementById("check-nutrient-search")
+            text = document.getElementById("range-rows")
+            if (checkbox.checked == true){
+              text.style.display = "block";
+            } else {
+              text.style.display = "none";
+            }
+          }
+
+	</script>
+  <footer class="primary-footer">
+    <div class="copyright-wrap">
+      <div class="panel">
+        <div class="content">
+          <p><img alt="" src="/flavordb/static/images/iiitd.png"></p>
+          <p>Copyright © 2019 &nbsp; All rights reserved.<br><br>
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png"></a><br>This work is licensed under a <a style="font-weight: bold;" rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
+          </p>
+          <p><a href="https://iiitd.ac.in/" target="_blank"><strong>Indraprastha Institute of Information Technology Delhi (IIIT-Delhi)</strong></a> | <a href="https://cosylab.iiitd.edu.in/" target="_blank">Prof. Ganesh Bagler</a></p>
+          <p><a target="_blank" href="https://www.facebook.com/ganesh.bagler"></a>
+            <a target="_blank" href="https://twitter.com/gansbags"></a>
+            <a target="_blank" href="https://www.linkedin.com/in/ganeshbagler"></a>
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+		{% endblock %}
+   </body>
+ </head>
+</html>

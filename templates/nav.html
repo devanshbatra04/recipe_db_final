@@ -1,0 +1,191 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>RecipeDB</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+		<!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+		<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> -->
+		<script src="//code.jquery.com/jquery-2.2.0.min.js"></script>
+		<script src="//code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+		<link href="//code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+		<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+      	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+
+      	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+
+
+
+		<style type="text/css">
+			#fontsize{
+				font-size: 15px
+			}
+			#cal_stats{
+				font-size: 15px;
+				color: white;
+			}
+			#ing_stats{
+				font-size: 15px;
+				color: white;
+			}
+
+			.ui-autocomplete {
+	            max-height: 200px;
+	            overflow-y: auto;
+	            overflow-x: hidden;
+	            padding-right: 20px;
+        	}
+		</style>
+		<script type="text/javascript">
+
+			function split( val ) {
+      			return val.split( /,\s*/ );
+    		}
+    		function extractLast( term ) {
+      			return split( term ).pop();
+    		}
+
+
+			$(function() {
+			    $("#autocomplete_recipe").autocomplete({
+			        source:function(request, response) {
+			            $.getJSON("{{url_for('autocomplete_recipe')}}",{
+			                q: request.term,
+			            }, function(data) {
+			                response(data.matching_results);
+			            });
+			        },
+			        minLength: 1,
+			        select: function(event, ui) {
+			            console.log(ui.item.value);
+			        }
+			    });
+
+			    $("#autocomplete_cuisine").autocomplete({
+			        source:function(request, response) {
+			            $.getJSON("{{url_for('autocomplete_cuisine')}}",{
+			                q: request.term,
+			            }, function(data) {
+			                response(data.matching_results);
+			            });
+			        },
+			        minLength: 0,
+			        select: function(event, ui) {
+			            console.log(ui.item.value);
+			        }
+			    }).blur(function(){
+    				$("#autocomplete_cuisine").autocomplete('enable');
+				})
+				.focus(function () {
+				    $("#autocomplete_cuisine").autocomplete('search', '');
+				});
+
+			    $("#autocomplete_region").autocomplete({
+			        source:function(request, response) {
+			            $.getJSON("{{url_for('autocomplete_region')}}",{
+			                q: request.term,
+			            }, function(data) {
+			                response(data.matching_results);
+			            });
+			        },
+			        minLength: 0,
+			        select: function(event, ui) {
+			            console.log(ui.item.value);
+			        }
+			    }).blur(function(){
+    				$("#autocomplete_region").autocomplete('enable');
+				})
+				.focus(function () {
+				    $("#autocomplete_region").autocomplete('search', '');
+				});;
+
+			    $("#autocomplete_ingredient").autocomplete({
+			    	source:function(request, response) {
+			    		$.getJSON("{{url_for('autocomplete_ingredient')}}",{
+			    			q: extractLast( request.term),
+			    		}, function(data) {
+			    			response(data.matching_results);
+			    		});
+			    	},
+			    	minLength: 1,
+			    	select: function(event, ui) {
+			    		var terms = split( this.value );
+          				// remove the current input
+          				terms.pop();
+          				// add the selected item
+          				terms.push( ui.item.value );
+          				// add placeholder to get the comma-and-space at the end
+          				terms.push( "" );
+          				this.value = terms.join( ", " );
+          				console.log(ui.item.value);
+          				return false;
+			    	}
+			    });
+
+					$("#autocomplete_noningredient").autocomplete({
+			    	source:function(request, response) {
+			    		$.getJSON("{{url_for('autocomplete_noningredient')}}",{
+			    			q: extractLast( request.term),
+			    		}, function(data) {
+			    			response(data.matching_results);
+			    		});
+			    	},
+			    	minLength: 1,
+			    	select: function(event, ui) {
+			    		var terms = split( this.value );
+          				// remove the current input
+          				terms.pop();
+          				// add the selected item
+          				terms.push( ui.item.value );
+          				// add placeholder to get the comma-and-space at the end
+          				terms.push( "" );
+          				this.value = terms.join( ", " );
+          				console.log(ui.item.value);
+          				return false;
+			    	}
+			    });
+
+			})
+
+		</script>
+	</head>
+
+	<body>
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+			<div class="container">
+
+			<a class="navbar-brand" href="/" style="font-size: 30px">&nbsp;<strong>RecipeDB</strong></a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_menu" aria-controls="navbar_menu" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+				<div class="collapse navbar-collapse" id="navbar_menu">
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item">
+							<a class="nav-link" href="/" id="fontsize">Home</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/" id="fontsize">How To Use</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/FAQ" id="fontsize">FAQs</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/contactUs" id="fontsize">Contact Us</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/" id="fontsize">CoSyLab</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		{% block content %}{% endblock %}
+	</body>
+</html>

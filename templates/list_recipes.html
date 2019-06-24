@@ -1,0 +1,918 @@
+<!doctype html>
+<html>
+   <head>
+     <style type="text/css">
+
+     primary-footer{margin-top:10px;}
+     .footer-wrap{ background:#1a202c;padding-top:50px; margin-top:50px; padding-bottom:50px;}
+     .footer .panel{float:left; background:none; width:300px;}
+     .footer .panel .title h1{ color:#ffffff;}
+     .footer .panel .content{padding-top:25px;}
+     .footer .panel .content p{ color:#435059;}
+     .footer .panel .content .button a{ margin-top:30px; background:#d13f31;}
+     .footer .panel .content .button a:hover{ margin-top:30px; background:#1f7872;}
+     .footer .panel .content ul li{ list-style:url(/flavordb/static/images/arrow.png) inside;}
+     .footer .panel .content ul li a{text-decoration:none; color:#435059;}
+     .footer .panel .content ul li a:hover{color:#d13f31;}
+     .copyright-wrap{ background:#1f7872; overflow:hidden; padding:40px 0px 40px 0px;}
+     .copyright-wrap .panel{margin:0 auto; background:none;}
+     .copyright-wrap .panel .content p{ color:#ffffff; text-align:center; font-size:12px;}
+     .copyright-wrap .panel .content p a{ text-decoration:none; color:#ffffff;}
+     .copyright-wrap .panel .content p a:hover{ color:#1a202c;}
+        #Ingredients {
+           table-layout: fixed;
+           width: 100% !important;
+           overflow-x: inherit;
+        }
+        #Ingredients td,
+        #Ingredients th {
+           width: auto !important;
+           white-space: normal;
+           text-overflow: ellipsis;
+           overflow: hidden;
+        }
+        .modal {
+          width: 90% !important;
+          height: 100% !important;
+        }
+        {
+          box-sizing: border-box;
+        }
+
+        #myInput {
+          background-image: url('/css/searchicon.png');
+          background-position: 10px 10px;
+          background-repeat: no-repeat;
+          width: 93%;
+          font-size: 16px;
+          padding: 12px 20px 12px 40px;
+          border: 1px solid #ddd;
+          margin-bottom: 12px;
+        }
+        #myTable {
+
+          vertical-align: top;
+          border-collapse: collapse;
+
+          border: 1px solid #ddd;
+          font-size: 18px;
+        }
+
+        #myTable th, #myTable td {
+          text-align: left;
+          padding: 12px;
+        }
+
+        #myTable tr {
+          border-bottom: 1px solid #ddd;
+        }
+
+        #myTable tr.header, #myTable tr:hover {
+          background-color: #f1f1f1;
+        }
+        #modalTable tr {
+          border-bottom: 1px solid #ddd;
+        }
+
+        #modalTable tr.header, #modalTable tr:hover {
+          background-color: #f1f1f1;
+        }
+        #modalTable th, #modalTable td {
+          text-align: left;
+          padding: 12px;
+        }
+
+        .tableDiv {
+          position: fixed;
+          overflow-y: scroll;
+          overflow-x: scroll;
+          height: 430px;
+        }
+
+        .imageDiv {
+          position: fixed;
+        }
+        .modal .modal-footer .btn-small {
+          background-color: #448aff;
+        }
+
+        #modalRecipeTitle , #modalRecipeId {
+          font-size: 14px;
+          text-align: center;
+          font-weight: bold;
+          color: black;
+        }
+        #modalTable {
+          border-collapse: collapse;
+          width: 100%;
+          border: 1px solid #ddd;
+          font-size: 16px;
+        }
+        .mainBodyTable, .modalTable {
+          border-collapse: collapse;
+          width: 100%;
+          border: 1px solid #ddd;
+          font-size: 16px;
+        }
+
+
+     </style>
+   </head>
+   <body>
+      {% extends 'nav.html' %}
+      {% block content %}
+
+        <div class = "container">
+          <div class="row">
+            <div class="col s12 m6">
+              <div class="card blue darken-1">
+                <div class="card-content white-text">
+                <center><b><h3>{{heading}}</h3></b></center>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <h5 style="display: none" id="NAME">{{name}}</h5>
+        <h5 style="display: none" id="CUISINE">{{cuisine}}</h5>
+        <h5 style="display: none" id="REGION">{{region}}</h5>
+        <h5 style="display: none" id="INGS">{{ings}}</h5>
+        <h5 style="display: none" id="non_INGS">{{not_ings}}</h5>
+        <h5 style="display: none" id="bold_button">{{boldbuttonnum}}</h5>
+        <h5 style="display: none;" id="delete">{{to_delete}}</h5>
+        <h5 style="display: none;" id="include_nutrBorders">{{include_nutrBorders}}</h5>
+        <h5 style="display: none;" id="dict_nut_boundaries">{{dict_nut_boundaries}}</h5>
+        <div class="container"><div class="col s4">
+        <input onkeyup="myFunction()" placeholder="Enter Text Here" id="searchName" type="text" class="validate">
+        <label class="active" for="searchName">Search</label></div></div>
+        <div class="" style="border: 1px solid #cecece; width:90%; margin: 0 auto;">
+        <div class="row">
+            <div class="col s12">
+              <div class="z-depth-1 row" style="margin: 10px">
+                 <div class="input-field col s12">
+
+                 </div>
+              </div>
+              <table id="myTable" class="table table-striped" style="padding-left: 40px ">
+                <thead>
+                  <tr>
+                    <th>Recipe Title</th>
+                    <th>Region</th>
+                    <th>Sub-Region</th>
+                    <th>Servings</th>
+                    <th>Calories (KCal)</th>
+                    <th>Protein (g)</th>
+                    <th>Total Lipid (Fat) (g)</th>
+                    <th>More Info</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for row in rows %}
+                    <tr>
+                      <td>
+                        {{row["Recipe_title"]}}
+                      </td>
+                      <td>
+                        <a href='/search_region/{{row["Region"]}}' target="_blank">
+                          {{row["Region"]}}
+                        </a>
+                      </td>
+                      <td>
+                        <a href='/search_subregion/{{row["Sub_region"]}}' target="_blank">
+                          {{row["Sub_region"]}}
+                        </a>
+                      </td>
+                      <td>
+                        {{row["Servings"]}}
+                      </td>
+                      <td>
+                        {{row["Energy(kcal)"]}}
+                      </td>
+                      <td>{{row["Protein(g)"]}}</td>
+                      <td>{{row["Totallipid(fat)(g)"]}}</td>
+                      <td><a href=""></a>
+                        <button
+                          data-target="modal1"
+                          class="btn waves-effect waves-light modal-trigger"
+                          onclick='handleInfoClick({{row | tojson | safe | escape }})'
+                        >
+                          Info!
+                        </button>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+        </div>
+        <div style = "float:right">
+
+            <ul class="pagination">
+              <li class="disabled" id="prevpage"><a class="page-link" style="color: blue">Previous</a></li>
+              <li class="active" id="first"><a class="page-link" style="color: blue">{{page_num_info[0]}}</a></li>
+              <li class="waves-effect" id="second"><a class="page-link" style="color: blue">{{page_num_info[1]}}</a></li>
+              <li class="waves-effect" id="third"><a class="page-link" style="color: blue">{{page_num_info[2]}}</a></li>
+              <li class="waves-effect" id="fourth"><a class="page-link" style="color: blue">{{page_num_info[3]}}</a></li>
+              <li class="waves-effect" id="fifth"><a class="page-link" style="color: blue">{{page_num_info[4]}}</a></li>
+              <li class="waves-effect" id="sixth"><a class="page-link" style="color: blue">{{page_num_info[5]}}</a></li>
+              <li class="waves-effect" id="seventh"><a class="page-link" style="color: blue">{{page_num_info[6]}}</a></li>
+              <li class="disabled" id="nextpage"><a class="page-link" style="color: blue">Next</a></li>
+            </ul>
+
+        </div><br><br>
+      </div>
+        <div id="modal1" class="modal">
+          <div class="modal-content">
+            <div class="row">
+              <div class="imageDiv col s6">
+                <div id="modalImage"></div>
+                <h6 style=" text-align: center"><u><strong>RECIPE TITLE</strong></u></h6>
+                <div id="modalRecipeTitle"></div>
+              </div>
+
+
+
+              <div class="tableDiv col s6">
+                <!-- <input onkeyup="myFunction1()" placeholder="Search for ingriedients from the list. \\eg: Onion" id="searchName" type="text" class="validate">
+                <label class="active" for="searchName">Search</label> -->
+
+                <h5>Ingredients List for this Recipe: </h5>
+                <br><br>
+                <table id= "modalTable" class="modalTable table table-striped">
+                  <thead>
+
+                <tr>
+                  <th>Ingredient Name</th>
+                  <th>Quantity</th>
+                  <th>Unit</th>
+                  <th>State</th>
+                  <th>Protein (g)</th>
+                  <th>Energy (kcal)</th>
+                  <th>Total Lipid (Fat) (g)</th>
+                </tr>
+
+              </thead>
+              <tbody id="modalTableBody">
+              </tbody>
+            </table>
+            <br><br>
+            <h5>Nutritional Profile for this Recipe: </h5>
+              <br><br>
+            <table class="modalTable table table-striped">
+              <thead>
+
+                <tr>
+                  <th>Total Protein (g)</th>
+                  <th>Total Fat (g)</th>
+                  <th>Total Calories (KCal)</th>
+                  <th>Total Carbohydrates (g)</th>
+
+                </tr>
+
+              </thead>
+              <tbody id="modalTableBody2">
+              </tbody>
+            </table>
+          </div>
+          </div>
+          </div>
+          <div class="modal-footer">
+          <div class="row" style="margin-top: 8px; margin-bottom: 8px">
+          <div class="col s12 center-align">
+            <button class="modal-close waves-effect btn-small">Close</button>
+          </div>
+          </div>
+          </div>
+          </div>
+
+        <br>
+
+
+
+        <script>
+          window.onload = function(event){
+            $(document).ready(function() {
+              var table = $('table.Ingredient').DataTable({
+                "bPaginate": false,
+                "scrollY": "200px",
+                "scrollCollapse": true,
+                "scrollX": true,
+                "bInfo": false,
+                "autoWidth": false
+              });
+                $('#Ingredients').parent().addClass('table-responsive');
+            });
+
+          var bold_num = document.getElementById("bold_button").innerHTML;
+          var elem = document.getElementById(bold_num).style.fontWeight = 'bold';
+          console.log("bold num = ", bold_num);
+          document.getElementById("nextpage").addEventListener ("click", nextPage, false);
+          document.getElementById("prevpage").addEventListener ("click", prevPage, false);
+          document.getElementById("first").addEventListener ("click", selected_page_1, false);
+          document.getElementById("second").addEventListener ("click", selected_page_2, false);
+          document.getElementById("third").addEventListener ("click", selected_page_3, false);
+          document.getElementById("fourth").addEventListener ("click", selected_page_4, false);
+          document.getElementById("fifth").addEventListener ("click", selected_page_5, false);
+          document.getElementById("sixth").addEventListener ("click", selected_page_6, false);
+          document.getElementById("seventh").addEventListener ("click", selected_page_7, false);
+
+          var del = document.getElementById("delete").innerHTML;
+          delete_buttons(del);
+          }
+
+          document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.modal');
+            var instances = M.Modal.init(elems, {
+              inDuration: 500,
+              outDuration: 500,
+              onCloseEnd: removeNodes,
+            });
+          });
+
+          document.addEventListener('DOMContentLoaded', function() {
+              var elems = document.querySelectorAll('.collapsible');
+              var instances = M.Collapsible.init(elems,{});
+            });
+
+          function myFunction() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchName");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+              td = tr[i].getElementsByTagName("td")[0];
+              if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                  tr[i].style.display = "";
+                } else {
+
+                        td = tr[i].getElementsByTagName("td")[1];
+                        if (td) {
+                          txtValue1 = td.textContent || td.innerText;
+                          if (txtValue1.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                          } else {
+
+                                  td = tr[i].getElementsByTagName("td")[2];
+                                  if (td) {
+                                    txtValue2 = td.textContent || td.innerText;
+                                    if (txtValue2.toUpperCase().indexOf(filter) > -1) {
+                                      tr[i].style.display = "";
+                                    } else {
+
+                                            td = tr[i].getElementsByTagName("td")[3];
+                                            if (td) {
+                                              txtValue3 = td.textContent || td.innerText;
+                                              if (txtValue3.toUpperCase().indexOf(filter) > -1) {
+                                                tr[i].style.display = "";
+                                              } else {
+                                                tr[i].style.display = "none";
+                                              }
+                                            }
+                                          }
+                                  }
+                                }
+                        }
+                      }
+                  }
+
+            }
+          }
+
+          function myFunction1() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchName");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("modalTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+              td = tr[i].getElementsByTagName("td")[0];
+              if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                  tr[i].style.display = "";
+                } else {
+
+                        td = tr[i].getElementsByTagName("td")[1];
+                        if (td) {
+                          txtValue1 = td.textContent || td.innerText;
+                          if (txtValue1.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                          } else {
+
+                                  td = tr[i].getElementsByTagName("td")[2];
+                                  if (td) {
+                                    txtValue2 = td.textContent || td.innerText;
+                                    if (txtValue2.toUpperCase().indexOf(filter) > -1) {
+                                      tr[i].style.display = "";
+                                    } else {
+
+                                            td = tr[i].getElementsByTagName("td")[3];
+                                            if (td) {
+                                              txtValue3 = td.textContent || td.innerText;
+                                              if (txtValue3.toUpperCase().indexOf(filter) > -1) {
+                                                tr[i].style.display = "";
+                                              } else {
+                                                tr[i].style.display = "none";
+                                              }
+                                            }
+                                          }
+                                  }
+                                }
+                        }
+                      }
+                  }
+
+            }
+          }
+
+          function pJ(funcName, jsonData) {
+            console.log(JSON.stringify({
+              'Function Name': funcName,
+              'Output': jsonData,
+            }, null, 4))
+          }
+
+          function handleInfoClick(inputRow) {
+            pJ('1. handleInfoClick', inputRow); // Checking.
+            const ingredients = inputRow["Ingredients"]; // Taking out the Ingredients.
+            const recipeTitle = inputRow["Recipe_title"] ? inputRow["Recipe_title"] : "";
+            const recipeId = inputRow["Recipe_id"] ? inputRow["Recipe_id"] : "";
+
+
+            addImageToModal(); // Hardcoded Image.
+            addRowDataToModalTable(ingredients);
+            addTitleAndIdToModal(recipeTitle, recipeId)
+            addRowDataToModalTable3(inputRow);
+            return null;
+          }
+
+          function addRowDataToModalTable3(row) {
+            let tableRow = document.createElement("TR");
+            const refList = ['Energy(kcal)', 'Protein(g)', 'Totallipid(fat)(g)','Carbohydratebydifference(g)'];
+            for (key of refList) {
+              let tableData = document.createElement('TD');
+              tableData.innerHTML = row[key];
+              tableRow.appendChild(tableData);
+            }
+            document.getElementById('modalTableBody2').appendChild(tableRow);
+          }
+
+          function addTitleAndIdToModal(title, id) {
+            let titleElem = document.createElement("A");
+            let idElem = document.createElement("A");
+            titleElem.innerHTML = title;
+            titleElem.setAttribute('href', `/search_recipeInfo/${id}`);
+            titleElem.setAttribute('target', '_blank');
+
+            idElem.innerHTML = id;
+            idElem.setAttribute('href', `/search_recipeInfo/${id}`);
+            idElem.setAttribute('target', '_blank');
+            document.getElementById('modalRecipeTitle').appendChild(titleElem);
+
+          }
+
+          // old - 18.June.2019
+          function addRowDataToModalTable2(ingredients) {
+            // For understanding, refer to the older function.
+            for (var ingredient of ingredients) {
+              let tableRow = document.createElement("TR");
+              tableRow.className = "row";
+
+              pJ('addRowDataToModalTable2', ingredient); // Checking.
+
+              const refList = ['ingredient_name', 'quantity', 'unit', 'state'];
+              for (const key of refList) {
+                let tableData = document.createElement('TD');
+                tableData.className = "col s3"; // Only four columns now.
+                if (key === 'ingredient_name') {
+                  const val = ingredient[key] ? ingredient[key].trim() : null;
+                  if (val) {
+                    const ndbId = ingredient['ndb_id'];
+                    const anchorTag = anchorTagForIngredientName(val, ndbId);
+                    tableData.appendChild(anchorTag);
+                  } else {
+                    tableData.innerHTML = "-";
+                  }
+                } else {
+                  tableData.innerHTML = ingredient[key] ? ingredient[key].trim() : "-";
+                }
+                tableRow.appendChild(tableData);
+              }
+              document.getElementById('modalTableBody').appendChild(tableRow);
+            }
+          }
+
+          // new - 19.June.2019
+          function addRowDataToModalTable(ingredients) { // 'ingredients' is an Array.
+            for (var ingredient of ingredients) { // Iterating over an 'ingredient' in 'ingredients'. 'ingredients' is an Array.
+              let tableRow = document.createElement("TR");
+
+
+              // pJ('addRowDataToModalTable', ingredient) // Checking.
+
+              const refList = ['ingredient_name', 'quantity' , 'unit', 'state', 'Protein', 'Energy', "Total lipid (fat)"]; // keys in 'ingredient' variable.
+
+              // console.log(refList.indexOf('Hello')); // Checking
+
+              for (const key of refList) { // Iterating over refList.
+                let tableData = document.createElement("TD"); // An element for every item in refList.
+
+                // tableData.className = (['quantity', 'Total lipid (fat)'].indexOf(key) >= 0) ? "col s1" : "col s2"; // Applying Class.
+
+                if (['ingredient_name', 'quantity' , 'unit', 'state'].indexOf(key) >= 0) {
+                  if (key === 'ingredient_name') {
+                    const val = ingredient[key] ? ingredient[key].trim() : null;
+                    if (val) {
+                      // tableData.innerHTML = 'Anchor Tag!'; // Temporary.
+                      const ndbId = ingredient["ndb_id"];
+                      const R_id = ingredient["ndb_id"];
+                      const anchorTag = anchorTagForIngredientName(val, ndbId,R_id);
+                      tableData.appendChild(anchorTag);
+
+                    // Checking Whether The Trim Is Happening Or Not!
+                    // console.log(`Value Before Trim: ${val}. Length Before Trim: ${val.length}. Value After Trim: ${val.trim()}. Length After Trim: ${val.trim().length}.`)
+                    } else {
+                      tableData.innerHTML = "-"; // Using Hyphen, when there's no Data.
+                    }
+                  } else {
+                    // Item will be trimmed if the key is in the Array in the If-Condition.
+                    tableData.innerHTML = ingredient[key] ? ingredient[key].trim() : "-";
+                  }
+                } else {
+                    const val = ingredient['nutrient_info'];
+                    if (val) {
+                      let dataVal = val[key];
+
+                      dataVal = removeTrailingUnit(dataVal, key);
+
+                      dataVal = limitDecimalPlaces(dataVal);
+
+                      tableData.innerHTML = dataVal;
+                    } else {
+                      tableData.innerHTML = "-"; // Using Hyphen, when there's no Data.
+                    }
+                }
+                tableRow.appendChild(tableData);
+              }
+              document.getElementById('modalTableBody').appendChild(tableRow);
+            }
+          }
+
+          // This returns an Anchor Tag.
+          function anchorTagForIngredientName(val, id,R_id) {
+            let anchor = document.createElement("A");
+            anchor.setAttribute('href', `/search_ingre/${id}_${val}_${R_id}`);
+            anchor.setAttribute('target', '_blank');
+            anchor.innerHTML = val;
+            // console.log(anchor); // Checking.
+            return anchor;  // $Change Function Name.
+          }
+
+          // This appends Image to the Modal.
+          function addImageToModal() {
+            let recipeImage = document.createElement('IMG');
+            recipeImage.className = "responsive-img";
+            recipeImage.setAttribute('src', 'https://images.media-allrecipes.com/userphotos/720x405/4581739.jpg');
+            recipeImage.setAttribute('alt', 'A Soup Bowl');
+            document.getElementById('modalImage').appendChild(recipeImage);
+            return null;
+          }
+
+          // Removes the Trailing units like 'g' or 'kcal'.
+          function removeTrailingUnit(data, key) {
+            if (['Protein', 'Total lipid (fat)'].indexOf(key) >= 0) {
+              data = data.replace('g', '').trim();
+              // console.log(`Length: ${data.length}. Data: ${data}`); // Checking.
+            } else {
+              data = data.replace('kcal', '').trim();
+            }
+            return data
+          }
+
+          // Limits the decimal places of a String-Number.
+          function limitDecimalPlaces(data) {
+            if (data !== "0.0") {
+              dataList = data.split('.');
+
+              // console.log('1.', dataList); // Checking.
+
+              let decimalVal = dataList[1]; // First item in dataList.
+
+              if (decimalVal.length > 4) {
+                // console.log('2.', dataList); // Checking.
+
+                decimalVal = decimalVal.slice(0, 4);
+              }
+              data = dataList[0] + '.' + decimalVal; // Concatenation.
+            }
+            return data
+          }
+
+          // This function makes several Child Nodes Removal Calls.
+          function removeNodes() {
+            const idArray = ['modalTableBody', 'modalImage', 'modalRecipeTitle', 'modalTableBody2'];
+            for (let i = 0; i < idArray.length; i ++) {
+              removeChildNodes(idArray[i]);
+            }
+          }
+
+          // This removes Child Nodes of an Element.
+          function removeChildNodes(elementId) {
+            console.log('Children Removal Process Started!'); // Checking.
+            const element = document.getElementById(elementId);
+
+            if (element.hasChildNodes()) {
+              while (element.hasChildNodes()) {
+                let child = element.childNodes[0];
+                console.log(`Child Removed:`, child);
+                element.removeChild(child);
+              }
+              console.log('Children Removal Process Ended!') // Checking.
+              // The difference between children and childNodes, is that childNodes contain all nodes, including text nodes and comment nodes, while children only contain element nodes.
+            } else {
+              console.log("Nothing to Remove. Off To My Vacation! Bon Appétit, Monsieur.");
+            }
+            return null;
+          }
+
+          function delete_element(id){
+            var element = document.getElementById(id);
+            element.parentNode.removeChild(element);
+          }
+
+          function delete_buttons(del){
+            var x = parseInt(del);
+            console.log(x);
+            var nums = ["first", "second", "third", "fourth", "fifth", "sixth", "seventh"];
+
+            var end = 6;
+            for(var i = 0; i < x; i++){
+               delete_element(nums[end]);
+               console.log("deleted");
+               end--;
+            }
+          }
+
+          function selected_page_1(){
+           	makeRequest(1, "first");
+          }
+
+          function selected_page_2(){
+            makeRequest(1, "second");
+          }
+
+          function selected_page_3(){
+            makeRequest(1, "third");
+          }
+
+          function selected_page_4(){
+            makeRequest(1, "fourth");
+          }
+
+          function selected_page_5(){
+            makeRequest(1, "fifth");
+          }
+
+          function selected_page_6(){
+            makeRequest(1, "sixth");
+          }
+
+          function selected_page_7(){
+            makeRequest(1, "seventh");
+          }
+
+          function gotopage(num){
+         	  console.log("page = ", num);
+         	  var name = document.getElementById("NAME").innerHTML;
+            var cuisine = document.getElementById("CUISINE").innerHTML;
+            var region = document.getElementById("REGION").innerHTML;
+            var ings = document.getElementById("INGS").innerHTML;
+            var not_ings = document.getElementById("non_INGS").innerHTML;
+            var include_nutrBorders = document.getElementById("include_nutrBorders").innerHTML;
+            var dict_nut_boundaries = document.getElementById("dict_nut_boundaries").innerHTML;
+            var page_number = document.getElementById(num).childNodes[0].innerHTML;
+            if (page_number === '...') {
+              return;
+            }
+
+            console.log("num = ", page_number);
+
+            var form = $('<form></form>');
+
+            form.attr("method", "post");
+
+              form.attr("action", "/search_recipe");
+
+              var name_field = $('<input></input>');
+
+              name_field.attr("type", "hidden");
+              name_field.attr("name", "autocomplete_recipe");
+              name_field.attr("value", name);
+
+              form.append(name_field);
+
+              var cuisine_field = $('<input></input>');
+
+              cuisine_field.attr("type", "hidden");
+              cuisine_field.attr("name", "autocomplete_cuisine");
+              cuisine_field.attr("value", cuisine);
+
+              form.append(cuisine_field);
+
+              var region_field = $('<input></input>');
+
+              region_field.attr("type", "hidden");
+              region_field.attr("name", "autocomplete_region");
+              region_field.attr("value", region);
+
+              form.append(region_field);
+
+              var ings_field = $('<input></input>');
+
+              ings_field.attr("type", "hidden");
+              ings_field.attr("name", "autocomplete_ingredient");
+              ings_field.attr("value", ings);
+
+              form.append(ings_field);
+
+              var non_ings_field = $('<input></input>');
+
+              non_ings_field.attr("type", "hidden");
+              non_ings_field.attr("name", "autocomplete_noningredient");
+              non_ings_field.attr("value", not_ings);
+
+              form.append(non_ings_field);
+
+              var include_nutrBorders_field = $('<input></input>');
+
+              include_nutrBorders_field.attr("type", "hidden");
+              include_nutrBorders_field.attr("name", "nutrRangeOn");
+              include_nutrBorders_field.attr("value", include_nutrBorders);
+
+              form.append(include_nutrBorders_field);
+
+              var dict_nut_boundaries_field = $('<input></input>');
+
+              dict_nut_boundaries_field.attr("type", "hidden");
+              dict_nut_boundaries_field.attr("name", "dict_nut_json");
+              dict_nut_boundaries_field.attr("value", dict_nut_boundaries);
+
+              form.append(dict_nut_boundaries_field);
+
+
+            var page_field = $('<input></input>');
+
+            page_field.attr("type", "hidden");
+            page_field.attr("name", "page");
+            page_field.attr("value", (parseInt(page_number)).toString());
+
+            form.append(page_field);
+
+            $(document.body).append(form);
+            form.submit();
+          }
+
+          function makeRequest(inc, num){
+            var name = document.getElementById("NAME").innerHTML;
+            console.log(name);
+            var cuisine = document.getElementById("CUISINE").innerHTML;
+            var region = document.getElementById("REGION").innerHTML;
+            var ings = document.getElementById("INGS").innerHTML;
+            var non_ings = document.getElementById("non_INGS").innerHTML;
+            var include_nutrBorders = document.getElementById("include_nutrBorders").innerHTML;
+            var dict_nut_boundaries = document.getElementById("dict_nut_boundaries").innerHTML;
+            var nums = ["first", "second", "third", "fourth", "fifth", "sixth", "seventh"];
+            var currPage = 0;
+
+            if (num != "") {
+              var page_number = document.getElementById(num).childNodes[0].innerHTML;
+              if(page_number === '...'){
+                return;
+              }
+            } else {
+              for (var x = 0; x < 7; x++) {
+              var fontWeight = $("#" + nums[x]).css('font-weight');
+              console.log('fontWeight = ', fontWeight);
+              if (fontWeight == '700' || fontWeight == 'bold') {
+             	  currPage = document.getElementById(nums[x]).childNodes[0].innerHTML;
+             	  console.log('currPage = ',currPage);
+             	  break;
+             	  }
+              }
+            }
+            console.log("name = " + name);
+            var form = $('<form></form>');
+
+            form.attr("method", "post");
+            form.attr("action", "/search_recipe");
+
+            var name_field = $('<input></input>');
+
+            name_field.attr("type", "hidden");
+            name_field.attr("name", "autocomplete_recipe");
+            name_field.attr("value", name);
+
+            form.append(name_field);
+
+            var cuisine_field = $('<input></input>');
+
+            cuisine_field.attr("type", "hidden");
+            cuisine_field.attr("name", "autocomplete_cuisine");
+            cuisine_field.attr("value", cuisine);
+
+            form.append(cuisine_field);
+
+            var region_field = $('<input></input>');
+
+            region_field.attr("type", "hidden");
+            region_field.attr("name", "autocomplete_region");
+            region_field.attr("value", region);
+
+            form.append(region_field);
+
+            var ings_field = $('<input></input>');
+
+            ings_field.attr("type", "hidden");
+            ings_field.attr("name", "autocomplete_ingredient");
+            ings_field.attr("value", ings);
+
+            form.append(ings_field);
+
+            var non_ings_field = $('<input></input>');
+
+            non_ings_field.attr("type", "hidden");
+            non_ings_field.attr("name", "autocomplete_noningredient");
+            non_ings_field.attr("value", ings);
+
+            form.append(non_ings_field);
+
+            var page_field = $('<input></input>');
+
+            page_field.attr("type", "hidden");
+            page_field.attr("name", "page");
+            if (num == "") {
+               page_field.attr("value", (parseInt(currPage) + inc).toString());
+            } else {
+                page_field.attr("value", (parseInt(page_number)).toString());
+            }
+            form.append(page_field);
+
+
+          var include_nutrBorders_field = $('<input></input>');
+
+              include_nutrBorders_field.attr("type", "hidden");
+              include_nutrBorders_field.attr("name", "nutrRangeOn");
+              include_nutrBorders_field.attr("value", include_nutrBorders);
+
+              form.append(include_nutrBorders_field);
+
+              var dict_nut_boundaries_field = $('<input></input>');
+
+              dict_nut_boundaries_field.attr("type", "hidden");
+              dict_nut_boundaries_field.attr("name", "dict_nut_json");
+              dict_nut_boundaries_field.attr("value", dict_nut_boundaries);
+
+              form.append(dict_nut_boundaries_field);
+
+          form.append(dict_nut_boundaries_field);
+
+            $(document.body).append(form);
+            form.submit();
+          }
+
+          function nextPage(){
+            makeRequest(1, "");
+          }
+
+          function prevPage(){
+            makeRequest(-1, "");
+          }
+        </script>
+        <footer class="primary-footer">
+          <div class="copyright-wrap">
+            <div class="panel">
+              <div class="content">
+                <p><img alt="" src="/flavordb/static/images/iiitd.png"></p>
+                <p>Copyright © 2019 &nbsp; All rights reserved.<br><br>
+                  <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png"></a><br>This work is licensed under a <a style="font-weight: bold;" rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
+                </p>
+                <p><a href="https://iiitd.ac.in/" target="_blank"><strong>Indraprastha Institute of Information Technology Delhi (IIIT-Delhi)</strong></a> | <a href="https://cosylab.iiitd.edu.in/" target="_blank">Prof. Ganesh Bagler</a></p>
+                <p><a target="_blank" href="https://www.facebook.com/ganesh.bagler"></a>
+                  <a target="_blank" href="https://twitter.com/gansbags"></a>
+                  <a target="_blank" href="https://www.linkedin.com/in/ganeshbagler"></a>
+                </p>
+
+              </div>
+            </div>
+          </div>
+        </footer>
+      {% endblock %}
+   </body>
+</html>

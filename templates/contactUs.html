@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+   <head>
+     <style type="text/css">
+        #Ingredients {
+           table-layout: fixed;
+           width: 100% !important;
+           overflow-x: inherit;
+        }
+        #Ingredients td,
+        #Ingredients th {
+           width: auto !important;
+           white-space: normal;
+           text-overflow: ellipsis;
+           overflow: hidden;
+        }
+        .modal {
+          width: 90% !important;
+          height: 100% !important;
+        }
+        {
+          box-sizing: border-box;
+        }
+
+        #myInput {
+          background-image: url('/css/searchicon.png');
+          background-position: 10px 10px;
+          background-repeat: no-repeat;
+          width: 93%;
+          font-size: 16px;
+          padding: 12px 20px 12px 40px;
+          border: 1px solid #ddd;
+          margin-bottom: 12px;
+        }
+        #myTable {
+          border-collapse: collapse;
+          width: 100%;
+          border: 1px solid #ddd;
+          font-size: 18px;
+        }
+
+        #myTable th, #myTable td {
+          text-align: left;
+          padding: 12px;
+        }
+
+        #myTable tr {
+          border-bottom: 1px solid #ddd;
+        }
+
+        #myTable tr.header, #myTable tr:hover {
+          background-color: #f1f1f1;
+        }
+        #myTable2 {
+          border-collapse: collapse;
+          width: 100%;
+          border: 1px solid #ddd;
+          font-size: 18px;
+        }
+
+        #myTable2 th, #myTable2 td {
+          text-align: left;
+          padding: 12px;
+        }
+
+        #myTable2 tr {
+          border-bottom: 1px solid #ddd;
+        }
+
+        #myTable2 tr.header, #myTable2 tr:hover {
+          background-color: #f1f1f1;
+        }
+        .primary-footer{margin-top:10px;}
+      	.footer-wrap{ background:#1a202c;padding-top:50px; margin-top:50px; padding-bottom:50px;}
+      	.footer .panel{float:left; background:none; width:300px;}
+      	.footer .panel .title h1{ color:#ffffff;}
+      	.footer .panel .content{padding-top:25px;}
+      	.footer .panel .content p{ color:#435059;}
+      	.footer .panel .content .button a{ margin-top:30px; background:#d13f31;}
+      	.footer .panel .content .button a:hover{ margin-top:30px; background:#1f7872;}
+      	.footer .panel .content ul li{ list-style:url(/flavordb/static/images/arrow.png) inside;}
+      	.footer .panel .content ul li a{text-decoration:none; color:#435059;}
+      	.footer .panel .content ul li a:hover{color:#d13f31;}
+      	.copyright-wrap{ background:#1f7872; overflow:hidden; padding:40px 0px 40px 0px;}
+      	.copyright-wrap .panel{margin:0 auto; background:none;}
+      	.copyright-wrap .panel .content p{ color:#ffffff; text-align:center; font-size:12px;}
+      	.copyright-wrap .panel .content p a{ text-decoration:none; color:#ffffff;}
+      	.copyright-wrap .panel .content p a:hover{ color:#1a202c;}
+
+
+     </style>
+   </head>
+   <body>
+      {% extends 'nav.html' %}
+      {% block content %}
+
+
+        <div class = "container">
+          <div class="row">
+            <div class="col s12 m6">
+              <div class="card grey lighten-3">
+                <div class="card-content black-text">
+                  <span class="card-title"><b><font size="8">Contact Us</font></b></span>
+                  <br><br>
+                  <font size="3"><b>
+                  Dr. Ganesh Bagler
+                  <br><br>
+
+                Center for Computational Biology
+                <br><br>
+                  Indraprastha Institute of Information Technology Delhi (IIIT Delhi),
+                  <br><br>
+                  B-205, Academic Block,
+                  <br><br>
+                  Okhla Phase III, Near Govindpuri Metro Station,
+                  <br><br>
+                  New Delhi, India 110020.
+                  <br><br>
+                  Email: <a>bagler+RecipeDB@iiitd.ac.in</a>
+                  <br><br>
+                  Tel: +91-11-26907-443 (Work)
+                  </b></font><br>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+
+
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              var elems = document.querySelectorAll('.collapsible');
+              var instances = M.Collapsible.init(elems, {});
+            });
+
+          	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+          	ga('create', 'UA-102869016-1', 'auto');
+          	ga('send', 'pageview');
+          </script>
+          <footer class="primary-footer">
+            <div class="copyright-wrap">
+              <div class="panel">
+                <div class="content">
+                  <p><img alt="" src="/flavordb/static/images/iiitd.png"></p>
+                  <p>Copyright © 2019 &nbsp; All rights reserved.<br><br>
+                    <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png"></a><br>This work is licensed under a <a style="font-weight: bold;" rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
+                  </p>
+                  <p><a href="https://iiitd.ac.in/" target="_blank"><strong>Indraprastha Institute of Information Technology Delhi (IIIT-Delhi)</strong></a> | <a href="https://cosylab.iiitd.edu.in/" target="_blank">Prof. Ganesh Bagler</a></p>
+                  <p><a target="_blank" href="https://www.facebook.com/ganesh.bagler"></a>
+                    <a target="_blank" href="https://twitter.com/gansbags"></a>
+                    <a target="_blank" href="https://www.linkedin.com/in/ganeshbagler"></a>
+                  </p>
+
+                </div>
+              </div>
+            </div>
+          </footer>
+          {% endblock %}
+      </body>
+      </html>

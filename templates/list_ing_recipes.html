@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+   <body>
+      {% extends 'nav.html' %}
+      {% block content %}
+      <div class="container pt-4">
+         <h1 style="color: red;">{{heading}}</h1>
+         <h1 style="visibility: hidden" id="INGS">{{ings}}</h1>
+         <hr>
+         <br>
+         
+         <ul class="pagination">
+            <li class="page-item disabled">
+              <button class="btn-deafault" tabindex="-1" id="prevpage">Previous</button>
+            </li>
+            <li class="page-item active">
+             <button class="btn-primary" id="pagenum">{{pagenum}}</button>
+            </li>
+            <li class="page-item">
+              <button class="btn-default" id="nextpage">Next</button>
+            </li>
+          </ul>
+         </nav>
+
+
+         {% for row in rows %}
+            <div class="container" style="padding-top: lem;">
+               <hr>
+               <h5 class="container">
+               <strong>
+                  <a target="_blank" href="{{row["Source"]}}">{{row["Recipe_title"]}}</a>
+               </strong>
+               </h5>
+               <hr>
+
+               <div class="row" style="height: 25em">
+                  <div class="col-md-5">
+                     <img style="height: 80%; width: 80%;" src="/static/recipe_temp.jpg">
+                     <p><b>Source Link</b></p>
+                  </div>
+
+               <div class="col-md-7" style="background-color: #FFFFE0">
+               <p class="card-text">
+               <br>
+               <span class="text-danger" style="font-size: 20px"><b>Calories:</b></span> 
+               <span style="font-size: 17px; font-style: oblique;"> {{row["Calories_servings"]}}</span>
+               <br>
+               <br>
+               <span class="text-danger" style="font-size: 20px"><b>Region:</b></span> 
+               <a href='/search_region/{{row["Region"]}}'> {{row["Region"]}}</a>
+               <br>
+               <br>
+               <span class="text-danger" style="font-size: 20px"><b>Sub Region:</b></span> 
+               <a href='/search_Sub_region/{{row["Sub_region"]}}'> {{row["Sub_region"]}}</a>
+               <br>
+               </div>
+               </div>
+               <p><b>Ingredients:</b> </p>
+               {% for ing in row["Ingredients"] %}
+                  <ul class="list-group">
+                     <li class="list-group-item list-group-item-info">{{ing}}</li>
+                  </ul>
+               {% endfor %}
+            </div>
+            <hr>
+            <br>
+         {% endfor %}
+      </div>
+
+      <script>
+
+         window.onload = function(event){
+            document.getElementById("nextpage").addEventListener ("click", nextPage, false);
+            document.getElementById("prevpage").addEventListener ("click", prevPage, false);
+         }
+
+         function makeRequest(inc){
+            var ings = document.getElementById("INGS").innerHTML;
+            var currPage = document.getElementById("pagenum").innerHTML;
+            console.log("ings = " + ings);
+            var form = $('<form></form>');
+
+            form.attr("method", "post");
+            form.attr("action", "/search_ingredient");
+
+            
+            var ings_field = $('<input></input>');
+
+            ings_field.attr("type", "hidden");
+            ings_field.attr("name", "autocomplete_ingredient");
+            ings_field.attr("value", ings);
+
+            form.append(ings_field);
+
+
+            var page_field = $('<input></input>');
+
+            page_field.attr("type", "hidden");
+            page_field.attr("name", "page");
+            page_field.attr("value", (parseInt(currPage) + inc).toString());
+
+            form.append(page_field);
+
+            $(document.body).append(form);
+            form.submit();
+         }
+
+         function nextPage(){
+            console.log("heyy");
+            makeRequest(1);
+         }
+
+         function prevPage(){
+            makeRequest(-1);
+         }
+      </script>
+
+      {% endblock %}
+   </body>
+</html>

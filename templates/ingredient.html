@@ -1,0 +1,210 @@
+<!doctype html>
+<html>
+   <head>
+     <style type="text/css">
+       primary-footer{margin-top:10px;}
+       .footer-wrap{ background:#1a202c;padding-top:50px; margin-top:50px; padding-bottom:50px;}
+       .footer .panel{float:left; background:none; width:300px;}
+       .footer .panel .title h1{ color:#ffffff;}
+       .footer .panel .content{padding-top:25px;}
+       .footer .panel .content p{ color:#435059;}
+       .footer .panel .content .button a{ margin-top:30px; background:#d13f31;}
+       .footer .panel .content .button a:hover{ margin-top:30px; background:#1f7872;}
+       .footer .panel .content ul li{ list-style:url(/flavordb/static/images/arrow.png) inside;}
+       .footer .panel .content ul li a{text-decoration:none; color:#435059;}
+       .footer .panel .content ul li a:hover{color:#d13f31;}
+       .copyright-wrap{ background:#1f7872; overflow:hidden; padding:40px 0px 40px 0px;}
+       .copyright-wrap .panel{margin:0 auto; background:none;}
+       .copyright-wrap .panel .content p{ color:#ffffff; text-align:center; font-size:12px;}
+       .copyright-wrap .panel .content p a{ text-decoration:none; color:#ffffff;}
+       .copyright-wrap .panel .content p a:hover{ color:#1a202c;}
+       #more {display: none;}
+       .carousel img {
+         max-height:200px !important;
+         width: auto !important;
+       }
+
+
+     </style>
+   </head>
+   <body>
+      {% extends 'nav.html' %}
+      {% block content %}
+
+
+        <div class = "container">
+          <div class="row">
+            <div class="col s12 m9">
+              <div class="card " style="background-color:#343a40">
+                <div class="card-content white-text">
+                  <center><b><h4 style="text-transform:capitalize">{{heading}} </h4></b></center>
+                  {{ingi_link}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 m5">
+
+              <a href="{{(row[0]["Source"])}}"><img src="https://images.media-allrecipes.com/userphotos/560x315/1261441.jpg" width="100%" max-height:"250px" alt=""></a>
+
+              </div>
+            <div class="col s12 m7">
+              <div style="overflow: auto; width:100%; max-height:250px;">
+
+                <table class="highlight" >
+                  <thead>
+                    <tr>
+                      <th  class="cyan-text lighten-3" colspan="2"><center>
+                        <a class='dropdown-trigger btn pulse' href='#' data-target='dropdown1'>Nutritional Profile for {{heading}} - {{row["ndb_id"]}} (USDA)</a>
+                        <ul id='dropdown1' class='dropdown-content'>
+                          <li><a href="#!">one</a></li>
+                          <li><a href="#!">two</a></li>
+                          <li><a href="#!">one</a></li>
+                          <li><a href="#!">two</a></li>
+                          <li><a href="#!">one</a></li>
+                          <li><a href="#!">two</a></li>
+                          <li><a href="#!">one</a></li>
+                          <li><a href="#!">two</a></li>
+                          <li><a href="#!">one</a></li>
+                          <li><a href="#!">two</a></li>
+                          <li><a href="#!">one</a></li>
+                          <li><a href="#!">two</a></li>
+                        </ul>
+                      </center></th>
+                    </tr>
+                    <tr>
+                      <th>Nutrient</th>
+                      <th>Value</th>
+                    </tr>
+                  </thead>
+                {% for dict_item in row %}
+                   {% for key, value in dict_item.items() %}
+
+                   {% if key=="Energy" or key =="Protein" or key=="Carbohydrate, by difference" or key=="Total lipid (fat)" %}
+                      <tr>
+                  {% else %}
+                      <tr class="extraVals" style="display:None">
+                  {% endif %}
+                      <td><strong>{{key}}</strong></td>
+                      <td>{{value}}</td>
+                    </tr>
+
+                   {% endfor %}
+                {% endfor %}
+                </table>
+              </div>
+              <button onclick="myFunction()" id="myBtn">Show More</button>
+              </div>
+
+              </div>
+              <div class="row" style="text-align:Center">
+                <div class="col s6 m4">
+
+                    <div class="card " style="background-color:#343a40">
+                    <div class="card-content white-text">
+                      <a href="{{ingi_link}}"><h6>Wikilink</h6></a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col s6 m4">
+
+                    <div class="card " style="background-color:#343a40">
+                    <div class="card-content white-text">
+                      <h6>Category - </h6>
+                    </div>
+                  </div>
+                </div>
+                <div class="col s6 m4">
+                  <a href="{{row[0]["Source"]}}">
+                    <div class="card " style="background-color:#343a40">
+                    <div class="card-content white-text">
+                      <h6>Source: -</h6>
+                      </div>
+                  </div></a>
+                </div>
+              </div>
+              <div class="row" style="text-align:Center">
+                <div class="col s6 m4">
+                  <div class="card " style="background-color:#343a40">
+                    <div class="card-content white-text">
+                      <h6>Country:  &nbsp&nbsp -</h6>
+                    </div>
+                  </div>
+                </div>
+                <div class="col s6 m4">
+                  <div class="card " style="background-color:#343a40">
+                    <div class="card-content white-text">
+                      <h6>Processes:  &nbsp&nbsp -</h6>
+                    </div>
+                  </div>
+                </div>
+                <div class="col s6 m4">
+                  <div class="card " style="background-color:#343a40">
+                    <div class="card-content white-text">
+                      <h6>Utensils: &nbsp&nbsp -</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel carousel-slider">
+                <a class="carousel-item" href="#one!"><img src="https://lorempixel.com/800/400/food/1"></a>
+                <a class="carousel-item" href="#two!"><img src="https://lorempixel.com/800/400/food/2"></a>
+                <a class="carousel-item" href="#three!"><img src="https://lorempixel.com/800/400/food/3"></a>
+                <a class="carousel-item" href="#four!"><img src="https://lorempixel.com/800/400/food/4"></a>
+              </div>
+
+
+          </div>
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              var elems = document.querySelectorAll('.collapsible');
+              var instances = M.Collapsible.init(elems, {});
+            });
+
+            document.addEventListener('DOMContentLoaded', function() {
+                var elems = document.querySelectorAll('.dropdown-trigger');
+                var instances = M.Dropdown.init(elems, {});
+                var elems = document.querySelectorAll('.carousel');
+                var instance = M.Carousel.init(elems,{
+                  fullWidth: true
+                });
+              });
+
+
+
+            function myFunction() {
+              var a = true;
+              [...document.getElementsByClassName("extraVals")].forEach(el => {
+                if (el.style.display=="none") {
+                  el.style.display="table-row";
+                  a = false;
+                }
+                else el.style.display="none";
+              })
+              var btn = document.getElementById("myBtn")
+              if (a == false) btn.textContent = "Show Less";
+              else btn.textContent = "Show More"
+            }
+          </script>
+          <footer class="primary-footer">
+          	<div class="copyright-wrap">
+          		<div class="panel">
+          			<div class="content">
+          				<p><img alt="" src="/iiitd.png"></p>
+          				<p>Copyright © 2017 &nbsp; All rights reserved.<br><br>
+          					<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png"></a><br>This work is licensed under a <a style="font-weight: bold;" rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
+          				</p>
+          				<p><a href="https://iiitd.ac.in/" target="_blank"><strong>Indraprastha Institute of Information Technology Delhi (IIIT-Delhi)</strong></a> | <a href="http://faculty.iiitd.ac.in/~bagler/" target="_blank">Dr. Ganesh Bagler</a></p>
+          				<p><a target="_blank" href="https://www.facebook.com/ganesh.bagler"></a>
+          					<a target="_blank" href="https://twitter.com/gansbags"></a>
+          					<a target="_blank" href="https://www.linkedin.com/in/ganeshbagler"></a>
+          				</p>
+
+          			</div>
+          		</div>
+          	</div>
+          </footer>
+          {% endblock %}
+      </body>
+      </html>
