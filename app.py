@@ -185,15 +185,15 @@ def load_conceptMap():
 def load_Ingstats():
 	return render_template('recipe_size.html')
 
-@app.route('/')
-def home():
-	return render_template('home.html', empty = "no")
-
-# @app.route('/recipedb')
+# @app.route('/')
 # def home():
 # 	return render_template('home.html', empty = "no")
 
-@app.route('/all_recipes', methods=['GET'])
+@app.route('/recipedb')
+def home():
+	return render_template('home.html', empty = "no")
+
+@app.route('/recipedb/all_recipes', methods=['GET'])
 def all_recipes():
 	rows, heading, num_recipes = exec_query("", "", "", 1,"", "recipe_search")
 	if len(rows) == 0:
