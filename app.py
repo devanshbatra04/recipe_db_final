@@ -3,7 +3,7 @@ import sqlite3 as sql
 import json
 import wikipediaapi
 wiki_wiki = wikipediaapi.Wikipedia('en')
-app = Flask(__name__)
+app = Flask(__name__, static_folder="recipedb")
 
 def get_page_num_list(page, num_recipes):
    num_pages = num_recipes // 20
