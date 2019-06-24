@@ -173,19 +173,19 @@ def exec_query(name, region, Sub_region, page,ings,not_ings,recipe_ids,include_n
 	return rows, heading, num_recipes
 
 
-@app.route('/load_Calstats', methods=['GET', 'POST'])
+@app.route('/recipedb/load_Calstats', methods=['GET', 'POST'])
 def load_Calstats():
 	return render_template('cal_serv.html')
 
-@app.route('/conmap', methods=['GET', 'POST'])
+@app.route('/recipedb/conmap', methods=['GET', 'POST'])
 def load_conceptMap():
 	return render_template('concept-map.html')
 
-@app.route('/load_Ingstats', methods=['GET', 'POST'])
+@app.route('/recipedb/load_Ingstats', methods=['GET', 'POST'])
 def load_Ingstats():
 	return render_template('recipe_size.html')
 
-@app.route('/')
+@app.route('/recipedb')
 def home():
 	return render_template('home.html', empty = "no")
 
@@ -200,7 +200,7 @@ def all_recipes():
 		return render_template("home.html", empty = "yes")
 	return render_template("p.html",rows = rows, heading = heading, name = "", cuisine = "", region = "", pagenum = "1", page_num_info = page_num_list, boldbuttonnum = bold_num, to_delete = to_delete)
 
-@app.route('/search_recipe', methods = ['GET', 'POST'])
+@app.route('/recipedb/search_recipe', methods = ['GET', 'POST'])
 def search_recipe():
 	if request.method == 'POST':
 		page = 1
@@ -255,26 +255,26 @@ def search_recipe():
 		return render_template("list_recipes.html", rows = rows, heading = heading, name = name, cuisine = Sub_region, region = region, ings = ings,not_ings=not_ings, pagenum = page, page_num_info = page_num_list, boldbuttonnum = bold_num, to_delete = to_delete, include_nutrBorders=include_nutrBorders, dict_nut_boundaries=json.dumps(dict_nut_boundaries))
 
 
-@app.route('/autocomplete_recipe', methods=['GET'])
+@app.route('/recipedb/autocomplete_recipe', methods=['GET'])
 def autocomplete_recipe():
 	rr = auto_query("Recipe_title")
 	return jsonify(matching_results=rr)
 
-@app.route('/autocomplete_cuisine', methods=['GET'])
+@app.route('/recipedb/autocomplete_cuisine', methods=['GET'])
 def autocomplete_cuisine():
 	rr = auto_query("Sub_region")
 	return jsonify(matching_results=rr)
 
-@app.route('/autocomplete_region', methods=['GET'])
+@app.route('/recipedb/autocomplete_region', methods=['GET'])
 def autocomplete_region():
 	rr = auto_query("Region")
 	return jsonify(matching_results=rr)
 
-@app.route('/autocomplete_ingredient', methods=['GET'])
+@app.route('/recipedb/autocomplete_ingredient', methods=['GET'])
 def autocomplete_ingredient():
 	rr = auto_query("Entity_alias")
 	return jsonify(matching_results=rr)
-@app.route('/autocomplete_noningredient', methods=['GET'])
+@app.route('/recipedb/autocomplete_noningredient', methods=['GET'])
 def autocomplete_noningredient():
 	rr = auto_query("Entity_alias")
 	return jsonify(matching_results=rr)
@@ -305,7 +305,7 @@ def auto_query(check):
 	return rr
 
 
-@app.route('/search_region/<string:id>',  methods = ['GET', 'POST'])
+@app.route('/recipedb/search_region/<string:id>',  methods = ['GET', 'POST'])
 def search_region(id):
 	page = 1
 	region = id
@@ -327,7 +327,7 @@ def search_region(id):
    #    return render_template("home.html", empty = "yes")
 	return render_template("list_recipes.html", rows = rows, heading = heading, name = name, cuisine = Sub_region, region = region, ings = ings,not_ings=not_ings, pagenum = page, page_num_info = page_num_list, boldbuttonnum = bold_num, to_delete = to_delete)
 
-@app.route('/search_subregion/<string:id>',  methods = ['GET', 'POST'])
+@app.route('/recipedb/search_subregion/<string:id>',  methods = ['GET', 'POST'])
 def search_subregion(id):
 	page = 1
 	region = ""
@@ -349,7 +349,7 @@ def search_subregion(id):
    #    return render_template("home.html", empty = "yes")
 	return render_template("list_recipes.html", rows = rows, heading = heading, name = name, cuisine = Sub_region, region = region, ings = ings,not_ings=not_ings, pagenum = page, page_num_info = page_num_list, boldbuttonnum = bold_num, to_delete = to_delete)
 
-@app.route('/search_ingre/<string:id>',  methods = ['GET', 'POST'])
+@app.route('/recipedb/search_ingre/<string:id>',  methods = ['GET', 'POST'])
 
 
 def search_ingre(id):
@@ -394,7 +394,7 @@ def search_ingre(id):
    #    return render_template("home.html", empty = "yes")
 	return render_template("ingredient.html",row=row,heading=heading,title=title,ingi_link=ingi_link)
 
-@app.route('/search_recipeInfo/<string:id>',  methods = ['GET', 'POST'])
+@app.route('/recipedb/search_recipeInfo/<string:id>',  methods = ['GET', 'POST'])
 def search_recipeInfo(id):
 	con = sql.connect("recipe2.db")
 	con.row_factory = sql.Row
@@ -414,14 +414,13 @@ def search_recipeInfo(id):
 	return render_template("recipeInfo.html",row=row,heading=heading,title=title)
 
 
-@app.route('/FAQ',  methods = ['GET', 'POST'])
+@app.route('/recipedb/FAQ',  methods = ['GET', 'POST'])
 def FAQ():
 	return render_template("FAQ.html")
 
-@app.route('/contactUs',  methods = ['GET', 'POST'])
+@app.route('/recipedb/contactUs',  methods = ['GET', 'POST'])
 def ContactUs():
 	return render_template("contactUs.html")
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=8080)
-

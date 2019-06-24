@@ -175,12 +175,12 @@
                         {{row["Recipe_title"]}}
                       </td>
                       <td>
-                        <a href='/search_region/{{row["Region"]}}' target="_blank">
+                        <a href='/recipedb/search_region/{{row["Region"]}}' target="_blank">
                           {{row["Region"]}}
                         </a>
                       </td>
                       <td>
-                        <a href='/search_subregion/{{row["Sub_region"]}}' target="_blank">
+                        <a href='/recipedb/search_subregion/{{row["Sub_region"]}}' target="_blank">
                           {{row["Sub_region"]}}
                         </a>
                       </td>
@@ -468,11 +468,11 @@
             let titleElem = document.createElement("A");
             let idElem = document.createElement("A");
             titleElem.innerHTML = title;
-            titleElem.setAttribute('href', `/search_recipeInfo/${id}`);
+            titleElem.setAttribute('href', `/recipedb/search_recipeInfo/${id}`);
             titleElem.setAttribute('target', '_blank');
 
             idElem.innerHTML = id;
-            idElem.setAttribute('href', `/search_recipeInfo/${id}`);
+            idElem.setAttribute('href', `/recipedb/search_recipeInfo/${id}`);
             idElem.setAttribute('target', '_blank');
             document.getElementById('modalRecipeTitle').appendChild(titleElem);
 
@@ -568,7 +568,7 @@
           // This returns an Anchor Tag.
           function anchorTagForIngredientName(val, id,R_id) {
             let anchor = document.createElement("A");
-            anchor.setAttribute('href', `/search_ingre/${id}_${val}_${R_id}`);
+            anchor.setAttribute('href', `/recipedb/search_ingre/${id}_${val}_${R_id}`);
             anchor.setAttribute('target', '_blank');
             anchor.innerHTML = val;
             // console.log(anchor); // Checking.
@@ -708,7 +708,7 @@
 
             form.attr("method", "post");
 
-              form.attr("action", "/search_recipe");
+              form.attr("action", "/recipedb/search_recipe");
 
               var name_field = $('<input></input>');
 
@@ -811,7 +811,7 @@
             var form = $('<form></form>');
 
             form.attr("method", "post");
-            form.attr("action", "/search_recipe");
+            form.attr("action", "/recipedb/search_recipe");
 
             var name_field = $('<input></input>');
 

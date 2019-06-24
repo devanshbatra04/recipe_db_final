@@ -20,8 +20,8 @@
     .copyright-wrap .panel .content p a:hover{ color:#1a202c;}
     </style>
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.0/nouislider.min.css"> -->
-    <link rel="stylesheet" href="/static/noUIslider.css">
-    <script src="/static/noUIslider.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/recipedb/static/noUIslider.css">
+    <script src="/recipedb/static/noUIslider.js" type="text/javascript"></script>
 
   </head>
    <body>
@@ -35,11 +35,11 @@
 						<h1>RecipeDB</h1>
 						<p> A resource for exploring recipes and their nutrional profiles.</p>
 						<div class="row text-center btn-group btn-block pt-3 mb-0 pb-0">
-							<a href="/" class="col-xs-12 col-md-2 btn btn-primary" role="button" id="fontsize">Search</a>
+							<a href="/recipedb" class="col-xs-12 col-md-2 btn btn-primary" role="button" id="fontsize">Search</a>
 							<a class="col-xs-12 col-md-2 btn btn-primary" role="button" id="cal_stats">Statistics</a>
-							<a href="/" class="col-xs-12 col-md-2 btn btn-primary" role="button" id="fontsize">How to Use</a>
-							<a href="/FAQ" class="col-xs-12 col-md-2 btn btn-primary" role="button" id="fontsize">FAQs</a>
-              <a href="/contactUs" class="col-xs-12 col-md-2 btn btn-primary" role="button" id="fontsize">Contact Us</a>
+							<a href="/recipedb" class="col-xs-12 col-md-2 btn btn-primary" role="button" id="fontsize">How to Use</a>
+							<a href="/recipedb/FAQ" class="col-xs-12 col-md-2 btn btn-primary" role="button" id="fontsize">FAQs</a>
+              <a href="/recipedb/contactUs" class="col-xs-12 col-md-2 btn btn-primary" role="button" id="fontsize">Contact Us</a>
 						</div>
 					</div>
 				</div>
@@ -59,17 +59,17 @@
          <div class="row">
            <div class="input-field col s4">
              <h5>Continent</h5>
-             <input href="/" type="text" name="autocomplete_region" id="autocomplete_region" class="form-control query-field"
+             <input href="/recipedb" type="text" name="autocomplete_region" id="autocomplete_region" class="form-control query-field"
              placeholder="Enter any region's name (e.g. Asian)"><br>
            </div>
            <div class="input-field col s4">
              <h5>Country</h5>
-             <input href="/" type="text" name="autocomplete_cuisine" id="autocomplete_cuisine" class="form-control query-field"
+             <input href="/recipedb" type="text" name="autocomplete_cuisine" id="autocomplete_cuisine" class="form-control query-field"
              placeholder="Enter any cuisine's name (e.g. Indian, Chinese,)"><br>
             </div>
             <div class="input-field col s4">
               <h5>Recipe</h5>
- 							<input href="/" type="text" name="autocomplete_recipe" class="form-control query-field"
+ 							<input href="/recipedb" type="text" name="autocomplete_recipe" class="form-control query-field"
  							placeholder="Enter any recipe's name (e.g. Indian Pizza)" id="autocomplete_recipe"> <br>
             </div>
           </div>
@@ -78,15 +78,15 @@
               <div class="row">
                 <div class="input-field col s6">
 							<h6>Used </h6>
-              <input href="/" type="text" name="autocomplete_ingredient" class="form-control query-field"
+              <input href="/recipedb" type="text" name="autocomplete_ingredient" class="form-control query-field"
 							placeholder="Enter any ingredient's name (e.g. Cheese)" id="autocomplete_ingredient"> <br>
             </div>
             <div style="display:none">
-              <input href="/" type="text" name="page" class="form-control query-field"
+              <input href="/recipedb" type="text" name="page" class="form-control query-field"
 							placeholder="Enter any ingredient's name (e.g. Cheese)" id="autocomplete_ingredient">
             </div>
               <div class="input-field col s6">
-              <h6>Not Used </h6><input href="/" type="text" name="autocomplete_noningredient" class="form-control query-field"
+              <h6>Not Used </h6><input href="/recipedb" type="text" name="autocomplete_noningredient" class="form-control query-field"
 							placeholder="Enter any ingredient's name (e.g. Cheese)" id="autocomplete_noningredient"> <br>
             </div></div>
             <div class="row">
@@ -198,7 +198,7 @@
         	var form = $('<form></form>');
 
             form.attr("method", "post");
-            form.attr("action", "/load_Calstats");
+            form.attr("action", "/recipedb/load_Calstats");
             form.attr("target", "");
             $(document.body).append(form);
             form.submit();
