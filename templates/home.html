@@ -38,7 +38,7 @@
             <center>
 							<a href="/recipedb" class="col-xs-12 col-md-2 btn btn-primary" role="button" id="fontsize">Search</a>
 							<a class="col-xs-12 col-md-2 btn btn-primary" role="button" id="cal_stats">Statistics</a>
-							<a href="/recipedb" class="col-xs-12 col-md-2 btn btn-primary" role="button" id="fontsize">How to Use</a>
+							<a href="/recipedb/howto" class="col-xs-12 col-md-2 btn btn-primary" role="button" id="fontsize">How to Use</a>
 							<a href="/recipedb/FAQ" class="col-xs-12 col-md-2 btn btn-primary" role="button" id="fontsize">FAQs</a>
               <a href="/recipedb/contactUs" class="col-xs-12 col-md-2 btn btn-primary" role="button" id="fontsize">Contact Us</a></center>
 						</div>
@@ -195,9 +195,9 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-          var instance = M.Tabs.init(el, options);
-
-          });
+          var elems = document.querySelectorAll('.tabs');
+          var instance = M.Tabs.init(elems, {});
+        });
 
         function loadStats(){
         	var form = $('<form></form>');

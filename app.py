@@ -426,7 +426,7 @@ def ContactUs():
 def how():
 	return render_template("howto.html")
 
-@app.route('/recipedb/stats',  methods = ['GET', 'POST'])
+@app.route('/recipedb/Stats',  methods = ['GET', 'POST'])
 def stats():
 	return render_template("stats.html")
 if __name__ == '__main__':
