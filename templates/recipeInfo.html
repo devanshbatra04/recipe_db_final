@@ -30,32 +30,24 @@
 
         <div class = "container">
           <div class="row">
-            <div class="col s12 m9">
-              <div class="card " style="background-color:#3174b7">
-                <div class="card-content white-text">
-                  <center><b><h5>{{(row[0]["Recipe_title"])}}</h5></b></center>
-                </div>
+            <div class="col s12 m12">
+              <!--<div class="card " style="background-color:#ee6e73">-->
+                <div class="card-content">
+                  <center><b><h3 style="font-family: Helvetica;">{{(row[0]["Recipe_title"])}}</h3></b></center>
+                <!--</div>-->
               </div>
             </div>
           </div>
+
           <div class="row">
-            <div class="col-sm-4" style="padding-top:20px">
+            <div class="col s12 m4" style="padding-top:20px">
               <!--&lt;!&ndash;<a href="{{(row[0]["Source"])}}">&ndash;&gt;</a>-->
-              <img src="https://images.media-allrecipes.com/userphotos/560x315/1261441.jpg" style="height: 60%; width: auto;" alt="">
-              {% set y=row[0]["Source"].split('.') %}
-                      {% if y==3 %}
-                        {% set x=row[0]["Source"].split('.')%}
-              Source: {{x[0]}}
-                      {% else %}
-                        {%set x=row[0]["Source"].split('/')%}
-                        {% set z=x[2].split('.')%}
-                          Source: {{z[0]}}
-                      {% endif %}
+              <img class="responsive-img" src="https://images.media-allrecipes.com/userphotos/560x315/1261441.jpg"  alt="">
 
               </div>
-            <div class="col-sm-8">
+            <div class="col s12 m8">
               <div style="overflow: auto; width:100%; max-height:250px;">
-
+                <h5>Estimated Nutritional Profile For This Recipe</h5>
                 <table class="highlight striped" >
                   <thead>
 
@@ -80,13 +72,121 @@
                 {% endfor %}
                 </table>
               </div>
-              <button onclick="myFunction()" id="myBtn" style="margin-top: 5px">Show More</button>
+              <button class="btn btn-small" onclick="myFunction()" id="myBtn" style="margin-top: 5px">Show More</button>
               </div>
 
               </div>
+          <div class="row" style="margin-top:50px; border-top: 1px solid black;">
+             <div class="row">
+            <div class="col s12">
+              <ul class="tabs">
+                <li class="tab col s3"><a class="active" href="#recipe_info">Recipe Overview</a></li>
+                <li class="tab col s3"><a href="#ingredient_nutri">Ingredients</a></li>
+                <li class="tab col s3"><a href="#process_info">Cooking Processes and Utensils</a></li>
+                <li class="tab col s3"><a href="#steps">Steps</a></li>
+              </ul>
+            </div>
+            <div id="recipe_info" class="col s12">
+                <ul class="collection">
+                <li class="collection-item avatar">
+                  <i class="fa fa-globe circle" style="background-color: #ee6e73;" aria-hidden="true"></i>
+                  <!--<img src="images/yuna.jpg" alt="" class="circle">-->
+                  <span class="title"><strong>Cuisine</strong></span>
+                  <p>{{row[0]["Sub_region"]}}<br>
+                     {{row[0]["Region"]}} <br>
+                     Asia (Placeholder)
+                  </p>
+                </li>
+                <li class="collection-item avatar">
+                  <i class="fa fa-cutlery circle" style="background-color: #ee6e73;" aria-hidden="true"></i>
+                  <!--<i class="material-icons circle">folder</i>-->
+                  <span class="title"><strong>Dietary Style</strong></span>
+                  <p>Keto Diet (Placeholder)<br>
+                     This recipe gets majority of its calories from ingredients high in Protein.
+                  </p>
+                </li>
+                <li class="collection-item avatar">
+                  <i class="fa fa-clock-o circle" style="background-color: #ee6e73;"></i>
+                  <span class="title"><strong>Preparation Time</strong></span>
+                  <p>First Line <br>
+                     Second Line
+                  </p>
+                </li>
+                <li class="collection-item avatar">
+                  <i class="fa fa-search circle" style="background-color: #ee6e73;"></i>
+                  <span class="title"><strong>Source</strong></span>
+                  <p><a href="{{row[0]["Source"]}}">
+                      {% set y=row[0]["Source"].split('.') %}
+                      {% if y==3 %}
+                        {% set x=row[0]["Source"].split('.')%}
+                      {{x[0]}}
+                      {% else %}
+                        {%set x=row[0]["Source"].split('/')%}
+                        {% set z=x[2].split('.')%}
+                        {% if z[0] == "allrecipes" %}
+                          All Recipes
+                        {% endif %}
+                      {% endif %}
+                    <i class="fa fa-external-link"></i>
+                  </a>
+
+                  </p>
+                </li>
+              </ul>
+            </div>
+            <div id="process_info" class="col s12">
+              <div class="row">
+                <div class="col s12 m6">
+                  <h5>Cooking Processes Applied</h5>
+                  <ul class="collection">
+                    <li class="collection-item">Cooking</li>
+                    <li class="collection-item">Bake</li>
+                    <li class="collection-item">Boil</li>
+                    <li class="collection-item">Mix</li>
+                    <li class="collection-item">Cooking</li>
+                    <li class="collection-item">Bake</li>
+                    <li class="collection-item">Boil</li>
+                    <li class="collection-item">Mix</li>
+                    <li class="collection-item">Cooking</li>
+                    <li class="collection-item">Bake</li>
+                    <li class="collection-item">Boil</li>
+                    <li class="collection-item">Mix</li>
+                    <li class="collection-item">Cooking</li>
+                    <li class="collection-item">Bake</li>
+                    <li class="collection-item">Boil</li>
+                    <li class="collection-item">Mix</li>
+                  </ul>
+                </div>
+                <div class="col s12 m6">
+                  <div class="col s12">
+                    <h5>Utensils Used</h5>
+                    <ul class="collection">
+                      <li class="collection-item">Oven</li>
+                      <li class="collection-item">Spoon</li>
+                      <li class="collection-item">Cup</li>
+                      <li class="collection-item">Mixer</li>
+                      <li class="collection-item">Oven</li>
+                      <li class="collection-item">Spoon</li>
+                      <li class="collection-item">Cup</li>
+                      <li class="collection-item">Mixer</li>
+                      <li class="collection-item">Oven</li>
+                      <li class="collection-item">Spoon</li>
+                      <li class="collection-item">Cup</li>
+                      <li class="collection-item">Mixer</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+             <div id="steps" class="col s12">
+               Recipe steps are unavailable
+             </div>
+
+
               <!--<br><br>-->
-              <div style="max-height:500px; overflow: auto;">
-                              <table id="myTable" class="table table-striped" style="padding-left: 40px;">
+              <div id="ingredient_nutri" class="col s12" style="max-height:500px; overflow: auto;">
+                <table id="myTable" class="table striped" style="padding-left: 40px;">
                 <thead>
                   <tr>
                     <th>Ingredient Name</th>
@@ -211,70 +311,20 @@
               </table>
 
               </div>
-              <br><br>
-              <div class="row" style="text-align:Center">
-                <div class="col s6 m4">
-                  <a href='/search_region/{{row[0]["Region"]}}' target="_blank">
-                    <div class="card " style="background-color:#17436b;width: 60%;margin: 0 auto; height: 72px;">
-                    <div class="card-content white-text">
-                      <h6>Region: &nbsp&nbsp{{row[0]["Region"]}}</h6>
-                    </div>
-                  </div></a>
-                </div>
-                <div class="col s6 m4">
-                  <a href='/search_region/{{row[0]["Sub_region"]}}' target="_blank">
-                    <div class="card " style="background-color:#17436b;width: 60%;margin: 0 auto; height: 72px;">
-                    <div class="card-content white-text">
-                      <h6>Sub Region: &nbsp&nbsp{{row[0]["Sub_region"]}}</h6>
-                    </div>
-                  </div></a>
-                </div>
-                <div class="col s6 m4">
-                  <a href="{{row[0]["Source"]}}">
-                    <div class="card " style="background-color:#17436b;width: 60%;margin: 0 auto; height: 72px;">
-                    <div class="card-content white-text">
-                      {% set y=row[0]["Source"].split('.') %}
-                      {% if y==3 %}
-                        {% set x=row[0]["Source"].split('.')%}
-                      <h6>Source: {{x[0]}}</h6>
-                      {% else %}
-                        {%set x=row[0]["Source"].split('/')%}
-                        {% set z=x[2].split('.')%}
-                          <h6>Source: {{z[0]}}</h6>
-                      {% endif %}
-                    </div>
-                  </div></a>
-                </div>
               </div>
-              <div class="row" style="text-align:Center">
-                <div class="col s6 m4">
-                  <div class="card " style="background-color:#17436b;width: 60%;margin: 0 auto; height: 72px">
-                    <div class="card-content white-text">
-                      <h6>Country:  &nbsp&nbsp -</h6>
-                    </div>
-                  </div>
-                </div>
-                <div class="col s6 m4">
-                  <div class="card " style="background-color:#17436b;width: 60%;margin: 0 auto; height: 72px">
-                    <div class="card-content white-text">
-                      <h6>Processes:  &nbsp&nbsp -</h6>
-                    </div>
-                  </div>
-                </div>
-                <div class="col s6 m4">
-                  <div class="card " style="background-color:#17436b;width: 60%;margin: 0 auto; height: 72px">
-                    <div class="card-content white-text">
-                      <h6>Utensils: &nbsp&nbsp -</h6>
-                    </div>
-                  </div>
-                </div>
+
               </div>
+               <br><br>
 
           </div>
           <script>
             document.addEventListener('DOMContentLoaded', function() {
-              var elems = document.querySelectorAll('.collapsible');
-              var instances = M.Collapsible.init(elems, {});
+              var elems = document.querySelectorAll('.tabs');
+              elems.forEach(elem => {
+                console.log(elem)
+                M.Tabs.init(elem, {})
+              })
+              // var instances = M.Tabs.init(elems, {});
             });
 
 
