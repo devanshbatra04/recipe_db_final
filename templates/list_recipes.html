@@ -226,10 +226,11 @@
                     <table id= "modalTable1" class="tableStyling striped responsive-table">
                       <thead>
                         <tr>
-                          <th>Total Protein (g)</th>
-                          <th>Total Fat (g)</th>
                           <th>Total Calories (KCal)</th>
                           <th>Total Carbohydrates (g)</th>
+                          <th>Total Protein (g)</th>
+                          <th>Total Fat (g)</th>
+
                         </tr>
                       </thead>
                       <tbody id="modalTableBody2"></tbody>
@@ -460,7 +461,7 @@
 
           function addRowDataToModalTable3(row) {
             let tableRow = document.createElement("TR");
-            const refList = ['Energy(kcal)', 'Protein(g)', 'Totallipid(fat)(g)','Carbohydratebydifference(g)'];
+            const refList = ['Energy(kcal)', 'Carbohydratebydifference(g)','Protein(g)', 'Totallipid(fat)(g)'];
             for (key of refList) {
               let tableData = document.createElement('TD');
               tableData.innerHTML = row[key];
