@@ -4,15 +4,19 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>RecipeDB</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-		<!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+		<!-- Materialize CSS -->
+    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    	<!-- Materialize JavaScript -->
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    	<!-- Materialize Icons -->
+    	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    	<!-- Google Font -->
+    	<link href="https://fonts.googleapis.com/css?family=Istok+Web&display=swap" rel="stylesheet">
+
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-		<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> -->
+
 		<script src="//code.jquery.com/jquery-2.2.0.min.js"></script>
 		<script src="//code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
 		<link href="//code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
@@ -24,9 +28,6 @@
 
 
 		<style type="text/css">
-			#fontsize{
-				font-size: 15px
-			}
 			#cal_stats{
 				font-size: 15px;
 				color: white;
@@ -44,6 +45,13 @@
         	}
 		</style>
 		<script type="text/javascript">
+			document.addEventListener('DOMContentLoaded', function() {
+            	var sidenavElems = document.querySelectorAll('.sidenav');
+            	var sidenavInstances = M.Sidenav.init(sidenavElems, {
+    				inDuration: 400,
+					outDuration: 400,
+            	});
+          	});
 
 			function split( val ) {
       			return val.split( /,\s*/ );
@@ -158,34 +166,32 @@
 	</head>
 
 	<body>
-		<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-			<div class="container">
-
-			<a class="navbar-brand" href="/recipedb" style="font-size: 30px">&nbsp;<strong>RecipeDB</strong></a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_menu" aria-controls="navbar_menu" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-				<div class="collapse navbar-collapse" id="navbar_menu">
-					<ul class="navbar-nav ml-auto">
-						<li class="nav-item">
-							<a class="nav-link" href="/recipedb" id="fontsize">Home</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="/recipedb" id="fontsize">How To Use</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="/recipedb/FAQ" id="fontsize">FAQs</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="/recipedb/contactUs" id="fontsize">Contact Us</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="/" id="fontsize">CoSyLab</a>
-						</li>
-					</ul>
+		<div class="navbar-fixed">
+			<nav class="teal darken-4">
+				<div class="row container">
+					<div class="col s12">
+						<div class="nav-wrapper">
+							<a href="/recipedb" style="font-size: 30px">RecipeDB</a>
+							<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+							<ul class="right hide-on-med-and-down">
+								<li><a href="/recipedb">Home</a></li>
+								<li><a href="/recipedb/howto">How To Use</a></li>
+								<li><a href="/recipedb/FAQ">FAQs</a></li>
+								<li><a href="/recipedb/contactUs">Contact Us</a></li>
+								<li><a href="/">CoSyLab</a></li>
+							</ul>
+						</div>
+					</div>
 				</div>
-			</div>
-		</nav>
+			</nav>
+		</div>
+		<ul class="sidenav" id="mobile-demo">
+			<li><a href="/recipedb">Home</a></li>
+			<li><a href="/recipedb/howto">How To Use</a></li>
+			<li><a href="/recipedb/FAQ">FAQs</a></li>
+			<li><a href="/recipedb/contactUs">Contact Us</a></li>
+			<li><a href="/">CoSyLab</a></li>
+		</ul>
 		{% block content %}{% endblock %}
 	</body>
 </html>

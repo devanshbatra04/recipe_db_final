@@ -79,21 +79,21 @@ def exec_query(name, region, Sub_region, page,ings,not_ings,recipe_ids,include_n
 	queryType = 1
 	conditions = []
 	if len(name):
-		conditions.append("having keyword " + str(name.strip()))
+		conditions.append("with keyword in its title" + str(name.strip()))
 	if len(Sub_region):
 		#actually country
-		conditions.append("having sub region " + str(Sub_region.strip()))
+		conditions.append("from cuisine " + str(Sub_region.strip()))
 	if len(region):
 		#actually country
-		conditions.append("having continent " + str(region.strip()))
+		conditions.append("from continent " + str(region.strip()))
 	# No region mapping yet to be included soon
 	if len(ings):
 		queryType = 2
-		conditions.append("having ingredients " + str(ings.strip()))
+		conditions.append("having " + str(ings.strip()))
 
 	if len(not_ings):
 		queryType = 3
-		conditions.append("not having ingredients " + str(not_ings.strip()))
+		conditions.append("not having " + str(not_ings.strip()))
 
 	conditions = list(map(lambda x: x.strip(), conditions))
 
@@ -422,5 +422,12 @@ def FAQ():
 def ContactUs():
 	return render_template("contactUs.html")
 
+@app.route('/recipedb/howto',  methods = ['GET', 'POST'])
+def how():
+	return render_template("howto.html")
+
+@app.route('/recipedb/stats',  methods = ['GET', 'POST'])
+def stats():
+	return render_template("stats.html")
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=8080)

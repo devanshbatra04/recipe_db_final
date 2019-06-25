@@ -32,13 +32,9 @@
            overflow: hidden;
         }
         .modal {
-          width: 90% !important;
-          /*height: 100% !important;*/
+          width: 95% !important;
+          height: 100% !important;
         }
-        {
-          box-sizing: border-box;
-        }
-
         #myInput {
           background-image: url('/css/searchicon.png');
           background-position: 10px 10px;
@@ -49,97 +45,62 @@
           border: 1px solid #ddd;
           margin-bottom: 12px;
         }
-        #myTable {
-
+        .tableStyling {
           vertical-align: top;
           border-collapse: collapse;
-
           border: 1px solid #ddd;
-          font-size: 18px;
         }
-
-        #myTable th, #myTable td {
+        /*#myTable th, #myTable td {
           text-align: left;
           padding: 12px;
-        }
-
-        #myTable tr {
+        }*/
+        #myTable tr, #modalTable1 tr, #modalTable2 tr {
           border-bottom: 1px solid #ddd;
         }
-
-        #myTable tr.header, #myTable tr:hover {
+        /*#myTable tr.header, #myTable tr:hover {
           background-color: #f1f1f1;
-        }
-        #modalTable tr {
-          border-bottom: 1px solid #ddd;
-        }
-
-        #modalTable tr.header, #modalTable tr:hover {
-          background-color: #f1f1f1;
-        }
-        #modalTable th, #modalTable td {
-          text-align: left;
-          padding: 12px;
-        }
-
-        .tableDiv {
+        }*/
+        /*.tableDiv {
           position: fixed;
-          overflow-y: auto;
-          overflow-x: auto;
-          height: 500px;
+          overflow-y: scroll;
+          overflow-x: scroll;
+          height: 430px;
         }
-
         .imageDiv {
           position: fixed;
-        }
+        }*/
         .modal .modal-footer .btn-small {
           background-color: #448aff;
         }
-
         #modalRecipeTitle , #modalRecipeId {
           font-size: 14px;
           text-align: center;
           font-weight: bold;
           color: black;
         }
-        #modalTable {
+        .mainBodyTable {
           border-collapse: collapse;
           width: 100%;
           border: 1px solid #ddd;
-          font-size: 16px;
+          font-size: 14px;
         }
-        .mainBodyTable, .modalTable {
-          border-collapse: collapse;
-          width: 100%;
-          border: 1px solid #ddd;
-          font-size: 16px;
+        .chgCursor {
+          cursor: pointer;
         }
-       #modalImage img {
-         height: 70%;
-         max-height: 400px;
-         width:auto;
-       }
-
-
      </style>
    </head>
    <body>
       {% extends 'nav.html' %}
       {% block content %}
-
-        <div class = "container">
-          <div class="row">
-            <div class="col s12 m6">
-              <div class="card blue darken-1">
-                <div class="card-content white-text">
-                <center><b><h3>{{heading}}</h3></b></center>
-
-                </div>
+        <!-- <div class="" style="width: 90%; margin: 0 auto;">
+            <div class="row">
+              <div class="col s12">
+                <h4 class="brown-text text-darken-3">{{heading}}</h4>
               </div>
             </div>
-          </div>
+        </div> -->
 
-        </div>
+        <!-- Headings -->
         <h5 style="display: none" id="NAME">{{name}}</h5>
         <h5 style="display: none" id="CUISINE">{{cuisine}}</h5>
         <h5 style="display: none" id="REGION">{{region}}</h5>
@@ -147,21 +108,26 @@
         <h5 style="display: none" id="non_INGS">{{not_ings}}</h5>
         <h5 style="display: none" id="bold_button">{{boldbuttonnum}}</h5>
         <h5 style="display: none;" id="delete">{{to_delete}}</h5>
-        <h5 style="display: none;" id="include_nutrBorders">{{include_nutrBorders}}</h5>
+        <h5 style="display: none;" id="include_nutrBorders">{{include_nutrBorders}}
+        </h5>
         <h5 style="display: none;" id="dict_nut_boundaries">{{dict_nut_boundaries}}</h5>
-        <div class="row" style="width:90%"><div class="col-2 offset-10">
-        <input onkeyup="myFunction()" placeholder="Search" id="searchName" type="text" class="validate">
-        <!--<label class="active" for="searchName">Search</label>-->
-        </div></div>
-        <div class="" style="border: 1px solid #cecece; width:90%; margin: 0 auto;">
-        <div class="row">
-            <div class="col s12">
-              <div class="z-depth-1 row" style="margin: 10px">
-                 <div class="input-field col s12">
 
-                 </div>
-              </div>
-              <table id="myTable" class="table table-striped" style="padding-left: 40px ">
+      <!-- Heading and Search Box -->
+      <div class="row" style="width: 90%; margin: 10px auto 0px">
+        <div class="col s9">
+          <h4 id="mainBodyHeading" class="blue-grey-text text-darken-2" style="text-transform: capitalize; font-family: 'Istok Web', sans-serif;">{{heading}}</h4>
+        </div>
+        <div class="input-field col s3">
+          <input onkeyup="myFunction()" placeholder="Enter Text Here" id="searchName" type="text" class="validate">
+          <label for="searchName" class="active" for="searchName">Search</label>
+        </div>
+      </div>
+
+      <!-- Body Table -->
+      <div class="" style="border: 2px solid #cecece; width:90%; margin: 0 auto 10px;">
+        <div class="row" style="margin-top: 15px">
+            <div class="col s12">
+              <table id="myTable" class="tableStyling striped responsive-table" style="padding-left: 40px">
                 <thead>
                   <tr>
                     <th>Recipe Title</th>
@@ -170,7 +136,7 @@
                     <th>Servings</th>
                     <th>Calories (KCal)</th>
                     <th>Protein (g)</th>
-                    <th>Total Lipid (Fat) (g)</th>
+                    <th>Fat (g)</th>
                     <th>More Info</th>
                   </tr>
                 </thead>
@@ -178,7 +144,8 @@
                   {% for row in rows %}
                     <tr>
                       <td>
-                        <a href='/recipedb/search_recipeInfo/{{row["Recipe_id"]}}'>{{row["Recipe_title"]}}</a>
+                        <a href='/recipedb/search_recipeInfo/{{row["Recipe_id"]}}' target="_blank">
+                        {{row["Recipe_title"]}}
                       </td>
                       <td>
                         <a href='/recipedb/search_region/{{row["Region"]}}' target="_blank">
@@ -201,10 +168,10 @@
                       <td><a href=""></a>
                         <button
                           data-target="modal1"
-                          class="btn waves-effect waves-light modal-trigger"
+                          class="btn-small waves-effect waves-light modal-trigger"
                           onclick='handleInfoClick({{row | tojson | safe | escape }})'
                         >
-                          More Info
+                          more info
                         </button>
                       </td>
                     </tr>
@@ -213,85 +180,127 @@
               </table>
             </div>
         </div>
-        <div style = "float:right">
-
-            <ul class="pagination">
-              <li class="disabled" id="prevpage"><a class="page-link" style="color: blue">Previous</a></li>
-              <li class="active" id="first"><a class="page-link" style="color: blue">{{page_num_info[0]}}</a></li>
-              <li class="waves-effect" id="second"><a class="page-link" style="color: blue">{{page_num_info[1]}}</a></li>
-              <li class="waves-effect" id="third"><a class="page-link" style="color: blue">{{page_num_info[2]}}</a></li>
-              <li class="waves-effect" id="fourth"><a class="page-link" style="color: blue">{{page_num_info[3]}}</a></li>
-              <li class="waves-effect" id="fifth"><a class="page-link" style="color: blue">{{page_num_info[4]}}</a></li>
-              <li class="waves-effect" id="sixth"><a class="page-link" style="color: blue">{{page_num_info[5]}}</a></li>
-              <li class="waves-effect" id="seventh"><a class="page-link" style="color: blue">{{page_num_info[6]}}</a></li>
-              <li class="disabled" id="nextpage"><a class="page-link" style="color: blue">Next</a></li>
+        <div class="row" style="margin-top: -20px; margin-bottom: 0px">
+          <div class="col s12" style="margin-right: -3px;">
+            <ul class="pagination right" style="width: 44%;">
+              <li class="disabled chgCursor" id="prevpage"><a class="page-link" style="color: blue">Previous</a></li>
+              <li class=" chgCursor" id="first"><a class="page-link" style="color: blue">{{page_num_info[0]}}</a></li>
+              <li class="chgCursor" id="second"><a class="page-link" style="color: blue">{{page_num_info[1]}}</a></li>
+              <li class=" chgCursor" id="third"><a class="page-link" style="color: blue">{{page_num_info[2]}}</a></li>
+              <li class=" chgCursor" id="fourth"><a class="page-link" style="color: blue">{{page_num_info[3]}}</a></li>
+              <li class=" chgCursor" id="fifth"><a class="page-link" style="color: blue">{{page_num_info[4]}}</a></li>
+              <li class=" chgCursor" id="sixth"><a class="page-link" style="color: blue">{{page_num_info[5]}}</a></li>
+              <li class=" chgCursor" id="seventh"><a class="page-link" style="color: blue">{{page_num_info[6]}}</a></li>
+              <li class="disabled chgCursor" id="nextpage"><a class="page-link" style="color: blue">Next</a></li>
             </ul>
-
-        </div><br><br>
+          </div>
+        </div>
       </div>
-        <div id="modal1" class="modal" >
-          <div style="position: relative;">
-            <button class="modal-close red waves-effect btn-small" style="position: absolute; top: 0; right: 0; z-index: 8000000; font-size: 28px;">×</button>
+
+      <!-- Modal -->
+      <div id="modal1" class="modal modal-fixed-footer">
           <div class="modal-content">
             <div class="row">
-              <div class="imageDiv col s6">
-                <div id="modalImage" class="center" style="padding-top:10%; padding-right: 10%"></div>
-                <!--<h6 style=" text-align: center"><u><strong>RECIPE TITLE</strong></u></h6>-->
-                <div id="modalRecipeTitle" style="font-size:25px; margin-top:10px"></div>
+              <div class="tableDiv col s12">
+                <ul class="collection">
+                  <li class="collection-item">
+                    <div class="row" style="margin-bottom: 0px">
+                      <div class="col s4"></div>
+                      <div class="col s4">
+                        <div id="modalImage"></div>
+                      </div>
+                      <div class="col s4"></div>
+                    </div>
+                    <div class="row" style="margin-bottom: 0px">
+                      <div class="col s4"></div>
+                      <div class="col s4">
+                        <div id="modalRecipeTitle"></div>
+                      </div>
+                      <div class="col s4"></div>
+                    </div>
+                  </li>
+                  <li class="collection-item">
+                    <h5 class="center-align" style="font-family: 'Istok Web', sans-serif;">Estimated Nutritional Profile</h5>
+                  </li>
+                  <li class="collection-item">
+                    <table id= "modalTable1" class="tableStyling striped responsive-table">
+                      <thead>
+                        <tr>
+                          <th>Total Protein (g)</th>
+                          <th>Total Fat (g)</th>
+                          <th>Total Calories (KCal)</th>
+                          <th>Total Carbohydrates (g)</th>
+                        </tr>
+                      </thead>
+                      <tbody id="modalTableBody2"></tbody>
+                    </table>
+                  </li>
+                  <li class="collection-item">
+                      <div class="row" style="margin: auto auto">
+                        <div class="col s12 center">
+                          <a id="modalButton" class="btn waves-effect waves-light"></a>
+                        </div>
+                      </div>
+                  </li>
+                  <li class="collection-item">
+                    <h5 class="center-align" style="font-family: 'Istok Web', sans-serif;">Recipe Elements</h5>
+                  </li>
+                  <li class="collection-item">
+                    <table id= "modalTable2" class="tableStyling striped responsive-table">
+                      <thead>
+                        <tr>
+                          <th>Ingredient Name</th>
+                          <th>Quantity</th>
+                          <th>Unit</th>
+                          <th>State</th>
+                          <th>Protein (g)</th>
+                          <th>Energy (kcal)</th>
+                          <th>Fat (g)</th>
+                        </tr>
+                      </thead>
+                      <tbody id="modalTableBody"></tbody>
+                    </table>
+                  </li>
+                </ul>
               </div>
-
-
-
-              <div class="tableDiv col s6">
-                <!-- <input onkeyup="myFunction1()" placeholder="Search for ingriedients from the list. \\eg: Onion" id="searchName" type="text" class="validate">
-                <label class="active" for="searchName">Search</label> -->
-                <h5 style="text-align: center;">Estimated Nutritional Profile</h5>
-
-                <table class="modalTable table table-striped">
-                <thead>
-
-                  <tr>
-                    <th>Total Protein (g)</th>
-                    <th>Total Fat (g)</th>
-                    <th>Total Calories (KCal)</th>
-                    <th>Total Carbohydrates (g)</th>
-
-                  </tr>
-
-                </thead>
-                <tbody id="modalTableBody2">
-                </tbody>
-              </table>
-
-                <br>
-
-                <h5 style="text-align:center;">Recipe Elements</h5>
-                <table id= "modalTable" class="modalTable table table-striped">
+              <!-- <div class="tableDiv col s12 m9 l9"> -->
+                <!-- <table id= "modalTable1" class="tableStyling striped responsive-table">
                   <thead>
-
-                <tr>
-                  <th>Ingredient Name</th>
-                  <th>Quantity</th>
-                  <th>Unit</th>
-                  <th>State</th>
-                  <th>Protein (g)</th>
-                  <th>Energy (kcal)</th>
-                  <th>Total Lipid (Fat) (g)</th>
-                </tr>
-
-              </thead>
-              <tbody id="modalTableBody">
-              </tbody>
-            </table>
+                    <tr>
+                      <th>Total Protein (g)</th>
+                      <th>Total Fat (g)</th>
+                      <th>Total Calories (KCal)</th>
+                      <th>Total Carbohydrates (g)</th>
+                    </tr>
+                  </thead>
+                  <tbody id="modalTableBody2"></tbody>
+                </table> -->
+                <!-- <table id= "modalTable2" class="tableStyling striped responsive-table">
+                  <thead>
+                    <tr>
+                      <th>Ingredient Name</th>
+                      <th>Quantity</th>
+                      <th>Unit</th>
+                      <th>State</th>
+                      <th>Protein (g)</th>
+                      <th>Energy (kcal)</th>
+                      <th>Fat (g)</th>
+                    </tr>
+                  </thead>
+                  <tbody id="modalTableBody"></tbody>
+                </table> -->
+              <!-- </div> -->
+            </div>
           </div>
+          <button class="modal-close waves-effect red btn-small" style="font-size: 28px; position: absolute; top: 0; right:0">×</button>
+          <div class="modal-footer">
+            <div class="row" style="margin-top: 8px; margin-bottom: 8px">
+              <div class="col s12 center-align">
+                <button class="modal-close waves-effect btn-small">Close</button>
+              </div>
+            </div>
           </div>
-          </div>
-          </div>
-          </div>
-
-        <br>
-
-
+      </div>
 
         <script>
           window.onload = function(event){
@@ -307,36 +316,31 @@
                 $('#Ingredients').parent().addClass('table-responsive');
             });
 
-          var bold_num = document.getElementById("bold_button").innerHTML;
-          var elem = document.getElementById(bold_num).style.fontWeight = 'bold';
-          console.log("bold num = ", bold_num);
-          document.getElementById("nextpage").addEventListener ("click", nextPage, false);
-          document.getElementById("prevpage").addEventListener ("click", prevPage, false);
-          document.getElementById("first").addEventListener ("click", selected_page_1, false);
-          document.getElementById("second").addEventListener ("click", selected_page_2, false);
-          document.getElementById("third").addEventListener ("click", selected_page_3, false);
-          document.getElementById("fourth").addEventListener ("click", selected_page_4, false);
-          document.getElementById("fifth").addEventListener ("click", selected_page_5, false);
-          document.getElementById("sixth").addEventListener ("click", selected_page_6, false);
-          document.getElementById("seventh").addEventListener ("click", selected_page_7, false);
+            var bold_num = document.getElementById("bold_button").innerHTML;
+            var elem = document.getElementById(bold_num).style.fontWeight = 'bold';
+            console.log("bold num = ", bold_num);
+            document.getElementById("nextpage").addEventListener ("click", nextPage, false);
+            document.getElementById("prevpage").addEventListener ("click", prevPage, false);
+            document.getElementById("first").addEventListener ("click", selected_page_1, false);
+            document.getElementById("second").addEventListener ("click", selected_page_2, false);
+            document.getElementById("third").addEventListener ("click", selected_page_3, false);
+            document.getElementById("fourth").addEventListener ("click", selected_page_4, false);
+            document.getElementById("fifth").addEventListener ("click", selected_page_5, false);
+            document.getElementById("sixth").addEventListener ("click", selected_page_6, false);
+            document.getElementById("seventh").addEventListener ("click", selected_page_7, false);
 
-          var del = document.getElementById("delete").innerHTML;
-          delete_buttons(del);
+            var del = document.getElementById("delete").innerHTML;
+            delete_buttons(del);
           }
 
           document.addEventListener('DOMContentLoaded', function() {
-            var elems = document.querySelectorAll('.modal');
-            var instances = M.Modal.init(elems, {
+            var modalElems = document.querySelectorAll('.modal');
+            var modalInstances = M.Modal.init(modalElems, {
               inDuration: 500,
               outDuration: 500,
               onCloseEnd: removeNodes,
             });
           });
-
-          document.addEventListener('DOMContentLoaded', function() {
-              var elems = document.querySelectorAll('.collapsible');
-              var instances = M.Collapsible.init(elems,{});
-            });
 
           function myFunction() {
             var input, filter, table, tr, td, i, txtValue;
@@ -442,11 +446,10 @@
           }
 
           function handleInfoClick(inputRow) {
-            pJ('1. handleInfoClick', inputRow); // Checking.
+            // pJ('1. handleInfoClick', inputRow); // Checking.
             const ingredients = inputRow["Ingredients"]; // Taking out the Ingredients.
             const recipeTitle = inputRow["Recipe_title"] ? inputRow["Recipe_title"] : "";
             const recipeId = inputRow["Recipe_id"] ? inputRow["Recipe_id"] : "";
-
 
             addImageToModal(); // Hardcoded Image.
             addRowDataToModalTable(ingredients);
@@ -472,12 +475,16 @@
             titleElem.innerHTML = title;
             titleElem.setAttribute('href', `/recipedb/search_recipeInfo/${id}`);
             titleElem.setAttribute('target', '_blank');
+            titleElem.setAttribute('style', 'font-size: 18px;')
+
+            // Adding Inner HTML to Button
+            let buttonElem = document.getElementById("modalButton");
+            buttonElem.innerHTML = "Complete Profile";
 
             idElem.innerHTML = id;
             idElem.setAttribute('href', `/recipedb/search_recipeInfo/${id}`);
             idElem.setAttribute('target', '_blank');
             document.getElementById('modalRecipeTitle').appendChild(titleElem);
-
           }
 
           // old - 18.June.2019
@@ -516,7 +523,6 @@
             for (var ingredient of ingredients) { // Iterating over an 'ingredient' in 'ingredients'. 'ingredients' is an Array.
               let tableRow = document.createElement("TR");
 
-
               // pJ('addRowDataToModalTable', ingredient) // Checking.
 
               const refList = ['ingredient_name', 'quantity' , 'unit', 'state', 'Protein', 'Energy', "Total lipid (fat)"]; // keys in 'ingredient' variable.
@@ -536,7 +542,6 @@
                       const ndbId = ingredient["ndb_id"];
                       const R_id = ingredient["ndb_id"];
                       const anchorTag = anchorTagForIngredientName(val, ndbId,R_id);
-                      anchorTag.style.textTransform = "capitalize";
                       tableData.appendChild(anchorTag);
 
                     // Checking Whether The Trim Is Happening Or Not!
@@ -573,6 +578,7 @@
             let anchor = document.createElement("A");
             anchor.setAttribute('href', `/recipedb/search_ingre/${id}_${val}_${R_id}`);
             anchor.setAttribute('target', '_blank');
+            anchor.setAttribute('style', 'text-transform: capitalize;')
             anchor.innerHTML = val;
             // console.log(anchor); // Checking.
             return anchor;  // $Change Function Name.
@@ -582,9 +588,8 @@
           function addImageToModal() {
             let recipeImage = document.createElement('IMG');
             recipeImage.className = "responsive-img";
-            recipeImage.setAttribute('src', 'https://images.media-allrecipes.com/userphotos/560x315/1261441.jpg');
+            recipeImage.setAttribute('src', 'https://images.media-allrecipes.com/userphotos/720x405/4581739.jpg');
             recipeImage.setAttribute('alt', 'A Soup Bowl');
-            // recipeImage.setAttribute('width', 30)
             document.getElementById('modalImage').appendChild(recipeImage);
             return null;
           }
@@ -869,7 +874,7 @@
             form.append(page_field);
 
 
-          var include_nutrBorders_field = $('<input></input>');
+            var include_nutrBorders_field = $('<input></input>');
 
               include_nutrBorders_field.attr("type", "hidden");
               include_nutrBorders_field.attr("name", "nutrRangeOn");
@@ -885,7 +890,7 @@
 
               form.append(dict_nut_boundaries_field);
 
-          form.append(dict_nut_boundaries_field);
+            form.append(dict_nut_boundaries_field);
 
             $(document.body).append(form);
             form.submit();

@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+   <head>
+     <style type="text/css">
+       primary-footer{margin-top:10px;}
+       .footer-wrap{ background:#1a202c;padding-top:50px; margin-top:50px; padding-bottom:50px;}
+       .footer .panel{float:left; background:none; width:300px;}
+       .footer .panel .title h1{ color:#ffffff;}
+       .footer .panel .content{padding-top:25px;}
+       .footer .panel .content p{ color:#435059;}
+       .footer .panel .content .button a{ margin-top:30px; background:#d13f31;}
+       .footer .panel .content .button a:hover{ margin-top:30px; background:#1f7872;}
+       .footer .panel .content ul li{ list-style:url(/flavordb/static/images/arrow.png) inside;}
+       .footer .panel .content ul li a{text-decoration:none; color:#435059;}
+       .footer .panel .content ul li a:hover{color:#d13f31;}
+       .copyright-wrap{ background:#1f7872; overflow:hidden; padding:40px 0px 40px 0px;}
+       .copyright-wrap .panel{margin:0 auto; background:none;}
+       .copyright-wrap .panel .content p{ color:#ffffff; text-align:center; font-size:12px;}
+       .copyright-wrap .panel .content p a{ text-decoration:none; color:#ffffff;}
+       .copyright-wrap .panel .content p a:hover{ color:#1a202c;}
+       #more {display: none;}
+       .carousel img {
+         max-height:200px !important;
+         width: auto !important;
+       }
+
+
+
+     </style>
+   </head>
+   <body>
+      {% extends 'nav.html' %}
+      {% block content %}
+
+
+      <div class = "container">
+        <div class="row">
+          <div class="col s12">
+            <div class="card blue-grey lighten-5">
+              <div class="card-content black-text">
+                <span class="card-title"><b><h4><strong><center>RecipeDb 101</center></strong></h4></b></span>
+                <h6><center>A guide to using this resource and its features</center></h6>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+
+           <ul class="tabs tab-demo z-depth-1">
+          <li class="tab col s2"><a class="active" href="#test1">Categories</a></li>
+          <li class="tab col s2"><a class="active" href="#test2">Calories/Continent</a></li>
+          <li class="tab col s2"><a class="active" href="#test3">Calories/Country</a></li>
+          <li class="tab col s2"><a class="active" href="#test4">Calories/Region</a></li>
+          <li class="tab col s2"><a class="active" href="#test5">Recipes/Region</a></li>
+          <li class="tab col s2"><a class="active" href="#test6">Recipes/Continent</a></li>
+        </ul>
+        </div>
+        <div class="container">
+          <div class="row">
+
+              <div id="test1" class="col s12">
+                <iframe width="900" height="800" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/39.embed"></iframe>
+              </div>
+              <div id="test2" class="col s12"><iframe width="900" height="800" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/33.embed"></iframe></div>
+              <div id="test3" class="col s12"><iframe width="900" height="800" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/37.embed"></iframe></div>
+              <div id="test4" class="col s12"><iframe width="900" height="800" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/36.embed"></iframe></div>
+              <div id="test5" class="col s12"><iframe width="900" height="800" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/35.embed"></iframe></div>
+              <div id="test6" class="col s12"><iframe width="900" height="800" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/34.embed"></iframe></div>
+          </div>
+        </div>
+        </div>
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              var elems = document.querySelectorAll('.collapsible');
+              var instances = M.Collapsible.init(elems, {});
+            });
+
+            document.addEventListener('DOMContentLoaded', function() {
+              var instance = M.Tabs.init(el, options);
+
+              });
+
+
+            document.addEventListener('DOMContentLoaded', function() {
+                var elems = document.querySelectorAll('.dropdown-trigger');
+                var instances = M.Dropdown.init(elems, {});
+                var elems = document.querySelectorAll('.carousel');
+                var instance = M.Carousel.init(elems,{
+                  fullWidth: true
+                });
+
+              });
+
+
+
+
+
+          </script>
+          <footer class="primary-footer">
+          	<div class="copyright-wrap">
+          		<div class="panel">
+          			<div class="content">
+          				<p><img alt="" src="/iiitd.png"></p>
+          				<p>Copyright © 2019 &nbsp; All rights reserved.<br><br>
+          					<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png"></a><br>This work is licensed under a <a style="font-weight: bold;" rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
+          				</p>
+          				<p><a href="https://iiitd.ac.in/" target="_blank"><strong>Indraprastha Institute of Information Technology Delhi (IIIT-Delhi)</strong></a> | <a href="http://faculty.iiitd.ac.in/~bagler/" target="_blank">Prof. Ganesh Bagler</a></p>
+          				<p><a target="_blank" href="https://www.facebook.com/ganesh.bagler"></a>
+          					<a target="_blank" href="https://twitter.com/gansbags"></a>
+          					<a target="_blank" href="https://www.linkedin.com/in/ganeshbagler"></a>
+          				</p>
+
+          			</div>
+          		</div>
+          	</div>
+          </footer>
+          {% endblock %}
+      </body>
+      </html>
