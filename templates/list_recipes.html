@@ -198,32 +198,28 @@
       </div>
 
       <!-- Modal -->
-      <div id="modal1" class="modal modal-fixed-footer">
+      <div id="modal1" class="modal modal-fixed-footer" style="overflow-y: hidden;">
           <div class="modal-content">
             <div class="row">
               <div class="tableDiv col s12">
                 <ul class="collection">
                   <li class="collection-item">
                     <div class="row" style="margin-bottom: 0px">
-                      <div class="col s4"></div>
-                      <div class="col s4">
-                        <div id="modalImage"></div>
-                      </div>
-                      <div class="col s4"></div>
-                    </div>
-                    <div class="row" style="margin-bottom: 0px">
-                      <div class="col s4"></div>
-                      <div class="col s4">
-                        <div id="modalRecipeTitle"></div>
-                      </div>
-                      <div class="col s4"></div>
-                    </div>
-                  </li>
+
+                      <div class="col m4">
+                        <div id="modalImage" style="margin-top:10%;"></div>
+                      <div class="">
+                        <div id="modalRecipeTitle" style="
+    margin-top: 8px;
+"></div>
+                      </div></div>
+                      <div class="col m8"><ul class="collection" style="overflow: auto; max-height:600px;">
+
+
                   <li class="collection-item">
                     <h5 class="center-align" style="font-family: 'Istok Web', sans-serif;">Estimated Nutritional Profile</h5>
-                  </li>
-                  <li class="collection-item">
-                    <table id= "modalTable1" class="tableStyling striped responsive-table">
+                  </li><li class="collection-item">
+                    <table id="modalTable1" class="tableStyling striped responsive-table">
                       <thead>
                         <tr>
                           <th>Total Calories (KCal)</th>
@@ -235,19 +231,16 @@
                       </thead>
                       <tbody id="modalTableBody2"></tbody>
                     </table>
-                  </li>
-                  <li class="collection-item">
+                  </li><li class="collection-item">
                       <div class="row" style="margin: auto auto">
                         <div class="col s12 center">
-                          <a id="modalButton" class="btn waves-effect waves-light"></a>
+                          <a id="modalButton" class="btn waves-effect waves-light">Complete Profile</a>
                         </div>
                       </div>
-                  </li>
-                  <li class="collection-item">
+                  </li><li class="collection-item">
                     <h5 class="center-align" style="font-family: 'Istok Web', sans-serif;">Recipe Elements</h5>
-                  </li>
-                  <li class="collection-item">
-                    <table id= "modalTable2" class="tableStyling striped responsive-table">
+                  </li><li class="collection-item">
+                    <table id="modalTable2" class="tableStyling striped responsive-table">
                       <thead>
                         <tr>
                           <th>Ingredient Name</th>
@@ -261,7 +254,19 @@
                       </thead>
                       <tbody id="modalTableBody"></tbody>
                     </table>
+                  </li></ul></div>
+                    </div>
+                    <div class="row" style="margin-bottom: 0px">
+                      <div class="col s4"></div>
+
+                      <div class="col s4"></div>
+                    </div>
                   </li>
+
+
+
+
+
                 </ul>
               </div>
               <!-- <div class="tableDiv col s12 m9 l9"> -->
