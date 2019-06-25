@@ -73,9 +73,9 @@
             });
 
             document.addEventListener('DOMContentLoaded', function() {
-              var instance = M.Tabs.init(el, options);
-
-              });
+              var elems = document.querySelectorAll('.tabs');
+              var instance = M.Tabs.init(elems, {});
+            });
 
 
             document.addEventListener('DOMContentLoaded', function() {
