@@ -105,12 +105,13 @@
                 <div class="row">
                   <div class="col s12 m4">
                       <center>
-                        <h6>Protein(g/serving) : </h6>
+                        <h6>Protein (g/serving) : </h6>
                       </center>
                   </div>
                   <div class="input-field col s12 m8">
                     <div class="range-field">
-                      <div class="test-slider"></div>
+                      <div id="rr1" class="test-slider"></div>
+                        <span class="example-val" id="rr1-val"></span>
                       <input name="proteinMin" class="min" style="display:none;" />
                       <input name="proteinMax" class="max" style="display:none;" />
                     </div>
@@ -119,13 +120,14 @@
                 <div class="row">
                   <div class="col s12 m4">
                       <center>
-                        <h6>Fat(g/serving) : </h6>
+                        <h6>Fat (g/serving) : </h6>
                       </center>
                   </div>
                   <div class="input-field col s12 m8">
                     <div class="range-field">
 
-                      <div class="test-slider"></div>
+                      <div id="rr2" class="test-slider"></div>
+                        <span class="example-val" id="rr2-val"></span>
                       <input name="fatMin" class="min" style="display:none;" />
                       <input name="fatMax" class="max" style="display:none;" />
                     </div>
@@ -134,13 +136,14 @@
                 <div class="row">
                   <div class="col s12 m4">
                       <center>
-                        <h6>Energy(Calories/serving) : </h6>
+                        <h6>Energy (calories/serving) : </h6>
                       </center>
                   </div>
                   <div class="input-field col s12 m8">
                     <div class="range-field">
 
-                      <div class="test-slider"></div>
+                      <div id="rr3" class="test-slider"></div>
+                        <span class="example-val" id="rr3-val"></span>
                       <input name="energyMin" class="min" style="display:none;" />
                       <input name="energyMax" class="max" style="display:none;" />
                     </div>
@@ -149,13 +152,14 @@
                 <div class="row">
                   <div class="col s12 m4">
                       <center>
-                        <h6>Carbohydrates(g/serving) : </h6>
+                        <h6>Carbohydrates (g/serving) : </h6>
                       </center>
                   </div>
                   <div class="input-field col s12 m8">
                     <div class="range-field">
 
-                      <div class="test-slider"></div>
+                      <div id="rr4" class="test-slider"></div>
+                        <span class="example-val" id="rr4-val"></span>
                       <input name="carbMin" class="min" style="display:none;" />
                       <input name="CarbMax" class="max" style="display:none;" />
                     </div>
@@ -203,21 +207,31 @@
             $(document.body).append(form);
             form.submit();
         }
-        [...document.getElementsByClassName("min")].forEach(elem => (elem.value = "20"));
-        [...document.getElementsByClassName("max")].forEach(elem => (elem.value = "80"));
+        [...document.getElementsByClassName("min")].forEach(elem => (elem.value = "0"));
+        [...document.getElementsByClassName("max")].forEach(elem => (elem.value = "100"));
         [...document.getElementsByClassName('range-field')].forEach(rangeGroup => {
           slider = rangeGroup.getElementsByClassName("test-slider")[0]
           noUiSlider.create(slider, {
-           start: [0, 1000],
+           start: [0, 100],
            connect: true,
            step: 1,
            orientation: 'horizontal', // 'horizontal' or 'vertical'
            range: {
              'min': 0,
              'max': 100
-           }
+           },
+              pips: {
+                mode: 'count',
+                // stepped: true,
+                  values: 3,
+                density: 4
+            }
           })
 
+            // slider.noUiSlider.on('update', function (values) {
+            //     var stepSliderValueElement = slider.getElementsByClassName('slider-step-value')[0];
+            //     stepSliderValueElement.innerHTML = values[handle];
+            // });
 
           slider.noUiSlider.on('set.one', function (values) {
             (rangeGroup.getElementsByClassName("min")[0]).value = (values[0]);
