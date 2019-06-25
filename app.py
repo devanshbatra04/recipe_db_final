@@ -361,6 +361,9 @@ def search_ingre(id):
 	ndb_id=list_args[0]
 	Recipe_id=list_args[2]
 	name_Ingre=list_args[1]
+
+# WRITE QUERY FOR THE CASE WHEN WE GET TO INGREDIENT PAGE FROM CATEGORY PAGE. AFTER CLICKING ON CAROUSELS.
+
 	if ndb_id=="id":
 		query=''
 		heading=name_Ingre
