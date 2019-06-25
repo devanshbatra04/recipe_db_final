@@ -34,11 +34,10 @@
 
         <div class = "container">
           <div class="row">
-            <div class="col s12 m9">
+            <div class="col s12">
               <div class="card " style="background-color:#343a40">
                 <div class="card-content white-text">
                   <center><b><h4 style="text-transform:capitalize">{{heading}} </h4></b></center>
-                  {{ingi_link}}
                 </div>
               </div>
             </div>
@@ -56,7 +55,7 @@
                   <thead>
                     <tr>
                       <th  class="cyan-text lighten-3" colspan="2"><center>
-                        <a class='dropdown-trigger btn pulse' href='#' data-target='dropdown1'>Nutritional Profile for {{heading}} - {{row["ndb_id"]}} (USDA)</a>
+                        <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Nutritional Profile for {{heading}} - {{row["ndb_id"]}} (USDA)</a>
                         <ul id='dropdown1' class='dropdown-content'>
                           <li><a href="#!">one</a></li>
                           <li><a href="#!">two</a></li>
@@ -103,7 +102,7 @@
 
                     <div class="card " style="background-color:#343a40">
                     <div class="card-content white-text">
-                      <a href="{{ingi_link}}"><h6>Wikilink</h6></a>
+                      <a href=""><h6>Wikilink</h6></a>
                     </div>
                   </div>
                 </div>

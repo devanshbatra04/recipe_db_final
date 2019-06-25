@@ -1,8 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 import sqlite3 as sql
 import json
-import wikipediaapi
-wiki_wiki = wikipediaapi.Wikipedia('en')
 app = Flask(__name__, static_folder="recipedb")
 
 def get_page_num_list(page, num_recipes):
@@ -363,43 +361,46 @@ def search_ingre(id):
 	ndb_id=list_args[0]
 	Recipe_id=list_args[2]
 	name_Ingre=list_args[1]
-	page_py = wiki_wiki.page(name_Ingre)
-	query='SELECT * from nutrients where ndb_id="' + ndb_id + '" AND Recipe_id="' + Recipe_id + '"'
-	query1='SELECT DISTINCT Recipe_title from recipes1 where Recipe_id="' + Recipe_id + '"'
-	query2='SELECT * from nutrients where Recipe_id="' + Recipe_id + '"ORDER BY RANDOM() LIMIT 1 '
-	heading=name_Ingre
+	if ndb_id=="id":
+		query=''
+		heading=name_Ingre
+	else:
+		query='SELECT * from nutrients where ndb_id="' + ndb_id + '" AND Recipe_id="' + Recipe_id + '"'
+		query1='SELECT DISTINCT Recipe_title from recipes1 where Recipe_id="' + Recipe_id + '"'
+		query2='SELECT * from nutrients where Recipe_id="' + Recipe_id + '"ORDER BY RANDOM() LIMIT 1 '
+		heading=name_Ingre
 
-	def dict_factory(cursor, row):
-		d = {}
-		for idx, col in enumerate(cursor.description):
-			d[col[0]] = row[idx]
-		return d
-	con.row_factory = dict_factory
-	connn.row_factory = dict_factory
-	cur = con.cursor()
-	curr = conn.cursor()
-	currr = connn.cursor()
-	cur.execute(query)
-	curr.execute(query1)
-	currr.execute(query2)
-	row = cur.fetchall()
-	row1 = currr.fetchall()
-	if len(row)== 0:
-		row=row1
-	title = curr.fetchone()
-	title=title[0]
-	ingi_link=page_py.fullurl
+		def dict_factory(cursor, row):
+			d = {}
+			for idx, col in enumerate(cursor.description):
+				d[col[0]] = row[idx]
+			return d
+		con.row_factory = dict_factory
+		connn.row_factory = dict_factory
+		cur = con.cursor()
+		curr = conn.cursor()
+		currr = connn.cursor()
+		cur.execute(query)
+		curr.execute(query1)
+		currr.execute(query2)
+		row = cur.fetchall()
+		print(row)
+		row1 = currr.fetchall()
+		print(row1)
+		if len(row)== 0:
+			row=row1
+
 
    # if(len(rows) == 0):
    #    return render_template("home.html", empty = "yes")
-	return render_template("ingredient.html",row=row,heading=heading,title=title,ingi_link=ingi_link)
+	return render_template("ingredient.html",row=row,heading=heading)
 
 @app.route('/recipedb/search_recipeInfo/<string:id>',  methods = ['GET', 'POST'])
 def search_recipeInfo(id):
 	con = sql.connect("recipe2.db")
 	con.row_factory = sql.Row
 	query='SELECT * from recipe where Recipe_id="' + id + '"'
-	heading="Nutritional Profile of Recipe " + id + " is :"
+	heading="Nutritional Profile of Recipe " + id + " is "
 
 	def dict_factory(cursor, row):
 		d = {}
@@ -429,5 +430,27 @@ def how():
 @app.route('/recipedb/Stats',  methods = ['GET', 'POST'])
 def stats():
 	return render_template("stats.html")
+
+@app.route('/recipedb/category/<string:id>',  methods = ['GET', 'POST'])
+def category(id):
+	con = sql.connect("recipe2.db")
+	con.row_factory = sql.Row
+	query='SELECT * from unique_ingredients where Category="' + id + '"'
+	heading="Ingredients Belonging to Category " + id + ""
+	print(heading)
+
+
+	def dict_factory(cursor, row):
+		d = {}
+		for idx, col in enumerate(cursor.description):
+			d[col[0]] = row[idx]
+		return d
+	con.row_factory = dict_factory
+	cur = con.cursor()
+	cur.execute(query)
+	row = cur.fetchall()
+	print(row[0]['Ing_name'])
+	title="lol"
+	return render_template("category.html", row=row,heading=heading)
 if __name__ == '__main__':
   app.run(debug=True)
