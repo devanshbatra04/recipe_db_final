@@ -47,7 +47,7 @@
 					</div>
 				</div>
 
-
+        <!-- SUMMARY AND PHOTO ADDED -->
 
         <div class="row">
             <div class="col s12 m6">
@@ -65,19 +65,41 @@
                 <img src="/recipedb/static/figure-schema.jpg" class="responsive-img" alt="">
             </div>
         </div>
-            <div class="section scrollspy" id="search" style="margin: 0; padding:0;">
-                      <div class="row" style="margin-top:50px; padding-bottom:30px; border-top:2px solid #ee6e73; border-bottom:2px solid #ee6e73; padding-top:15px;">
+
+        <!-- SEARCH PAGE STARTS HERE -->
+        <!-- PADDING ADDED TO THE SEARCH PAGE -->
+
+
+  <div  style="margin: 0; padding:0;">
+  <div class="row" style="margin-top:50px; padding-bottom:30px; border-top:2px solid #ee6e73; border-bottom:2px solid #ee6e73; padding-top:15px;">
+
+      <div class="col s9 section scrollspy" id="search">
+        <h4 id="mainBodyHeading" class="blue-grey-text text-darken-2" style="text-transform: capitalize; font-family: 'Istok Web', sans-serif;">Search By</h4><br>
+      </div>
+
+      <!-- TABS HEARDERS -->
 
          <ul class="tabs tab-demo z-depth-1">
-        <li class="tab col s6"><a class="active" href="#test1">Basic Search</a></li>
-        <li class="tab col s6"><a href="#test2">Advanced Search</a></li>
+        <li class="tab col s3"><a class="active" href="#test1">Basic Search</a></li>
+        <li class="tab col s2"><a href="#test2">ingredients</a></li>
+        <li class="tab col s2"><a href="#test3">category</a></li>
+        <li class="tab col s2"><a href="#test4">nutrition</a></li>
+        <li class="tab col s2"><a class="active" href="#test5">Advanced</a></li>
       </ul>
-      <div id="test1" class="col s12">
+
+      <!-- END -->
+
+      <!-- TABS CONTENT -->
+
+      <!-- CONTENT FOR Advanced SEARCH -->
+
+      <div id="test5" class="col s12">
       <form class="col s12 search-form" action = "{{ url_for('search_recipe') }}" method="POST">
          <div class="row">
            <div class="input-field col s4">
-             <h5>Continent</h5>
-             <input href="/recipedb" type="text" name="autocomplete_region" id="autocomplete_region" class="form-control query-field"
+            <!--  -->
+             <h5>Region</h5>
+             <input href="/recipedb'" type="text" name="autocomplete_region" id="autocomplete_region" class="form-control query-field"
              placeholder="Enter any region's name (e.g. Asian)"><br>
            </div>
            <div class="input-field col s4">
@@ -183,26 +205,186 @@
                     </div>
                   </div>
                 </div>
-
-            </div>
-
-              <!-- <input href="/" type="text" name="page" class="form-control query-field"> -->
-
-							<div class="input-group-btn input-group-append">
+              </div>
+            <div class="input-group-btn input-group-append">
 								<center><input role="button" class="btn btn-primary" style="margin-top: 45px;" type="submit" ></input></center>
-
-							</div>
-
-					</form>
-          <!-- <div>
-					<a href="{{ url_for('all_recipes') }}" target="_blank">Browse all Recipes</a>
-        </div> -->
+              </div>
+            </form>
         </div>
-        <!-- <div id="test1" class="col s12">lol</div> -->
 
-			</div>
+        <!-- FIRST CONTENT FOR Basic SEARCH -->
+
+
+        <div id="test1" class="col s12">
+        <form class="col s12 search-form" action = "{{ url_for('search_recipe') }}" method="POST">
+           <div class="row">
+             <div class="input-field col s4">
+              <!--  -->
+              <div style="display:none">
+                <input href="/recipedb" type="text" name="page" class="form-control query-field"
+                placeholder="Enter any ingredient's name (e.g. Cheese)" id="autocomplete_ingredient">
+              </div>
+               <h5>Region</h5>
+               <input href="/recipedb" type="text" name="autocomplete_region" id="autocomplete_region" class="form-control query-field"
+               placeholder="Enter any region's name (e.g. Asian)"><br>
+             </div>
+             <div class="input-field col s4">
+               <h5>Country</h5>
+               <input href="/recipedb" type="text" name="autocomplete_cuisine" id="autocomplete_cuisine" class="form-control query-field"
+               placeholder="Enter any cuisine's name (e.g. Indian, Chinese,)"><br>
+              </div>
+              <div class="input-field col s4">
+                <h5>Recipe</h5>
+   							<input href="/recipedb" type="text" name="autocomplete_recipe" class="form-control query-field"
+   							placeholder="Enter any recipe's name (e.g. Indian Pizza)" id="autocomplete_recipe"> <br>
+              </div>
+            </div>
+            <div class="input-group-btn input-group-append">
+            <center><input role="button" class="btn btn-primary" style="margin-top: 45px;" type="submit" ></input></center>
+          </div>
+          </form>
+        </div>
+
+        <!-- INGREDIENT SEARCH TAB -->
+
+
+        <div id="test2" class="col s12">
+        <form class="col s12 search-form" action = "{{ url_for('search_recipe') }}" method="POST">
+                <h5>Ingredients </h5>
+                <div class="row">
+                  <div class="input-field col s6">
+  							<h6>Used </h6>
+                <input href="/recipedb" type="text" name="autocomplete_ingredient" class="form-control query-field"
+  							placeholder="Enter any ingredient's name (e.g. Cheese)" id="autocomplete_ingredient"> <br>
+              </div>
+              <div style="display:none">
+                <input href="/recipedb" type="text" name="page" class="form-control query-field"
+  							placeholder="Enter any ingredient's name (e.g. Cheese)" id="autocomplete_ingredient">
+              </div>
+                <div class="input-field col s6">
+                <h6>Not Used </h6><input href="/recipedb" type="text" name="autocomplete_noningredient" class="form-control query-field"
+  							placeholder="Enter any ingredient's name (e.g. Cheese)" id="autocomplete_noningredient"> <br>
+              </div>
+                </div>
+                  <div class="input-group-btn input-group-append">
+  								<center><input role="button" class="btn btn-primary" style="margin-top: 45px;" type="submit" ></input></center>
+                </div>
+              </form>
+          </div>
+
+
+          <!-- CATEGORY SEARCH TAB -->
+
+          <div id="test3" class="col s12">
+          <form class="col s12 search-form" action = "{{ url_for('search_recipe') }}" method="POST">
+              <h5>Categories </h5>
+                  <div class="row">
+                    <div class="input-field col s6">
+    							<h6>Used </h6>
+                  <input href="/recipedb" type="text" name="autocomplete_ingredient" class="form-control query-field"
+    							placeholder="Enter any ingredient's name (e.g. Cheese)" id="autocomplete_ingredient"> <br>
+                </div>
+                <div style="display:none">
+                  <input href="/recipedb" type="text" name="page" class="form-control query-field"
+    							placeholder="Enter any ingredient's name (e.g. Cheese)" id="autocomplete_ingredient">
+                </div>
+                  <div class="input-field col s6">
+                  <h6>Not Used </h6><input href="/recipedb" type="text" name="autocomplete_noningredient" class="form-control query-field"
+    							placeholder="Enter any ingredient's name (e.g. Cheese)" id="autocomplete_noningredient"> <br>
+                </div>
+              </div>
+						<div class="input-group-btn input-group-append">
+					<center><input role="button" class="btn btn-primary" style="margin-top: 45px;" type="submit" ></input></center>
+          </div>
+        </form>
+        </div>
+
+
+            <!--NUTRIENTS SEARCH TAB  -->
+
+          <div id="test4" class="col s12">
+          <form class="col s12 search-form" action = "{{ url_for('search_recipe') }}" method="POST">
+            <div style="display:none">
+              <input href="/recipedb" type="text" name="page" class="form-control query-field"
+              placeholder="Enter any ingredient's name (e.g. Cheese)" id="autocomplete_ingredient">
+            </div>
+            <div id="range-rows" >
+                <div class="row">
+                  <div class="col s12 m4">
+                      <center>
+                        <h6>Protein (g/serving) : </h6>
+                      </center>
+                  </div>
+                  <div class="input-field col s12 m8">
+                    <div class="range-field">
+                      <div id="rr1" class="test-slider"></div>
+                        <span class="example-val" id="rr1-val"></span>
+                      <input name="proteinMin" class="min" style="display:none;" />
+                      <input name="proteinMax" class="max" style="display:none;" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s12 m4">
+                      <center>
+                        <h6>Fat (g/serving) : </h6>
+                      </center>
+                  </div>
+                  <div class="input-field col s12 m8">
+                    <div class="range-field">
+
+                      <div id="rr2" class="test-slider"></div>
+                        <span class="example-val" id="rr2-val"></span>
+                      <input name="fatMin" class="min" style="display:none;" />
+                      <input name="fatMax" class="max" style="display:none;" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s12 m4">
+                      <center>
+                        <h6>Energy (calories/serving) : </h6>
+                      </center>
+                  </div>
+                  <div class="input-field col s12 m8">
+                    <div class="range-field">
+
+                      <div id="rr3" class="test-slider"></div>
+                        <span class="example-val" id="rr3-val"></span>
+                      <input name="energyMin" class="min" style="display:none;" />
+                      <input name="energyMax" class="max" style="display:none;" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s12 m4">
+                      <center>
+                        <h6>Carbohydrates (g/serving) : </h6>
+                      </center>
+                  </div>
+                  <div class="input-field col s12 m8">
+                    <div class="range-field">
+
+                      <div id="rr4" class="test-slider"></div>
+                        <span class="example-val" id="rr4-val"></span>
+                      <input name="carbMin" class="min" style="display:none;" />
+                      <input name="CarbMax" class="max" style="display:none;" />
+                    </div>
+                  </div>
+                </div>
 
             </div>
+            <div class="input-group-btn input-group-append">
+              <center><input role="button" class="btn btn-primary" style="margin-top: 45px;" type="submit" ></input></center>
+
+            </div>
+            </form>
+            </div>
+          </div>
+     </div>
+
+     <!-- STATISTICS SECTION OF THE HOMEPAGE STARTS HERE -->
+
       <div class="col s9 section scrollspy" id="stats">
         <h4 id="mainBodyHeading" class="blue-grey-text text-darken-2" style="text-transform: capitalize; font-family: 'Istok Web', sans-serif;">Statistics</h4>
       </div>
@@ -212,9 +394,6 @@
         <li class="tab col s4"><a class="active" href="#test5">Recipes</a></li>
         <li class="tab col s4"><a class="" href="#test6">Ingredient</a></li>
         <li class="tab col s4"><a class="" href="#test7">Nutrition</a></li>
-        <!-- <li class="tab col s2"><a class="active" href="#test4">Calories/Region</a></li>
-        <li class="tab col s2"><a class="active" href="#test5">Recipes/Region</a></li>
-        <li class="tab col s2"><a class="active" href="#test6">Recipes/Continent</a></li> -->
       </ul>
       </div>
       <div class="container">
@@ -225,9 +404,6 @@
             </div>
             <div id="test6" class="col s12"><iframe width="700" height="600" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/41.embed"></iframe></div>
             <div id="test7" class="col s12"><iframe width="700" height="600" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/49.embed"></iframe></div>
-            <!-- <div id="test4" class="col s12"><iframe width="700" height="600" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/36.embed"></iframe></div>
-            <div id="test5" class="col s12"><iframe width="700" height="600" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/35.embed"></iframe></div>
-            <div id="test6" class="col s12"><iframe width="700" height="600" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/34.embed"></iframe></div> -->
         </div>
       </div>
     </div>

@@ -200,26 +200,32 @@ def all_recipes():
 
 @app.route('/recipedb/search_recipe', methods = ['GET', 'POST'])
 def search_recipe():
+	# print("hello")
 	if request.method == 'POST':
+		# print("ee ka hai")
 		page = 1
+		# print( "lol")
 		pageinfo = request.form['page']
+
 		if len(pageinfo) != 0:
 			if int(pageinfo) < 1:
 				page = 1
 			else:
 				page = request.form['page']
-		name = request.form['autocomplete_recipe']
+		# print("maakabhoda ")
+		name = request.form.get('autocomplete_recipe') if request.form.get("autocomplete_recipe") else ""
+		# print(1)
 
-		Sub_region = request.form['autocomplete_cuisine']
-
-		region = request.form['autocomplete_region']
-
-		ings = request.form['autocomplete_ingredient']
-
-		not_ings = request.form['autocomplete_noningredient']
-
+		Sub_region = request.form.get('autocomplete_cuisine') if request.form.get("autocomplete_cuisine") else ""
+		# print(2)
+		region = request.form.get('autocomplete_region') if request.form.get("autocomplete_region") else ""
+		print(region)
+		ings = request.form.get('autocomplete_ingredient') if request.form.get("autocomplete_ingredient") else ""
+		# print(ings)
+		not_ings = request.form.get('autocomplete_noningredient') if request.form.get("autocomplete_noningredient") else ""
+		# print(5)
 		include_nutrBorders = request.form.get('nutrRangeOn')
-
+		# print(6)
 		dict_nut_boundaries = {}
 		if request.form.get("dict_nut_json") and request.form.get("dict_nut_json") != "{}":
 			dict_nut_boundaries = json.loads(request.form.get("dict_nut_json"))
