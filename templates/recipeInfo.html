@@ -126,55 +126,21 @@
             <div id="process_info" class="col s12">
               <div class="row" style="overflow: auto; max-height:450px;">
                 <div class="col s12 m6">
-                  <h5>Cooking Processes Applied</h5>
-                    <h6>Early Stage Processes</h6>
+                  <h5>Temporal Sequence of Cooking Processes</h5>
+                    <h6>Early Stage</h6>
                   <ul class="collection" id="earlyStageP">
-                    <li class="collection-item">Cooking</li>
-                    <li class="collection-item">Bake</li>
-                    <li class="collection-item">Boil</li>
-                    <li class="collection-item">Mix</li>
-                    <li class="collection-item">Cooking</li>
-                    <li class="collection-item">Bake</li>
-                    <li class="collection-item">Boil</li>
                   </ul>
                     <h6>Middle Stage Processes</h6>
                     <ul class="collection" id="midStageP">
-                    <li class="collection-item">Cooking</li>
-                    <li class="collection-item">Bake</li>
-                    <li class="collection-item">Boil</li>
-                    <li class="collection-item">Mix</li>
-                    <li class="collection-item">Cooking</li>
-                    <li class="collection-item">Bake</li>
-                    <li class="collection-item">Boil</li>
                   </ul>
-                    <h6>End Stage Processes</h6>
+                    <h6>Late Stage</h6>
 
-                    <ul class="collection" id="endStageP">
-                    <li class="collection-item">Cooking</li>
-                    <li class="collection-item">Bake</li>
-                    <li class="collection-item">Boil</li>
-                    <li class="collection-item">Mix</li>
-                    <li class="collection-item">Cooking</li>
-                    <li class="collection-item">Bake</li>
-                    <li class="collection-item">Boil</li>
                   </ul>
                 </div>
                 <div class="col s12 m6">
                   <div class="col s12">
-                    <h5>Utensils Used</h5>
+                    <h5>End Used</h5>
                     <ul class="collection" id="utensils">
-                      <li class="collection-item">Oven</li>
-                      <li class="collection-item">Spoon</li>
-                      <li class="collection-item">Cup</li>
-                      <li class="collection-item">Mixer</li>
-                      <li class="collection-item">Oven</li>
-                      <li class="collection-item">Spoon</li>
-                      <li class="collection-item">Cup</li>
-                      <li class="collection-item">Mixer</li>
-                      <li class="collection-item">Oven</li>
-                      <li class="collection-item">Spoon</li>
-                      <li class="collection-item">Cup</li>
-                      <li class="collection-item">Mixer</li>
                     </ul>
                   </div>
                 </div>
@@ -195,120 +161,25 @@
                     <th>Quantity</th>
                     <th>Unit</th>
                     <th>State</th>
-                    <th>Protein (g)</th>
                     <th>Energy (kcal)</th>
+                    <th>Carbohydrates</th>
+                    <th>Protein (g)</th>
                     <th>Total Lipid (Fat) (g)</th>
                   </tr>
                 </thead>
                 <tbody style="">
+                {% for v in ing_names %}
                   <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
+                      <td><a href="/recipedb/search_ingre/{{v["ndb_id"]}}_{{v["ingredient_name"]}}_13" style="text-transform: capitalize">{{v["ingredient_name"]}}</a></td>
+                    <td>{{v["quantity"]}}</td>
+                    <td>{{v["unit"]}}</td>
+                    <td>{{v["state"]}}</td>
+                    <td>{{v["nutrient_info"]["Energy"]}}</td>
+                    <td>{{v["nutrient_info"]["Carbohydrate, by difference"]}}</td>
+                    <td>{{v["nutrient_info"]["Protein"]}}</td>
+                    <td>{{v["nutrient_info"]["Total lipid (fat)"]}}</td>
                   </tr>
-                  <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                  <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                  <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                  <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                  <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                  <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                  <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
+                {% endfor %}
                 </tbody>
               </table>
 

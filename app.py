@@ -433,10 +433,10 @@ def search_recipeInfo(id):
 	cur = con.cursor()
 	cur.execute("select * from ingredients where Recipe_id = " + id + "")
 	all_ing = [dict(k) for k in cur.fetchall()]
-	cur.execute("select * from nutrients where Recipe_id = " + id + "")
+	cur.execute("select [Recipe_id], [ndb_id], [Carbohydrate, by difference], [Energy], [Protein], [Total lipid (fat)] from nutrients where Recipe_id like '%" + id + "%'")
 	all_nutr = [dict(k) for k in cur.fetchall()]
 	# ids = [rows[i]["Recipe_id"] for i in range(len(rows))]
-
+	print(all_nutr)
 	con = sql.connect("recipe2-final.db")
 	con.row_factory = sql.Row
 	ndb = 0
@@ -450,7 +450,12 @@ def search_recipeInfo(id):
 	for rp in rows1:
 		dict_row = dict(rp)
 		ndb_id = rp["ndb_id"]
-		nutr = None
+		nutr = {
+			"Carbohydrate, by difference": "-",
+			"Energy": "-",
+			"Protein": "-",
+			"Total lipid (fat)": "-",
+		}
 		for rowl in rows2:
 			if str(dict(rowl)["ndb_id"]) == str(ndb_id):
 				nutr = dict(rowl)
