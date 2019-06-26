@@ -19,7 +19,9 @@
        .copyright-wrap .panel .content p a{ text-decoration:none; color:#ffffff;}
        .copyright-wrap .panel .content p a:hover{ color:#1a202c;}
        #more {display: none;}
-
+        #process_info .collection .collection-item:nth-child(odd) {
+                         background: rgba(242,242,242,0.5);
+                     }
 
      </style>
    </head>
@@ -83,7 +85,7 @@
                 <li class="tab col s3"><a class="active" href="#recipe_info">Recipe Overview</a></li>
                 <li class="tab col s3"><a href="#ingredient_nutri">Ingredients</a></li>
                 <li class="tab col s3"><a href="#process_info">Cooking Processes and Utensils</a></li>
-                <li class="tab col s3"><a href="#steps">Steps</a></li>
+                <li class="tab col s3"><a href="#steps">Instructions</a></li>
               </ul>
             </div>
             <div id="recipe_info" class="col s12">
@@ -126,22 +128,34 @@
             <div id="process_info" class="col s12">
               <div class="row" style="overflow: auto; max-height:450px;">
                 <div class="col s12 m6">
-                  <h5>Temporal Sequence of Cooking Processes</h5>
-                    <h6>Early Stage</h6>
-                  <ul class="collection" id="earlyStageP">
+                  <h5 style="text-align: center;">Temporal Sequence of Cooking Processes</h5>
+                    <div class="center">
+                        <h6>Early Stage</h6>
+                  <ul class="collection" id="earlyStageP" style="max-width:400px; text-transform: capitalize;  display:block; margin-left: auto; margin-right:auto;">
                   </ul>
-                    <h6>Middle Stage Processes</h6>
-                    <ul class="collection" id="midStageP">
-                  </ul>
-                    <h6>Late Stage</h6>
-                    <ul class="collection" id="endStageP">
-                  </ul>
+                    </div>
+
+
+
+                    <div class="center">
+                        <h6>Middle Stage Processes</h6>
+                        <ul class="collection" id="midStageP" style="max-width:400px; text-transform: capitalize; display:block; margin-left: auto; margin-right:auto;"></ul>
+                    </div>
+
+
+                    <div class="center">
+                        <h6>Late Stage</h6>
+                        <ul class="collection" id="endStageP" style="max-width:400px; text-transform: capitalize; display:block; margin-left: auto; margin-right:auto;">
+                      </ul>
+                    </div>
                 </div>
                 <div class="col s12 m6">
                   <div class="col s12">
-                    <h5>Utensils Used</h5>
-                    <ul class="collection" id="utensils">
-                    </ul>
+                    <h5 style="text-align: center;">Utensils Used</h5>
+                      <div class="center">
+                  <ul class="collection" id="utensils" style="max-width:400px; text-transform: capitalize; display:block; margin-left: auto; margin-right:auto;">
+                  </ul>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -271,7 +285,9 @@
                     str += (`<li class="collection-item">${process}</li>`);
                 });
                 document.getElementById("endStageP").innerHTML = str;
-
+                var instructionToPara = "{{instructions}}".split('|').map(el => el.replace(/[^\w\s\.\/]/gi, '').replace(/\s+/g, " ").trim()).filter(el => el.length).map(str => `<p>${str}</p>`).join('');
+                console.log(instructionToPara)
+                document.getElementById("steps").innerHTML = `${instructionToPara}`
             });
 
 
