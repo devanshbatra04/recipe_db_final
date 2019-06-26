@@ -3,11 +3,18 @@ import sqlite3 as sql
 import json
 app = Flask(__name__, static_folder="recipedb")
 
+stepsJSON = {}
+try:
+	with open("all-steps.json") as jsonfile:
+		stepsJSON = json.load(jsonfile)
+except:
+	print("instruction json file issue ig");
+
 def get_page_num_list(page, num_recipes):
-   num_pages = num_recipes // 20
-   if num_pages == 7:
+	num_pages = num_recipes // 20
+	if num_pages == 7:
 	   return ["1", "2", "3", "4", "5", "6", "7"], 0
-   elif num_pages < 7:
+	elif num_pages < 7:
 	   page_list = []
 	   if num_pages == 0:
 		   return ["1", "...", "...", "...", "...", "...", "..."], 7
@@ -18,7 +25,7 @@ def get_page_num_list(page, num_recipes):
 		   page_list.append("...")
 		   c += 1
 	   return page_list, c
-   else:
+	else:
 	   if int(page) <= 5:
 		   return ["1", "2", "3", "4", "5", "...", str(num_pages)], 0
 	   elif int(page) >= num_pages - 4:
@@ -51,7 +58,7 @@ def exec_ingre_query():
 
 def exec_query(name, region, Sub_region, page,ings,not_ings,recipe_ids,include_nutrBorders=None, dict_nut_boundaries={}):
 	limit = " LIMIT 20 OFFSET " + str(((int(page)-1) * 20))
-	con = sql.connect("recipe2.db")
+	con = sql.connect("recipe2-final.db")
 	con.row_factory = sql.Row
 	name=name.lower()
 	region=region.lower()
@@ -125,7 +132,7 @@ def exec_query(name, region, Sub_region, page,ings,not_ings,recipe_ids,include_n
 	con.close()
 
 
-	con = sql.connect("recipe2.db")
+	con = sql.connect("recipe2-final.db")
 	con.row_factory = sql.Row
 	cur = con.cursor()
 	cur.execute(query + limit)
@@ -141,7 +148,7 @@ def exec_query(name, region, Sub_region, page,ings,not_ings,recipe_ids,include_n
 	all_nutr = [dict(k) for k in cur.fetchall()]
 	ids = [rows[i]["Recipe_id"] for i in range(len(rows))]
 	for i in range(len(ids)):
-		con = sql.connect("recipe2.db")
+		con = sql.connect("recipe2-final.db")
 		con.row_factory = sql.Row
 		ndb=0
 		cur = con.cursor()
@@ -280,7 +287,7 @@ def autocomplete_noningredient():
 
 def auto_query(check):
 	name = request.args.get('q')
-	con = sql.connect("recipe2.db")
+	con = sql.connect("recipe2-final.db")
 	con.row_factory = sql.Row
 
 	cur = con.cursor()
@@ -351,9 +358,9 @@ def search_subregion(id):
 
 
 def search_ingre(id):
-	con = sql.connect("recipe2.db")
-	conn = sql.connect("recipe2.db")
-	connn = sql.connect("recipe2.db")
+	con = sql.connect("recipe2-final.db")
+	conn = sql.connect("recipe2-final.db")
+	connn = sql.connect("recipe2-final.db")
 	con.row_factory = sql.Row
 	conn.row_factory = sql.Row
 	connn.row_factory = sql.Row
@@ -400,9 +407,9 @@ def search_ingre(id):
 
 @app.route('/recipedb/search_recipeInfo/<string:id>',  methods = ['GET', 'POST'])
 def search_recipeInfo(id):
-	con = sql.connect("recipe2.db")
+	con = sql.connect("recipe2-final.db")
 	con.row_factory = sql.Row
-	query='SELECT * from recipe where Recipe_id="' + id + '"'
+	query='SELECT * from recipes1 where Recipe_id="' + id + '"'
 	heading="Nutritional Profile of Recipe " + id + " is "
 
 	def dict_factory(cursor, row):
@@ -414,8 +421,42 @@ def search_recipeInfo(id):
 	cur = con.cursor()
 	cur.execute(query)
 	row = cur.fetchall()
-	title="lol"
-	return render_template("recipeInfo.html",row=row,heading=heading,title=title)
+	recipeSteps = "Recipe Steps are not available."
+
+	con.row_factory = sql.Row
+	cur = con.cursor()
+	cur.execute("select * from ingredients where Recipe_id = " + id + "")
+	all_ing = [dict(k) for k in cur.fetchall()]
+	cur.execute("select * from nutrients where Recipe_id = " + id + "")
+	all_nutr = [dict(k) for k in cur.fetchall()]
+	# ids = [rows[i]["Recipe_id"] for i in range(len(rows))]
+
+	con = sql.connect("recipe2-final.db")
+	con.row_factory = sql.Row
+	ndb = 0
+	cur = con.cursor()
+	curr = con.cursor()
+	rows1 = [d for d in all_ing if str(d["Recipe_id"]) == str(id)]
+	rows2 = [d for d in all_nutr if str(d["Recipe_id"]) == str(id)]
+
+	ing_names = []
+
+	for rp in rows1:
+		dict_row = dict(rp)
+		ndb_id = rp["ndb_id"]
+		nutr = None
+		for rowl in rows2:
+			if str(dict(rowl)["ndb_id"]) == str(ndb_id):
+				nutr = dict(rowl)
+				break
+		dict_row["nutrient_info"] = nutr
+		ing_names.append(dict_row)
+
+	# rows[i]["Ingredients"] = ing_names
+	if stepsJSON != {}:
+		recipeSteps = next((x['steps'] for x in stepsJSON if x['Recipe_id'] == id), "Recipe Steps are not available.")
+
+	return render_template("recipeInfo.html",row=row,heading=heading, instructions=recipeSteps, ing_names=ing_names)
 
 
 @app.route('/recipedb/FAQ',  methods = ['GET', 'POST'])
@@ -436,7 +477,7 @@ def stats():
 
 @app.route('/recipedb/category/<string:id>',  methods = ['GET', 'POST'])
 def category(id):
-	con = sql.connect("recipe2.db")
+	con = sql.connect("recipe2-final.db")
 	con.row_factory = sql.Row
 	query='SELECT * from unique_ingredients where Category="' + id + '"'
 	heading="Ingredients Belonging to Category " + id + ""

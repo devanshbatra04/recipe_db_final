@@ -30,22 +30,22 @@
 
         <div class = "container">
           <div class="row">
-            <div class="col s12 m12">
+            <div class="col s12 m12" style="border-bottom: 1px solid black; color: #ee6e73">
               <!--<div class="card " style="background-color:#ee6e73">-->
-                <div class="card-content">
+                <!--<div class="card-content">-->
                   <center><b><h3 style="font-family: Helvetica;">{{(row[0]["Recipe_title"])}}</h3></b></center>
                 <!--</div>-->
-              </div>
+              <!--</div>-->
             </div>
           </div>
 
           <div class="row">
-            <div class="col s12 m4" style="padding-top:20px">
+            <div class="col s12 m5 center" style="padding-top:50px">
               <!--&lt;!&ndash;<a href="{{(row[0]["Source"])}}">&ndash;&gt;</a>-->
-              <img class="responsive-img" src="https://images.media-allrecipes.com/userphotos/560x315/1261441.jpg"  alt="">
+              <img class="responsive-img" style="max-width:300px;" src="{{row[0]["img_url"]}}"  alt="">
 
               </div>
-            <div class="col s12 m8">
+            <div class="col s12 m7">
               <div style="overflow: auto; width:100%; max-height:250px;">
                 <h5>Estimated Nutritional Profile For This Recipe</h5>
                 <table class="highlight striped" >
@@ -92,9 +92,7 @@
                   <i class="fa fa-globe circle" style="background-color: #ee6e73;" aria-hidden="true"></i>
                   <!--<img src="images/yuna.jpg" alt="" class="circle">-->
                   <span class="title"><strong>Cuisine</strong></span>
-                  <p>{{row[0]["Sub_region"]}}<br>
-                     {{row[0]["Region"]}} <br>
-                     Asia (Placeholder)
+                  <p>Sub Region - {{row[0]["Sub_region"]}}, Region - {{row[0]["Region"]}}, Continent - {{row[0]["Continent"]}}
                   </p>
                 </li>
                 <li class="collection-item avatar">
@@ -108,25 +106,16 @@
                 <li class="collection-item avatar">
                   <i class="fa fa-clock-o circle" style="background-color: #ee6e73;"></i>
                   <span class="title"><strong>Preparation Time</strong></span>
-                  <p>First Line <br>
-                     Second Line
+                  <p>Cooking Time - {{row[0]["cook_time"]}} minutes, Preparation Time - {{row[0]["prep_time"]}} minutes
                   </p>
                 </li>
                 <li class="collection-item avatar">
                   <i class="fa fa-search circle" style="background-color: #ee6e73;"></i>
                   <span class="title"><strong>Source</strong></span>
-                  <p><a href="{{row[0]["Source"]}}">
-                      {% set y=row[0]["Source"].split('.') %}
-                      {% if y==3 %}
-                        {% set x=row[0]["Source"].split('.')%}
-                      {{x[0]}}
-                      {% else %}
-                        {%set x=row[0]["Source"].split('/')%}
-                        {% set z=x[2].split('.')%}
-                        {% if z[0] == "allrecipes" %}
-                          All Recipes
-                        {% endif %}
-                      {% endif %}
+                  <p>
+                  <a href="{{row[0]["url"]}}" target="_blank">
+                      {{row[0]["Source"]}}
+
                     <i class="fa fa-external-link"></i>
                   </a>
 
@@ -135,10 +124,11 @@
               </ul>
             </div>
             <div id="process_info" class="col s12">
-              <div class="row">
+              <div class="row" style="overflow: auto; max-height:450px;">
                 <div class="col s12 m6">
                   <h5>Cooking Processes Applied</h5>
-                  <ul class="collection">
+                    <h6>Early Stage Processes</h6>
+                  <ul class="collection" id="earlyStageP">
                     <li class="collection-item">Cooking</li>
                     <li class="collection-item">Bake</li>
                     <li class="collection-item">Boil</li>
@@ -146,7 +136,9 @@
                     <li class="collection-item">Cooking</li>
                     <li class="collection-item">Bake</li>
                     <li class="collection-item">Boil</li>
-                    <li class="collection-item">Mix</li>
+                  </ul>
+                    <h6>Middle Stage Processes</h6>
+                    <ul class="collection" id="midStageP">
                     <li class="collection-item">Cooking</li>
                     <li class="collection-item">Bake</li>
                     <li class="collection-item">Boil</li>
@@ -154,13 +146,23 @@
                     <li class="collection-item">Cooking</li>
                     <li class="collection-item">Bake</li>
                     <li class="collection-item">Boil</li>
+                  </ul>
+                    <h6>End Stage Processes</h6>
+
+                    <ul class="collection" id="endStageP">
+                    <li class="collection-item">Cooking</li>
+                    <li class="collection-item">Bake</li>
+                    <li class="collection-item">Boil</li>
                     <li class="collection-item">Mix</li>
+                    <li class="collection-item">Cooking</li>
+                    <li class="collection-item">Bake</li>
+                    <li class="collection-item">Boil</li>
                   </ul>
                 </div>
                 <div class="col s12 m6">
                   <div class="col s12">
                     <h5>Utensils Used</h5>
-                    <ul class="collection">
+                    <ul class="collection" id="utensils">
                       <li class="collection-item">Oven</li>
                       <li class="collection-item">Spoon</li>
                       <li class="collection-item">Cup</li>
@@ -180,7 +182,7 @@
 
             </div>
              <div id="steps" class="col s12">
-               Recipe steps are unavailable
+               {{instructions}}
              </div>
 
 
@@ -323,8 +325,82 @@
               elems.forEach(elem => {
                 console.log(elem)
                 M.Tabs.init(elem, {})
-              })
-              // var instances = M.Tabs.init(elems, {});
+              });
+                var cookingProcesses = "{{row[0]['Processes']}}"
+                var cookingUtensils = "{{row[0]['Utensils']}}"
+                cookingProcesses = cookingProcesses.split("||");
+                cookingUtensils = Array.from(new Set(cookingUtensils.split("||")));
+
+                function chunkify(a, n, balanced) {
+
+                    if (n < 2)
+                        return [a];
+
+                    var len = a.length,
+                            out = [],
+                            i = 0,
+                            size;
+
+                    if (len % n === 0) {
+                        size = Math.floor(len / n);
+                        while (i < len) {
+                            out.push(a.slice(i, i += size));
+                        }
+                    }
+
+                    else if (balanced) {
+                        while (i < len) {
+                            size = Math.ceil((len - i) / n--);
+                            out.push(a.slice(i, i += size));
+                        }
+                    }
+
+                    else {
+
+                        n--;
+                        size = Math.floor(len / n);
+                        if (len % size === 0)
+                            size--;
+                        while (i < size * n) {
+                            out.push(a.slice(i, i += size));
+                        }
+                        out.push(a.slice(size * n));
+
+                    }
+
+                    return out;
+                }
+                console.log(cookingUtensils);
+                cookingProcesses = chunkify(cookingProcesses, 3, true);
+                cookingUtensils = (cookingUtensils && cookingUtensils.length && cookingUtensils[0] !== "") ? cookingUtensils : ["No utensils found"];
+                var earlyP = cookingProcesses[0] ? cookingProcesses[0] : ['No Early Stage Cooking Processes Found'];
+                var MidP = cookingProcesses[1] ? cookingProcesses[1] : ['No Mid Stage Cooking Processes Found'];
+                var LateP = cookingProcesses[2] ? cookingProcesses[2] : ['No Late Stage Cooking Processes Found'];
+                console.log(cookingUtensils)
+                var str = "";
+                cookingUtensils.forEach(utensil => {
+                    str += (`<li class="collection-item">${utensil}</li>`)
+                });
+                document.getElementById("utensils").innerHTML = str;
+
+                str = "";
+                earlyP.forEach(process => {
+                    str += (`<li class="collection-item">${process}</li>`);
+                });
+                document.getElementById("earlyStageP").innerHTML = str;
+
+                str = "";
+                MidP.forEach(process => {
+                    str += (`<li class="collection-item">${process}</li>`);
+                });
+                document.getElementById("midStageP").innerHTML = str;
+
+                str = "";
+                LateP.forEach(process => {
+                    str += (`<li class="collection-item">${process}</li>`);
+                });
+                document.getElementById("endStageP").innerHTML = str;
+
             });
 
 
