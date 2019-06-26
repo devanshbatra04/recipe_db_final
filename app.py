@@ -451,10 +451,10 @@ def search_recipeInfo(id):
 		dict_row = dict(rp)
 		ndb_id = rp["ndb_id"]
 		nutr = {
-			"Carbohydrate, by difference": "-",
-			"Energy": "-",
-			"Protein": "-",
-			"Total lipid (fat)": "-",
+			"Carbohydrate, by difference": "N/A",
+			"Energy": "N/A",
+			"Protein": "N/A",
+			"Total lipid (fat)": "N/A",
 		}
 		for rowl in rows2:
 			if str(dict(rowl)["ndb_id"]) == str(ndb_id):
