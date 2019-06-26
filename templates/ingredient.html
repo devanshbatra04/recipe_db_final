@@ -35,7 +35,7 @@
             <div class="col s12 m12">
               <!--<div class="card " style="background-color:#ee6e73">-->
                 <div class="card-content">
-                  <center><b><h4 style="font-family: Helvetica; color:#1e4d40; text-transform: capitalize;">{{generic_ingredient_info["Ing_name"]}}</h4></b></center>
+                  <center><b><h4 style="font-family: Helvetica; color:#ee6e73; text-transform: capitalize;">{{generic_ingredient_info["Ing_name"]}}</h4></b></center>
                 <!--</div>-->
               </div>
             </div>
@@ -117,19 +117,19 @@
                     {% endif %}
                 <li class="collection-item avatar">
                   <i class="fa fa-wikipedia-w circle" style="background-color: #ee6e73;"></i>
-                  <span class="title" style="display:block; margin-top:1%;"><strong><a href="${{generic_ingredient_info["Wikilink"]}}">Wikipedia Link to <span style="text-transform: capitalize">{{generic_ingredient_info["Ing_name"]}}.strip()</span> <i class="fa fa-external-link"></i></a></strong></span>
+                  <span class="title" style="display:block; margin-top:1%;"><strong><a href="${{generic_ingredient_info["Wikilink"]}}">Wikipedia Link to <span style="text-transform: capitalize">{{generic_ingredient_info["Ing_name"].strip()}}</span> <i class="fa fa-external-link"></i></a></strong></span>
                 </li>
                 <li class="collection-item avatar">
                   <i class="fa fa-info circle" style="background-color: #ee6e73;"></i>
-                  <span class="title" style="display:block; margin-top:1%;"><strong><a href="${{generic_ingredient_info["Wikilink"]}}">Flavor Profile of <span style="text-transform: capitalize">{{generic_ingredient_info["Ing_name"]}}.strip()</span> FlavorDB <i class="fa fa-external-link"></i></a></strong></span>
+                  <span class="title" style="display:block; margin-top:1%;"><strong><a href="${{generic_ingredient_info["Wikilink"]}}">Flavor Profile of <span style="text-transform: capitalize">{{generic_ingredient_info["Ing_name"].strip()}}</span> FlavorDB <i class="fa fa-external-link"></i></a></strong></span>
                 </li>
                 <li class="collection-item avatar">
                   <i class="fa fa-info circle" style="background-color: #ee6e73;"></i>
-                  <span class="title" style="display:block; margin-top:1%;"><strong><a href="${{generic_ingredient_info["Wikilink"]}}">Health Impacts of <span style="text-transform: capitalize">{{generic_ingredient_info["Ing_name"]}}.strip()</span> from DietRx <i class="fa fa-external-link"></i></a></strong></span>
+                  <span class="title" style="display:block; margin-top:1%;"><strong><a href="${{generic_ingredient_info["Wikilink"]}}">Health Impacts of <span style="text-transform: capitalize">{{generic_ingredient_info["Ing_name"].strip()}}</span> from DietRx <i class="fa fa-external-link"></i></a></strong></span>
                 </li>
               </ul>
             </div>
-            <div id="recipe_info" class="col s12">
+            <div id="recipe_info" class="col s12" style="max-height:500px; overflow: auto;">
               <div class="row">
                 <table id="recipes_table" class="table striped" style="padding-left: 40px;">
                 <thead>

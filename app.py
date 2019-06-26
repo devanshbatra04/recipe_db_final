@@ -398,12 +398,12 @@ def search_ingre(id):
 	currr = connn.cursor()
 	query = "select * from unique_ingredients where Ing_ID = {}".format(ingredient_id)
 	cur.execute(query)
-	curr.execute("select ndb_id, state, ingredient_name, count(*) as value_occurence from ingredients where Ing_ID = {} group by ndb_id,state, ingredient_name having count(ingredient_name)=1 order by value_occurence DESC".format(ingredient_id))
+	curr.execute("select ndb_id, state, ingredient_name, count(*) as value_occurence from ingredients where Ing_ID = {} group by ndb_id,state, ingredient_name having count(ingredient_name)=1 order by value_occurence DESC limit 20".format(ingredient_id))
 	generic_ingredient_info = cur.fetchone()
 	forms_info = [dict(k) for k in curr.fetchall()]
 	print(forms_info)
 	print(generic_ingredient_info)
-	currr.execute("select * from recipes1 natural join ingredients where ingredients.Ing_ID = {} group by Recipe_id".format(ingredient_id))
+	currr.execute("select * from recipes1 natural join ingredients where ingredients.Ing_ID = {} group by Recipe_id limit 20".format(ingredient_id))
 	recipes_info = [dict(k) for k in currr.fetchall()]
 	print(recipes_info)
 
@@ -429,7 +429,7 @@ def search_recipeInfo(id):
 
 	con.row_factory = sql.Row
 	cur = con.cursor()
-	cur.execute("select * from ingredients where Recipe_id = " + id + "")
+	cur.execute("select * from ingredients where Recipe_id = '" + id + "'")
 	all_ing = [dict(k) for k in cur.fetchall()]
 	cur.execute("select [Recipe_id], [ndb_id], [Carbohydrate, by difference], [Energy], [Protein], [Total lipid (fat)] from nutrients where Recipe_id like '%" + id + "%'")
 	all_nutr = [dict(k) for k in cur.fetchall()]
@@ -440,8 +440,8 @@ def search_recipeInfo(id):
 	ndb = 0
 	cur = con.cursor()
 	curr = con.cursor()
-	rows1 = [d for d in all_ing if str(d["Recipe_id"]) == str(id)]
-	rows2 = [d for d in all_nutr if str(d["Recipe_id"]) == str(id)]
+	rows1 = [d for d in all_ing if str(d["Recipe_id"]).strip() == str(id).strip()]
+	rows2 = [d for d in all_nutr if str(d["Recipe_id"]).strip() == str(id).strip()]
 
 	ing_names = []
 
