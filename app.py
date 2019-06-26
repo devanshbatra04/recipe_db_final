@@ -480,7 +480,7 @@ def category(id):
 	con = sql.connect("recipe2-final.db")
 	con.row_factory = sql.Row
 	query='SELECT * from unique_ingredients where Category="' + id + '"'
-	heading="Ingredients Belonging to Category " + id + ""
+	heading="" + id + ""
 	print(heading)
 
 
