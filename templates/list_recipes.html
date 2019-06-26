@@ -269,33 +269,6 @@
 
                 </ul>
               </div>
-              <!-- <div class="tableDiv col s12 m9 l9"> -->
-                <!-- <table id= "modalTable1" class="tableStyling striped responsive-table">
-                  <thead>
-                    <tr>
-                      <th>Total Protein (g)</th>
-                      <th>Total Fat (g)</th>
-                      <th>Total Calories (KCal)</th>
-                      <th>Total Carbohydrates (g)</th>
-                    </tr>
-                  </thead>
-                  <tbody id="modalTableBody2"></tbody>
-                </table> -->
-                <!-- <table id= "modalTable2" class="tableStyling striped responsive-table">
-                  <thead>
-                    <tr>
-                      <th>Ingredient Name</th>
-                      <th>Quantity</th>
-                      <th>Unit</th>
-                      <th>State</th>
-                      <th>Protein (g)</th>
-                      <th>Energy (kcal)</th>
-                      <th>Fat (g)</th>
-                    </tr>
-                  </thead>
-                  <tbody id="modalTableBody"></tbody>
-                </table> -->
-              <!-- </div> -->
             </div>
           </div>
           <button class="modal-close waves-effect red btn-small" style="font-size: 28px; position: absolute; top: 0; right:0">×</button>
@@ -481,11 +454,12 @@
             titleElem.innerHTML = title;
             titleElem.setAttribute('href', `/recipedb/search_recipeInfo/${id}`);
             titleElem.setAttribute('target', '_blank');
-            titleElem.setAttribute('style', 'font-size: 18px;')
+            titleElem.setAttribute('style', 'font-size: 18px;');
 
             // Adding Inner HTML to Button
             let buttonElem = document.getElementById("modalButton");
             buttonElem.innerHTML = "Complete Profile";
+            buttonElem.setAttribute('href', `/recipedb/search_recipeInfo/${id}`);
 
             idElem.innerHTML = id;
             idElem.setAttribute('href', `/recipedb/search_recipeInfo/${id}`);
