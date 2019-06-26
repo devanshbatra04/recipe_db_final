@@ -36,7 +36,7 @@
 						<center><h1>RecipeDB</h1>
 						<p> A resource for exploring recipes and their nutrional profiles.</p></center><br>
             <center>
-							<a href="/recipedb" class="col-xs-12 col-md-2 btn btn-primary" role="button" id="fontsize">Search</a>
+							<a href="#search" class="col-xs-12 col-md-2 btn btn-primary" role="button" id="fontsize">Search</a>
 							<!-- <a class="col-xs-12 col-md-2 btn btn-primary" role="button" id="cal_stats" href="#stats">Statistics</a> -->
               <a class="col-xs-12 col-md-2 btn btn-primary" role="button" href="#stats">Statistics</a>
 							<a href="/recipedb/howto" class="col-xs-12 col-md-2 btn btn-primary" role="button" id="fontsize">How to Use</a>
@@ -49,12 +49,28 @@
 
 
 
-
-      <div class="row">
+        <div class="row">
+            <div class="col s12 m6">
+                <h5>Summary</h5>
+                <blockquote>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium adipisci assumenda, at, beatae commodi corporis dolorum eius enim excepturi illo in nihil quidem quis reprehenderit, saepe soluta ut vel veritatis.
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi, blanditiis cupiditate ea expedita laudantium libero magnam, porro quidem quod repellendus sit ut voluptas. Eum, rem, tempore. Accusantium nam saepe voluptates.
+                </p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium adipisci assumenda, at, beatae commodi corporis dolorum eius enim excepturi illo in nihil quidem quis reprehenderit, saepe soluta ut vel veritatis.
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi, blanditiis cupiditate ea expedita laudantium libero magnam, porro quidem quod repellendus sit ut voluptas. Eum, rem, tempore. Accusantium nam saepe voluptates.
+                </p>
+                </blockquote>
+            </div>
+            <div class="col s12 m6">
+                <img src="/recipedb/static/figure-schema.jpg" class="responsive-img" alt="">
+            </div>
+        </div>
+            <div class="section scrollspy" id="search" style="margin: 0; padding:0;">
+                      <div class="row" style="margin-top:50px; padding-bottom:30px; border-top:2px solid #ee6e73; border-bottom:2px solid #ee6e73; padding-top:15px;">
 
          <ul class="tabs tab-demo z-depth-1">
-        <li class="tab col s6"><a class="active" href="#test1">Basic</a></li>
-        <li class="tab col s6"><a href="#test2">Advanced</a></li>
+        <li class="tab col s6"><a class="active" href="#test1">Basic Search</a></li>
+        <li class="tab col s6"><a href="#test2">Advanced Search</a></li>
       </ul>
       <div id="test1" class="col s12">
       <form class="col s12 search-form" action = "{{ url_for('search_recipe') }}" method="POST">
@@ -185,6 +201,8 @@
         <!-- <div id="test1" class="col s12">lol</div> -->
 
 			</div>
+
+            </div>
       <div class="col s9 section scrollspy" id="stats">
         <h4 id="mainBodyHeading" class="blue-grey-text text-darken-2" style="text-transform: capitalize; font-family: 'Istok Web', sans-serif;">Statistics</h4>
       </div>
@@ -203,10 +221,10 @@
         <div class="row">
 
             <div id="test5" class="col s12">
-              <iframe width="700" height="600" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/48.embed"></iframe>
+              <iframe width="900" height="700" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/48.embed"></iframe>
             </div>
-            <div id="test6" class="col s12"><iframe width="700" height="600" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/49.embed"></iframe></div>
-            <div id="test7" class="col s12"><iframe width="700" height="600" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/41.embed"></iframe></div>
+            <div id="test6" class="col s12"><iframe width="900" height="700" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/49.embed"></iframe></div>
+            <div id="test7" class="col s12"><iframe width="900" height="700" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/41.embed"></iframe></div>
             <!-- <div id="test4" class="col s12"><iframe width="700" height="600" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/36.embed"></iframe></div>
             <div id="test5" class="col s12"><iframe width="700" height="600" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/35.embed"></iframe></div>
             <div id="test6" class="col s12"><iframe width="700" height="600" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/34.embed"></iframe></div> -->
@@ -281,6 +299,7 @@
           document.addEventListener('DOMContentLoaded', function() {
             var elems = document.querySelectorAll('.scrollspy');
             var instances = M.ScrollSpy.init(elems, {});
+            console.log(elems)
           });
 
 	</script>
