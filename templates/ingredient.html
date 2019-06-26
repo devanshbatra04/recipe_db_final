@@ -19,10 +19,6 @@
        .copyright-wrap .panel .content p a{ text-decoration:none; color:#ffffff;}
        .copyright-wrap .panel .content p a:hover{ color:#1a202c;}
        #more {display: none;}
-       .carousel img {
-         max-height:200px !important;
-         width: auto !important;
-       }
 
 
      </style>
@@ -33,45 +29,43 @@
 
 
         <div class = "container">
-          <div class="row">
+          <ul class="collection">
+            <li class="collection-item">
+                <div class="row" style="margin-bottom: 0;">
             <div class="col s12 m12">
               <!--<div class="card " style="background-color:#ee6e73">-->
                 <div class="card-content">
-                  <center><b><h3 style="font-family: Helvetica;">{{heading}}</h3></b></center>
+                  <center><b><h4 style="font-family: Helvetica; color:#1e4d40;">Apple</h4></b></center>
                 <!--</div>-->
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col s12 m5">
-
-              <a href="{{(row[0]["Source"])}}"><img src="https://images.media-allrecipes.com/userphotos/560x315/1261441.jpg" width="100%" max-height:"250px" alt=""></a>
+            </li>
+            <li>
+                <div class="row" style="margin-top:30px;">
+            <div class="col s12 m4 center" style="padding-top:20px">
+              <img class="responsive-img" style="max-height:300px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Honeycrisp.jpg/1024px-Honeycrisp.jpg"  alt="">
 
               </div>
-            <div class="col s12 m7">
+            <div class="col s12 m8">
               <div style="overflow: auto; width:100%; max-height:250px;">
+                <div class="center">
+                  <a class='dropdown-trigger btn' href='#' data-target='dropdown1' style=" background: white; color: #ee6e73; border-bottom: 2px solid #ee6e73; min-height: 40px; height: auto;">Showing Estimated Nutritional Profile for Apple &nbsp <i class="fa fa-caret-down"></i></a>
+                </div>
 
-                <table class="highlight" >
+                  <!-- Dropdown Structure -->
+                  <ul id='dropdown1' class='dropdown-content'>
+                    <li><a href="#!">one</a></li>
+                    <li><a href="#!">two</a></li>
+                    <li class="divider" tabindex="-1"></li>
+                    <li><a href="#!">three</a></li>
+                    <li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
+                    <li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
+                  </ul>
+
+                <table class="highlight striped" >
                   <thead>
-                    <tr>
-                      <th  class="cyan-text lighten-3" colspan="2"><center>
-                        <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Nutritional Profile for {{heading}} - {{row["ndb_id"]}} (USDA)</a>
-                        <ul id='dropdown1' class='dropdown-content'>
-                          <li><a href="#!">one</a></li>
-                          <li><a href="#!">two</a></li>
-                          <li><a href="#!">one</a></li>
-                          <li><a href="#!">two</a></li>
-                          <li><a href="#!">one</a></li>
-                          <li><a href="#!">two</a></li>
-                          <li><a href="#!">one</a></li>
-                          <li><a href="#!">two</a></li>
-                          <li><a href="#!">one</a></li>
-                          <li><a href="#!">two</a></li>
-                          <li><a href="#!">one</a></li>
-                          <li><a href="#!">two</a></li>
-                        </ul>
-                      </center></th>
-                    </tr>
+
                     <tr>
                       <th>Nutrient</th>
                       <th>Quantity</th>
@@ -80,96 +74,300 @@
                 {% for dict_item in row %}
                    {% for key, value in dict_item.items() %}
 
-                   {% if key=="Energy" or key =="Protein" or key=="Carbohydrate, by difference" or key=="Total lipid (fat)" %}
+                   {% if key=="Energy(kcal)" or key =="Protein(g)" or key=="Carbohydratebydifference(g)" or key=="Totallipid(fat)(g)" %}
                       <tr>
                   {% else %}
                       <tr class="extraVals" style="display:None">
                   {% endif %}
-                      <td><strong>{{key}}</strong></td>
-                      <td>{{value}}</td>
+                      <td><strong></strong></td>
+                      <td></td>
                     </tr>
 
                    {% endfor %}
                 {% endfor %}
                 </table>
               </div>
-              <button onclick="myFunction()" id="myBtn">Show More</button>
+              <button class="btn btn-small" onclick="myFunction()" id="myBtn" style="background: white; color: #ee6e73; border-bottom: 2px solid #ee6e73; min-height: 40px; height: auto; margin-top: 5px">Show More</button>
               </div>
 
               </div>
-              <div class="row" style="text-align:Center">
-                <div class="col s6 m4">
+            </li>
+            <li class="collection-item">
+                <div class="row" style="margin-top:50px; border-top: 1px solid black;">
+             <div class="row">
+            <div class="col s12">
+              <ul class="tabs">
+                <li class="tab col s3"><a class="active" href="#ingredient_info">Ingredient Overview</a></li>
+                <li class="tab col s3"><a href="#form_info">All Forms</a></li>
+                <li class="tab col s3"><a href="#recipe_info">Recipes</a></li>
+                <!--<li class="tab col s3"><a href="#steps">Steps</a></li>-->
+              </ul>
+            </div>
+            <div id="ingredient_info" class="col s12">
+                <ul class="collection">
+                <li class="collection-item avatar">
+                  <i class="fa fa-list-alt circle" style="background-color: #ee6e73;" aria-hidden="true"></i>
+                  <!--<img src="images/yuna.jpg" alt="" class="circle">-->
+                  <span class="title"><strong>Ingredient Category</strong></span>
+                  <p><br>
+                      <br>
+                     Asia (Placeholder)
+                  </p>
+                </li>
+                <li class="collection-item avatar">
+                  <i class="fa fa-cutlery circle" style="background-color: #ee6e73;" aria-hidden="true"></i>
+                  <!--<i class="material-icons circle">folder</i>-->
+                  <span class="title"><strong>Aliases</strong></span>
+                  <p>Keto Diet (Placeholder)<br>
+                     This recipe gets majority of its calories from ingredients high in Protein.
+                  </p>
+                </li>
+                <li class="collection-item avatar">
+                  <i class="fa fa-wikipedia-w circle" style="background-color: #ee6e73;"></i>
+                  <span class="title"><strong>Preparation Time</strong></span>
+                  <p>First Line <br>
+                     Second Line
+                  </p>
+                </li>
+                <li class="collection-item avatar">
+                  <i class="fa fa-info circle" style="background-color: #ee6e73;"></i>
+                  <span class="title"><strong>Related Links</strong></span>
+                  <p><a href="">
+                    FlavorDB - flavor information <i class="fa fa-external-link"></i><br>
+                    DietRx - dietary information <i class="fa fa-external-link"></i>
+                  </a>
 
-                    <div class="card " style="background-color:#343a40">
-                    <div class="card-content white-text">
-                      <a href=""><h6>Wikilink</h6></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col s6 m4">
+                  </p>
+                </li>
+              </ul>
+            </div>
+            <div id="recipe_info" class="col s12">
+              <div class="row">
+                <table id="recipes_table" class="table striped" style="padding-left: 40px;">
+                <thead>
+                  <tr>
+                    <th>Recipe Name</th>
+                    <th>Ingredient form</th>
+                    <th>Cuisine</th>
+                    <th>Dietary Style</th>
+                    <th>Source</th>
+                  </tr>
+                </thead>
+                <tbody style="">
+                  <tr>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                  </tr>
+                  <tr>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                  </tr>
+                  <tr>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                  </tr>
+                  <tr>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                  </tr>
+                  <tr>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                  </tr>
+                  <tr>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                  </tr>
+                  <tr>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                  </tr>
+                  <tr>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                  </tr>
+                <tr>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                  </tr>
+                <tr>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                  </tr>
+                <tr>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                  </tr>
+                <tr>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                  </tr>
+                </tbody>
+              </table>
 
-                    <div class="card " style="background-color:#343a40">
-                    <div class="card-content white-text">
-                      <h6>Category - </h6>
-                    </div>
-                  </div>
-                </div>
-                <div class="col s6 m4">
-                  <a href="{{row[0]["Source"]}}">
-                    <div class="card " style="background-color:#343a40">
-                    <div class="card-content white-text">
-                      <h6>Source: -</h6>
-                      </div>
-                  </div></a>
-                </div>
               </div>
-              <div class="row" style="text-align:Center">
-                <div class="col s6 m4">
-                  <div class="card " style="background-color:#343a40">
-                    <div class="card-content white-text">
-                      <h6>Country:  &nbsp&nbsp -</h6>
-                    </div>
-                  </div>
-                </div>
-                <div class="col s6 m4">
-                  <div class="card " style="background-color:#343a40">
-                    <div class="card-content white-text">
-                      <h6>Processes:  &nbsp&nbsp -</h6>
-                    </div>
-                  </div>
-                </div>
-                <div class="col s6 m4">
-                  <div class="card " style="background-color:#343a40">
-                    <div class="card-content white-text">
-                      <h6>Utensils: &nbsp&nbsp -</h6>
-                    </div>
-                  </div>
-                </div>
+
+            </div>
+
+
+              <!--<br><br>-->
+              <div id="form_info" class="col s12" style="max-height:500px; overflow: auto;">
+                <table id="myTable" class="table striped" style="padding-left: 40px;">
+                <thead>
+                  <tr>
+                    <th>Ingredient Name</th>
+                    <th>State</th>
+                    <th>Protein (g)</th>
+                    <th>Energy (kcal)</th>
+                    <th>Total Lipid (Fat) (g)</th>
+                  </tr>
+                </thead>
+                <tbody style="">
+                  <tr>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                  </tr>
+                  <tr>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                  </tr>
+                  <tr>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                  </tr>
+                  <tr>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                  </tr>
+                  <tr>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                  </tr>
+                  <tr>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                  </tr>
+                  <tr>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                  </tr>
+                  <tr>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                  </tr>
+                <tr>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                  </tr>
+                <tr>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                  </tr>
+                <tr>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                  </tr>
+                <tr>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                    <td>Placeholder</td>
+                  </tr>
+                </tbody>
+              </table>
+
               </div>
-              <div class="carousel carousel-slider">
-                <a class="carousel-item" href="#one!"><img src="https://lorempixel.com/800/400/food/1"></a>
-                <a class="carousel-item" href="#two!"><img src="https://lorempixel.com/800/400/food/2"></a>
-                <a class="carousel-item" href="#three!"><img src="https://lorempixel.com/800/400/food/3"></a>
-                <a class="carousel-item" href="#four!"><img src="https://lorempixel.com/800/400/food/4"></a>
               </div>
+
+              </div>
+            </li>
+          </ul>
 
 
           </div>
           <script>
             document.addEventListener('DOMContentLoaded', function() {
-              var elems = document.querySelectorAll('.collapsible');
-              var instances = M.Collapsible.init(elems, {});
-            });
+              var elems = document.querySelectorAll('.tabs');
+              elems.forEach(elem => {
+                console.log(elem)
+                M.Tabs.init(elem, {})
+              })
 
-            document.addEventListener('DOMContentLoaded', function() {
-                var elems = document.querySelectorAll('.dropdown-trigger');
+                elems = document.querySelectorAll('.dropdown-trigger');
+                console.log(elems);
                 var instances = M.Dropdown.init(elems, {});
-                var elems = document.querySelectorAll('.carousel');
-                var instance = M.Carousel.init(elems,{
-                  fullWidth: true
-                });
-              });
-
+              // var instances = M.Tabs.init(elems, {});
+            });
 
 
             function myFunction() {
@@ -190,7 +388,7 @@
           	<div class="copyright-wrap">
           		<div class="panel">
           			<div class="content">
-          				<p><img alt="" src="/iiitd.png"></p>
+          				<p><img alt="" src="/flavordb/static/images/iiitd.png"></p>
           				<p>Copyright © 2019 &nbsp; All rights reserved.<br><br>
           					<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png"></a><br>This work is licensed under a <a style="font-weight: bold;" rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
           				</p>
