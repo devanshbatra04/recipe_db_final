@@ -80,8 +80,8 @@
       <!-- TABS HEARDERS -->
 
          <ul class="tabs tab-demo z-depth-1">
-        <li class="tab col s3"><a class="active" href="#test1">Basic Search</a></li>
-        <li class="tab col s2"><a href="#test2">ingredients</a></li>
+        <li class="tab col s3"><a class="active" href="#test1">cuisine</a></li>
+        <li class="tab col s2"><a href="#test2">Ingredient</a></li>
         <li class="tab col s2"><a href="#test3">category</a></li>
         <li class="tab col s2"><a href="#test4">nutrition</a></li>
         <li class="tab col s2"><a class="active" href="#test5">Advanced</a></li>
@@ -97,24 +97,23 @@
       <form class="col s12 search-form" action = "{{ url_for('search_recipe') }}" method="POST">
          <div class="row">
            <div class="input-field col s4">
-            <!--  -->
-             <h5>Region</h5>
-             <input href="/recipedb'" type="text" name="autocomplete_region" id="autocomplete_region" class="form-control query-field"
-             placeholder="Enter any region's name (e.g. Asian)"><br>
+            <h5>Region</h5>
+            <input href="/recipedb" type="text" name="autocomplete_region" id="autocomplete-input" class="autocomplete_region"
+            placeholder="Enter any region's name (e.g. Asian)"><br>
+          </div>
+          <div class="input-field col s4">
+            <h5>Country</h5>
+            <input href="/recipedb" type="text" name="autocomplete_cuisine" id="autocomplete-input" class="autocomplete_cuisine"
+            placeholder="Enter any cuisine's name (e.g. Indian, Chinese,)"><br>
            </div>
-           <div class="input-field col s4">
-             <h5>Country</h5>
-             <input href="/recipedb" type="text" name="autocomplete_cuisine" id="autocomplete_cuisine" class="form-control query-field"
-             placeholder="Enter any cuisine's name (e.g. Indian, Chinese,)"><br>
-            </div>
             <div class="input-field col s4">
-              <h5>Recipe</h5>
+              <h5>Recipe Title</h5>
  							<input href="/recipedb" type="text" name="autocomplete_recipe" class="form-control query-field"
  							placeholder="Enter any recipe's name (e.g. Indian Pizza)" id="autocomplete_recipe"> <br>
             </div>
           </div>
 
-              <h5>Ingredients </h5>
+              <h5>Ingredient </h5>
               <div class="row">
                 <div class="input-field col s6">
 							<h6>Used </h6>
@@ -219,23 +218,25 @@
         <form class="col s12 search-form" action = "{{ url_for('search_recipe') }}" method="POST">
            <div class="row">
              <div class="input-field col s4">
+
               <!--  -->
               <div style="display:none">
                 <input href="/recipedb" type="text" name="page" class="form-control query-field"
-                placeholder="Enter any ingredient's name (e.g. Cheese)" id="autocomplete_ingredient">
+                placeholder="Enter any ingredient's name (e.g. Cheese)" id="autocomplete-input">
               </div>
+              
                <h5>Region</h5>
-               <input href="/recipedb" type="text" name="autocomplete_region" id="autocomplete_region" class="form-control query-field"
+               <input href="/recipedb" type="text" name="autocomplete_region" id="autocomplete-input" class="autocomplete_region"
                placeholder="Enter any region's name (e.g. Asian)"><br>
              </div>
              <div class="input-field col s4">
                <h5>Country</h5>
-               <input href="/recipedb" type="text" name="autocomplete_cuisine" id="autocomplete_cuisine" class="form-control query-field"
+               <input href="/recipedb" type="text" name="autocomplete_cuisine" id="autocomplete-input" class="autocomplete_cuisine"
                placeholder="Enter any cuisine's name (e.g. Indian, Chinese,)"><br>
               </div>
               <div class="input-field col s4">
-                <h5>Recipe</h5>
-   							<input href="/recipedb" type="text" name="autocomplete_recipe" class="form-control query-field"
+                <h5>Recipe Title</h5>
+                <input href="/recipedb" type="text" name="autocomplete_recipe" class="form-control query-field"
    							placeholder="Enter any recipe's name (e.g. Indian Pizza)" id="autocomplete_recipe"> <br>
               </div>
             </div>
@@ -250,7 +251,7 @@
 
         <div id="test2" class="col s12">
         <form class="col s12 search-form" action = "{{ url_for('search_recipe') }}" method="POST">
-                <h5>Ingredients </h5>
+                <h5>Ingredient </h5>
                 <div class="row">
                   <div class="input-field col s6">
   							<h6>Used </h6>
@@ -277,7 +278,7 @@
 
           <div id="test3" class="col s12">
           <form class="col s12 search-form" action = "{{ url_for('search_recipe') }}" method="POST">
-              <h5>Categories </h5>
+              <h5>Category </h5>
                   <div class="row">
                     <div class="input-field col s6">
     							<h6>Used </h6>
@@ -308,7 +309,40 @@
               <input href="/recipedb" type="text" name="page" class="form-control query-field"
               placeholder="Enter any ingredient's name (e.g. Cheese)" id="autocomplete_ingredient">
             </div>
+            <h5>Nutritional Profile </h5><br>
             <div id="range-rows" >
+              <div class="row">
+                <div class="col s12 m4">
+                    <center>
+                      <h6>Energy (calories/serving) : </h6>
+                    </center>
+                </div>
+                <div class="input-field col s12 m8">
+                  <div class="range-field">
+
+                    <div id="rr3" class="test-slider"></div>
+                      <span class="example-val" id="rr3-val"></span>
+                    <input name="energyMin" class="min" style="display:none;" />
+                    <input name="energyMax" class="max" style="display:none;" />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s12 m4">
+                    <center>
+                      <h6>Carbohydrates (g/serving) : </h6>
+                    </center>
+                </div>
+                <div class="input-field col s12 m8">
+                  <div class="range-field">
+
+                    <div id="rr4" class="test-slider"></div>
+                      <span class="example-val" id="rr4-val"></span>
+                    <input name="carbMin" class="min" style="display:none;" />
+                    <input name="CarbMax" class="max" style="display:none;" />
+                  </div>
+                </div>
+              </div>
                 <div class="row">
                   <div class="col s12 m4">
                       <center>
@@ -340,38 +374,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col s12 m4">
-                      <center>
-                        <h6>Energy (calories/serving) : </h6>
-                      </center>
-                  </div>
-                  <div class="input-field col s12 m8">
-                    <div class="range-field">
 
-                      <div id="rr3" class="test-slider"></div>
-                        <span class="example-val" id="rr3-val"></span>
-                      <input name="energyMin" class="min" style="display:none;" />
-                      <input name="energyMax" class="max" style="display:none;" />
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col s12 m4">
-                      <center>
-                        <h6>Carbohydrates (g/serving) : </h6>
-                      </center>
-                  </div>
-                  <div class="input-field col s12 m8">
-                    <div class="range-field">
-
-                      <div id="rr4" class="test-slider"></div>
-                        <span class="example-val" id="rr4-val"></span>
-                      <input name="carbMin" class="min" style="display:none;" />
-                      <input name="CarbMax" class="max" style="display:none;" />
-                    </div>
-                  </div>
-                </div>
 
             </div>
             <div class="input-group-btn input-group-append">
@@ -391,19 +394,19 @@
       <div class="row">
 
          <ul class="tabs tab-demo z-depth-1">
-        <li class="tab col s4"><a class="active" href="#test5">Recipes</a></li>
-        <li class="tab col s4"><a class="" href="#test6">Ingredient</a></li>
-        <li class="tab col s4"><a class="" href="#test7">Nutrition</a></li>
+        <li class="tab col s4"><a class="active" href="#tests1">Recipes</a></li>
+        <li class="tab col s4"><a class="" href="#tests2">Ingredient</a></li>
+        <li class="tab col s4"><a class="" href="#tests3">Nutrition</a></li>
       </ul>
       </div>
       <div class="container">
         <div class="row">
 
-            <div id="test5" class="col s12">
+            <div id="tests1" class="col s12">
               <iframe width="700" height="600" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/55.embed"></iframe>
             </div>
-            <div id="test6" class="col s12"><iframe width="700" height="600" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/41.embed"></iframe></div>
-            <div id="test7" class="col s12"><iframe width="700" height="600" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/49.embed"></iframe></div>
+            <div id="tests2" class="col s12"><iframe width="700" height="600" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/41.embed"></iframe></div>
+            <div id="tests3" class="col s12"><iframe width="700" height="600" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/49.embed"></iframe></div>
         </div>
       </div>
     </div>
@@ -473,11 +476,139 @@
           }
 
           document.addEventListener('DOMContentLoaded', function() {
+          var elems = document.querySelectorAll('select');
+          var instances = M.FormSelect.init(elems, options);
+        });
+
+          document.addEventListener('DOMContentLoaded', function() {
             var elems = document.querySelectorAll('.scrollspy');
             var instances = M.ScrollSpy.init(elems, {});
             console.log(elems)
           });
 
+          document.addEventListener('DOMContentLoaded', function() {
+          var elems = document.querySelectorAll('.autocomplete_recipe');
+          var instances = M.Autocomplete.init(elems, {
+            data: {
+        "Apple": null,
+        "Microsoft": null,
+        "Google": 'https://placehold.it/250x250'
+      },
+          });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.autocomplete_region');
+        var instances = M.Autocomplete.init(elems, {
+          data: {"Northern Africa" : null,
+                  "Rest Africa" : null,
+                  "Australian" : null,
+                  "Belgium and Netherlands" : null,
+                  "Central American" : null,
+                  "Canadian" : null,
+                  "Caribbean" : null,
+                  "Chinese and Mongolian" : null,
+                  "Deutschland" : null,
+                  "Eastern European" : null,
+                  "French" : null,
+                  "Greek" : null,
+                  "Indian Subcontinent" : null,
+                  "Irish" : null,
+                  "Italian" : null,
+                  "Japanese" : null,
+                  "Korean" : null,
+                  "Middle Eastern" : null,
+                  "Mexican" : null,
+                  "South American" : null,
+                  "Scandinavian" : null,
+                  "Southeast Asian" : null,
+                  "Spanish and Portuguese" : null,
+                  "Thai" : null,
+                  "UK" : null,
+                  "US" : null,}
+        });
+      });
+
+        document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.autocomplete_cuisine');
+        var instances = M.Autocomplete.init(elems, {
+
+          data: {"Angolan": null,
+          "Argentine": null,
+          "Australian": null,
+          "Austrian": null,
+          "Belgian": null,
+          "Bangladeshi" : null,
+          "Brazilian" : null,
+          "Canadian" : null,
+          "Rest Caribbean" : null,
+          "Swiss" : null,
+          "Chilean" : null,
+          "Chinese" : null,
+          "Colombian" : null,
+          "Costa Rican" : null,
+          "Cuban" : null,
+          "Czech" : null,
+          "German" : null,
+          "Danish" : null,
+          "Ecuadorean" : null,
+          "Rest Eastern Europe" : null,
+          "Egyptian" : null,
+          "English" : null,
+          "Spanish" : null,
+          "Ethiopian" : null,
+          "Finnish" : null,
+          "French" : null,
+          "Greek" : null,
+          "Guatemalan" : null,
+          "Honduran" : null,
+          "Hungarian" : null,
+          "Indonesian" : null,
+          "Indian" : null,
+          "Irish" : null,
+          "Iraqi" : null,
+          "Icelandic" : null,
+          "Israeli" : null,
+          "Italian" : null,
+          "Jamaican" : null,
+          "Japanese" : null,
+          "Cambodian" : null,
+          "Korean" : null,
+          "Laotian" : null,
+          "Lebanese" : null,
+          "Libyan" : null,
+          "Moroccan" : null,
+          "Rest Middle Eastern" : null,
+          "Mexican" : null,
+          "Mongolian" : null,
+          "Malaysian" : null,
+          "Namibian" : null,
+          "Nigerian" : null,
+          "Dutch" : null,
+          "Norwegian" : null,
+          "Nepalese" : null,
+          "New Zealander" : null,
+          "Pakistani" : null,
+          "Peruvian" : null,
+          "Filipino" : null,
+          "Polish" : null,
+          "Puerto Rican" : null,
+          "Portuguese" : null,
+          "Palestinian" : null,
+          "Russian" : null,
+          "Saudi Arabian" : null,
+          "Scottish" : null,
+          "Sudanese" : null,
+          "Somalian" : null,
+          "Swedish" : null,
+          "Thai" : null,
+          "Turkish" : null,
+          "US" : null,
+          "Venezuelan" : null,
+          "Vietnamese" : null,
+          "Welsh" : null}
+        });
+      });
 	</script>
   <footer class="primary-footer">
     <div class="copyright-wrap">
