@@ -35,7 +35,7 @@
             <div class="col s12 m12">
               <!--<div class="card " style="background-color:#ee6e73">-->
                 <div class="card-content">
-                  <center><b><h4 style="font-family: Helvetica; color:#1e4d40;">Apple</h4></b></center>
+                  <center><b><h4 style="font-family: Helvetica; color:#1e4d40; text-transform: capitalize;">{{generic_ingredient_info["Ing_name"]}}</h4></b></center>
                 <!--</div>-->
               </div>
             </div>
@@ -44,7 +44,7 @@
             <li>
                 <div class="row" style="margin-top:30px;">
             <div class="col s12 m4 center" style="padding-top:20px">
-              <img class="responsive-img" style="max-height:300px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Honeycrisp.jpg/1024px-Honeycrisp.jpg"  alt="">
+              <img class="responsive-img" style="max-height:300px;" src="{{generic_ingredient_info["WikiImage"] if generic_ingredient_info["WikiImage"] else "/recipedb/static/photonotyet.jpg"}}"  alt="">
 
               </div>
             <div class="col s12 m8">
@@ -71,20 +71,14 @@
                       <th>Quantity</th>
                     </tr>
                   </thead>
-                {% for dict_item in row %}
-                   {% for key, value in dict_item.items() %}
 
-                   {% if key=="Energy(kcal)" or key =="Protein(g)" or key=="Carbohydratebydifference(g)" or key=="Totallipid(fat)(g)" %}
+
                       <tr>
-                  {% else %}
-                      <tr class="extraVals" style="display:None">
-                  {% endif %}
-                      <td><strong></strong></td>
-                      <td></td>
+                      <td><strong>a</strong></td>
+                      <td>b</td>
                     </tr>
 
-                   {% endfor %}
-                {% endfor %}
+
                 </table>
               </div>
               <button class="btn btn-small" onclick="myFunction()" id="myBtn" style="background: white; color: #ee6e73; border-bottom: 2px solid #ee6e73; min-height: 40px; height: auto; margin-top: 5px">Show More</button>
@@ -109,35 +103,29 @@
                   <i class="fa fa-list-alt circle" style="background-color: #ee6e73;" aria-hidden="true"></i>
                   <!--<img src="images/yuna.jpg" alt="" class="circle">-->
                   <span class="title"><strong>Ingredient Category</strong></span>
-                  <p><br>
-                      <br>
-                     Asia (Placeholder)
+                  <p>{{generic_ingredient_info["Category-F-DB"]}}
                   </p>
                 </li>
+                    {% if generic_ingredient_info["aliases"] and generic_ingredient_info["aliases"] != "" %}
                 <li class="collection-item avatar">
                   <i class="fa fa-cutlery circle" style="background-color: #ee6e73;" aria-hidden="true"></i>
                   <!--<i class="material-icons circle">folder</i>-->
+
                   <span class="title"><strong>Aliases</strong></span>
-                  <p>Keto Diet (Placeholder)<br>
-                     This recipe gets majority of its calories from ingredients high in Protein.
-                  </p>
+                    <p>{{generic_ingredient_info["aliases"]}}</p>
                 </li>
+                    {% endif %}
                 <li class="collection-item avatar">
                   <i class="fa fa-wikipedia-w circle" style="background-color: #ee6e73;"></i>
-                  <span class="title"><strong>Preparation Time</strong></span>
-                  <p>First Line <br>
-                     Second Line
-                  </p>
+                  <span class="title" style="display:block; margin-top:1%;"><strong><a href="${{generic_ingredient_info["Wikilink"]}}">Wikipedia Link to <span style="text-transform: capitalize">{{generic_ingredient_info["Ing_name"]}}.strip()</span> <i class="fa fa-external-link"></i></a></strong></span>
                 </li>
                 <li class="collection-item avatar">
                   <i class="fa fa-info circle" style="background-color: #ee6e73;"></i>
-                  <span class="title"><strong>Related Links</strong></span>
-                  <p><a href="">
-                    FlavorDB - flavor information <i class="fa fa-external-link"></i><br>
-                    DietRx - dietary information <i class="fa fa-external-link"></i>
-                  </a>
-
-                  </p>
+                  <span class="title" style="display:block; margin-top:1%;"><strong><a href="${{generic_ingredient_info["Wikilink"]}}">Flavor Profile of <span style="text-transform: capitalize">{{generic_ingredient_info["Ing_name"]}}.strip()</span> FlavorDB <i class="fa fa-external-link"></i></a></strong></span>
+                </li>
+                <li class="collection-item avatar">
+                  <i class="fa fa-info circle" style="background-color: #ee6e73;"></i>
+                  <span class="title" style="display:block; margin-top:1%;"><strong><a href="${{generic_ingredient_info["Wikilink"]}}">Health Impacts of <span style="text-transform: capitalize">{{generic_ingredient_info["Ing_name"]}}.strip()</span> from DietRx <i class="fa fa-external-link"></i></a></strong></span>
                 </li>
               </ul>
             </div>
@@ -146,98 +134,25 @@
                 <table id="recipes_table" class="table striped" style="padding-left: 40px;">
                 <thead>
                   <tr>
-                    <th>Recipe Name</th>
+                    <th>Recipe Title</th>
                     <th>Ingredient form</th>
-                    <th>Cuisine</th>
+                    <th>Region</th>
+                    <th>Sub Region</th>
                     <th>Dietary Style</th>
                     <th>Source</th>
                   </tr>
                 </thead>
                 <tbody style="">
-                  <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                  <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                  <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                  <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                  <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                  <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                  <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                  <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
+                {% for recipe in recipes_info %}
+                    <tr>
+                        <td><a href="/recipedb/search_recipeInfo/{{recipe["Recipe_id"]}}">{{ recipe["Recipe_title"] }}</a></td>
+                        <td>{{ recipe["state"] + recipe["ingredient_name"].strip() }}</td>
+                        <td>{{ recipe["Region"] }}</td>
+                        <td>{{ recipe["Sub_region"] }}</td>
+                        <td>Unavailable</td>
+                        <td>{{ recipe["Source"] }}</td>
+                    </tr>
+                {% endfor %}
                 </tbody>
               </table>
 
@@ -251,98 +166,41 @@
                 <table id="myTable" class="table striped" style="padding-left: 40px;">
                 <thead>
                   <tr>
-                    <th>Ingredient Name</th>
-                    <th>State</th>
-                    <th>Protein (g)</th>
+                    <th>USDA Description</th>
+                    <th>Form</th>
+                    <th>Occurences</th>
                     <th>Energy (kcal)</th>
+                    <th>Carbohydrates</th>
+                    <th>Protein (g)</th>
                     <th>Total Lipid (Fat) (g)</th>
                   </tr>
                 </thead>
                 <tbody style="">
-                  <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                  <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                  <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                  <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                  <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                  <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                  <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                  <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
-                <tr>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                    <td>Placeholder</td>
-                  </tr>
+                {% for form in forms_info %}
+                    <tr>
+                        <td>
+                            {{ form["ndb_id"] }}
+                        </td>
+                        <td>
+                            {{ (form["state"].strip() + " " + form["ingredient_name"].strip()).strip() }}
+                        </td>
+                        <td>
+                            {{ form["ndb_id"] }}
+                        </td>
+                        <td>
+                            {{ form["ndb_id"] }}
+                        </td>
+                        <td>
+                            {{ form["ndb_id"] }}
+                        </td>
+                        <td>
+                            {{ form["ndb_id"] }}
+                        </td>
+                        <td>
+                            {{ form["ndb_id"] }}
+                        </td>
+                    </tr>
+                {% endfor %}
                 </tbody>
               </table>
 

@@ -372,44 +372,42 @@ def search_ingre(id):
 	connn.row_factory = sql.Row
 	list_args=id.split('_')
 	ndb_id=list_args[0]
-	Recipe_id=list_args[2]
+	# Recipe_id=list_args[2]
+	ingredient_id=list_args[2]
 	name_Ingre=list_args[1]
 
 # WRITE QUERY FOR THE CASE WHEN WE GET TO INGREDIENT PAGE FROM CATEGORY PAGE. AFTER CLICKING ON CAROUSELS.
 
-	if ndb_id=="id":
-		query=''
-		heading=name_Ingre
-	else:
-		query='SELECT * from nutrients where ndb_id="' + ndb_id + '" AND Recipe_id="' + Recipe_id + '"'
-		query1='SELECT DISTINCT Recipe_title from recipes1 where Recipe_id="' + Recipe_id + '"'
-		query2='SELECT * from nutrients where Recipe_id="' + Recipe_id + '"ORDER BY RANDOM() LIMIT 1 '
-		heading=name_Ingre
+	# if ndb_id=="id":
+	# 	query=''
+	# 	heading=name_Ingre
+	# else:
+	# 	query='SELECT * from nutrients where ndb_id="' + ndb_id + '" AND Recipe_id="' + Recipe_id + '"'
+	# 	query1='SELECT DISTINCT Recipe_title from recipes1 where Recipe_id="' + Recipe_id + '"'
+	# 	query2='SELECT * from nutrients where Recipe_id="' + Recipe_id + '"ORDER BY RANDOM() LIMIT 1 '
+	# 	heading=name_Ingre
+	def dict_factory(cursor, row):
+		d = {}
+		for idx, col in enumerate(cursor.description):
+			d[col[0]] = row[idx]
+		return d
+	con.row_factory = dict_factory
+	connn.row_factory = dict_factory
+	cur = con.cursor()
+	curr = conn.cursor()
+	currr = connn.cursor()
+	query = "select * from unique_ingredients where Ing_ID = {}".format(ingredient_id)
+	cur.execute(query)
+	curr.execute("select ndb_id, state, ingredient_name, count(*) as value_occurence from ingredients where Ing_ID = {} group by ndb_id,state, ingredient_name having count(ingredient_name)=1 order by value_occurence DESC".format(ingredient_id))
+	generic_ingredient_info = cur.fetchone()
+	forms_info = [dict(k) for k in curr.fetchall()]
+	print(forms_info)
+	print(generic_ingredient_info)
+	currr.execute("select * from recipes1 natural join ingredients where ingredients.Ing_ID = {} group by Recipe_id".format(ingredient_id))
+	recipes_info = [dict(k) for k in currr.fetchall()]
+	print(recipes_info)
 
-		def dict_factory(cursor, row):
-			d = {}
-			for idx, col in enumerate(cursor.description):
-				d[col[0]] = row[idx]
-			return d
-		con.row_factory = dict_factory
-		connn.row_factory = dict_factory
-		cur = con.cursor()
-		curr = conn.cursor()
-		currr = connn.cursor()
-		cur.execute(query)
-		curr.execute(query1)
-		currr.execute(query2)
-		row = cur.fetchall()
-		print(row)
-		row1 = currr.fetchall()
-		print(row1)
-		if len(row)== 0:
-			row=row1
-
-
-   # if(len(rows) == 0):
-   #    return render_template("home.html", empty = "yes")
-	return render_template("ingredient.html",row=row,heading=heading)
+	return render_template("ingredient.html",generic_ingredient_info=generic_ingredient_info, forms_info=forms_info, recipes_info=recipes_info)
 
 @app.route('/recipedb/search_recipeInfo/<string:id>',  methods = ['GET', 'POST'])
 def search_recipeInfo(id):
