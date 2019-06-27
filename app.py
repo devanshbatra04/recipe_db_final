@@ -444,16 +444,13 @@ def search_recipeInfo(id):
 	print('Time1: ',time_taken)
 	cur.execute("select [Recipe_id], [ndb_id], [Carbohydrate, by difference (g)], [Energy (kcal)], [Protein (g)], [Total lipid (fat) (g)] from 'nutrients-new' where Recipe_id = '" + id + "'")
 	all_nutr = [dict(k) for k in cur.fetchall()]
-	# ids = [rows[i]["Recipe_id"] for i in range(len(rows))]
-	# print(all_nutr)
-	# end = time.time()
-	# time_taken = end - start
-	# print('Time1: ',time_taken)
 	con = sql.connect("recipe2-final.db")
 	con.row_factory = sql.Row
-	ndb = 0
-	cur = con.cursor()
-	curr = con.cursor()
+
+	cur.execute(
+		"select * from 'Recipe_nutrition_full' where Recipe_id = '" + id + "'")
+	full_profile = dict(cur.fetchone())
+
 	rows1 = [d for d in all_ing if str(d["Recipe_id"]).strip() == str(id).strip()]
 	rows2 = [d for d in all_nutr if str(d["Recipe_id"]).strip() == str(id).strip()]
 
@@ -479,7 +476,7 @@ def search_recipeInfo(id):
 	if stepsJSON != {}:
 		recipeSteps = next((x['steps'] for x in stepsJSON if x['Recipe_id'] == id), "Recipe Steps are not available.")
 
-	return render_template("recipeInfo.html",row=row,heading=heading, instructions=recipeSteps, ing_names=ing_names)
+	return render_template("recipeInfo.html",row=row,heading=heading, instructions=recipeSteps, ing_names=ing_names, full_profile=full_profile)
 
 
 @app.route('/recipedb/FAQ',  methods = ['GET', 'POST'])
