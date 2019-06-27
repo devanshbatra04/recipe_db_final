@@ -149,7 +149,7 @@ def exec_query(name, region, Sub_region, page,ings,not_ings,recipe_ids,include_n
 	# end = time.time()
 	# time_taken = end - start
 	# print('Time: ',time_taken)
-	cur.execute("select * from nutrients where Recipe_id in (" + (query+limit).replace("*", "recipes1.Recipe_id as Recipe") +")")
+	cur.execute("select * from 'nutrients-new' where Recipe_id in (" + (query+limit).replace("*", "recipes1.Recipe_id as Recipe") +")")
 	all_nutr = [dict(k) for k in cur.fetchall()]
 	ids = [rows[i]["Recipe_id"] for i in range(len(rows))]
 	for i in range(len(ids)):
@@ -160,6 +160,8 @@ def exec_query(name, region, Sub_region, page,ings,not_ings,recipe_ids,include_n
 		curr = con.cursor()
 		rows1 = [d for d in all_ing if str(d["Recipe_id"]) == str(ids[i])]
 		rows2 = [d for d in all_nutr if str(d["Recipe_id"]) == str(ids[i])]
+		# print(rows1)
+		# print(rows2)
 
 		ing_names = []
 
@@ -179,7 +181,7 @@ def exec_query(name, region, Sub_region, page,ings,not_ings,recipe_ids,include_n
 	time_taken = end - start
 	print('Time: ',time_taken)
 
-
+	print(rows[0])
 	return rows, heading, num_recipes
 
 
@@ -440,7 +442,7 @@ def search_recipeInfo(id):
 	end = time.time()
 	time_taken = end - start
 	print('Time1: ',time_taken)
-	cur.execute("select [Recipe_id], [ndb_id], [Carbohydrate, by difference], [Energy], [Protein], [Total lipid (fat)] from nutrients where Recipe_id = '" + id + "'")
+	cur.execute("select [Recipe_id], [ndb_id], [Carbohydrate, by difference (g)], [Energy (kcal)], [Protein (g)], [Total lipid (fat) (g)] from 'nutrients-new' where Recipe_id = '" + id + "'")
 	all_nutr = [dict(k) for k in cur.fetchall()]
 	# ids = [rows[i]["Recipe_id"] for i in range(len(rows))]
 	# print(all_nutr)
@@ -461,10 +463,10 @@ def search_recipeInfo(id):
 		dict_row = dict(rp)
 		ndb_id = rp["ndb_id"]
 		nutr = {
-			"Carbohydrate, by difference": "N/A",
-			"Energy": "N/A",
-			"Protein": "N/A",
-			"Total lipid (fat)": "N/A",
+			"Carbohydrate, by difference (g)": "N/A",
+			"Energy (kcal)": "N/A",
+			"Protein (g)": "N/A",
+			"Total lipid (fat) (g)": "N/A",
 		}
 		for rowl in rows2:
 			if str(dict(rowl)["ndb_id"]) == str(ndb_id):

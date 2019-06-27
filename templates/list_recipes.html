@@ -440,6 +440,7 @@
           function addRowDataToModalTable3(row) {
             let tableRow = document.createElement("TR");
             const refList = ['Energy(kcal)', 'Carbohydratebydifference(g)','Protein(g)', 'Totallipid(fat)(g)'];
+            console.log(row)
             for (key of refList) {
               let tableData = document.createElement('TD');
               tableData.innerHTML = row[key];
@@ -500,12 +501,13 @@
 
           // new - 19.June.2019
           function addRowDataToModalTable(ingredients) { // 'ingredients' is an Array.
+            console.log(ingredients)
             for (var ingredient of ingredients) { // Iterating over an 'ingredient' in 'ingredients'. 'ingredients' is an Array.
               let tableRow = document.createElement("TR");
 
               // pJ('addRowDataToModalTable', ingredient) // Checking.
 
-              const refList = ['ingredient_name', 'quantity' , 'unit', 'state', 'Protein', 'Energy', "Total lipid (fat)"]; // keys in 'ingredient' variable.
+              const refList = ['ingredient_name', 'quantity' , 'unit', 'state', 'Protein (g)', 'Energy (kcal)', "Total lipid (fat) (g)"]; // keys in 'ingredient' variable.
 
               // console.log(refList.indexOf('Hello')); // Checking
 
@@ -576,12 +578,12 @@
 
           // Removes the Trailing units like 'g' or 'kcal'.
           function removeTrailingUnit(data, key) {
-            if (['Protein', 'Total lipid (fat)'].indexOf(key) >= 0) {
-              data = data.replace('g', '').trim();
-              // console.log(`Length: ${data.length}. Data: ${data}`); // Checking.
-            } else {
-              data = data.replace('kcal', '').trim();
-            }
+            // if (['Protein (g)', 'Total lipid (fat)(g)'].indexOf(key) >= 0) {
+            //   data = data.replace('g', '').trim();
+            //   // console.log(`Length: ${data.length}. Data: ${data}`); // Checking.
+            // } else {
+            //   data = data.replace('kcal', '').trim();
+            // }
             return data
           }
 
@@ -594,10 +596,10 @@
 
               let decimalVal = dataList[1]; // First item in dataList.
 
-              if (decimalVal.length > 4) {
+              if (decimalVal.length > 2) {
                 // console.log('2.', dataList); // Checking.
 
-                decimalVal = decimalVal.slice(0, 4);
+                decimalVal = decimalVal.slice(0, 2);
               }
               data = dataList[0] + '.' + decimalVal; // Concatenation.
             }
