@@ -115,13 +115,13 @@ def exec_query(name, region, Sub_region, page,ings,not_ings,recipe_ids,include_n
 		subq = "and \"Protein(g)\" BETWEEN {} and {} and \"Energy(kcal)\" BETWEEN {} and {} and \"Totallipid(fat)(g)\" BETWEEN {} and {} and \"Carbohydratebydifference(g)\" BETWEEN {} and {}".format(int(float(protein_min)), int(float(protein_max)), int(float(energy_min)), int(float(energy_max)), int(float(fat_min)), int(float(fat_max)), int(float(carb_min)), int(float(carb_max)))
 
 	queries = [
-		"select * from recipes1 where Recipe_title like \"%{}%\" and Region like \"%{}%\" and Sub_region like \"%{}%\" {}".format(name, region, Sub_region, subq),
-		"select * from recipes1 inner join ingredients on recipes1.Recipe_id = ingredients.Recipe_id where ingredient_name like \"%{}%\" and Recipe_title like \"%{}%\" and Sub_region like \"%{}%\" and Region like \"%{}%\" {}".format(ings, name, Sub_region, region, subq),
-		"select * from recipes1 where recipe_id not in (select recipe_id from ingredients where ingredient_name = \" {}\") and recipe_id in ({})"
+		"select * from recipes2 where Recipe_title like \"%{}%\" and Region like \"%{}%\" and Sub_region like \"%{}%\" {}".format(name, region, Sub_region, subq),
+		"select * from recipes2 inner join ingredients on recipes2.Recipe_id = ingredients.Recipe_id where ingredient_name like \"%{}%\" and Recipe_title like \"%{}%\" and Sub_region like \"%{}%\" and Region like \"%{}%\" {}".format(ings, name, Sub_region, region, subq),
+		"select * from recipes2 where recipe_id not in (select recipe_id from ingredients where ingredient_name = \" {}\") and recipe_id in ({})"
 	]
 
 
-	queries[2] = queries[2].format(not_ings, queries[1].replace("*", "recipes1.Recipe_id"))
+	queries[2] = queries[2].format(not_ings, queries[1].replace("*", "recipes2.Recipe_id"))
 	heading = "Showing all recipes " + (", ".join(conditions))
 	query = queries[queryType-1]
 	cur = con.cursor()
@@ -142,14 +142,14 @@ def exec_query(name, region, Sub_region, page,ings,not_ings,recipe_ids,include_n
 	   rows[i] = r
 	# con.close()
 
-	cur.execute("select * from ingredients where Recipe_id in (" + (query+limit).replace("*", "recipes1.Recipe_id as Recipe") +")")
+	cur.execute("select * from ingredients where Recipe_id in (" + (query+limit).replace("*", "recipes2.Recipe_id as Recipe") +")")
 	all_ing = [dict(k) for k in cur.fetchall()]
 	# import time
 	# start = time.time()
 	# end = time.time()
 	# time_taken = end - start
 	# print('Time: ',time_taken)
-	cur.execute("select * from 'nutrients-new' where Recipe_id in (" + (query+limit).replace("*", "recipes1.Recipe_id as Recipe") +")")
+	cur.execute("select * from 'nutrients-new' where Recipe_id in (" + (query+limit).replace("*", "recipes2.Recipe_id as Recipe") +")")
 	all_nutr = [dict(k) for k in cur.fetchall()]
 	ids = [rows[i]["Recipe_id"] for i in range(len(rows))]
 	for i in range(len(ids)):
@@ -306,11 +306,11 @@ def auto_query(check):
 	cur = con.cursor()
 
 	if (check == "Recipe_title"):
-		cur.execute("select * from recipes1 where Recipe_title like '%" + name + "%'")
+		cur.execute("select * from recipes2 where Recipe_title like '%" + name + "%'")
 	elif (check == "Sub_region"):
-		cur.execute("select * from recipes1 where Sub_region like '%" + name + "%'")
+		cur.execute("select * from recipes2 where Sub_region like '%" + name + "%'")
 	elif (check == "Region"):
-		cur.execute("select * from recipes1 where Region like '%" + name + "%'")
+		cur.execute("select * from recipes2 where Region like '%" + name + "%'")
 	elif (check == "Entity_alias"):
 		cur.execute("select * from entities where Entity_alias like '%" + name + "%'")
 
@@ -390,7 +390,7 @@ def search_ingre(id):
 	# 	heading=name_Ingre
 	# else:
 	# 	query='SELECT * from nutrients where ndb_id="' + ndb_id + '" AND Recipe_id="' + Recipe_id + '"'
-	# 	query1='SELECT DISTINCT Recipe_title from recipes1 where Recipe_id="' + Recipe_id + '"'
+	# 	query1='SELECT DISTINCT Recipe_title from recipes2 where Recipe_id="' + Recipe_id + '"'
 	# 	query2='SELECT * from nutrients where Recipe_id="' + Recipe_id + '"ORDER BY RANDOM() LIMIT 1 '
 	# 	heading=name_Ingre
 	def dict_factory(cursor, row):
@@ -410,7 +410,7 @@ def search_ingre(id):
 	forms_info = [dict(k) for k in curr.fetchall()]
 	print(forms_info)
 	print(generic_ingredient_info)
-	currr.execute("select * from recipes1 natural join ingredients where ingredients.Ing_ID = {} group by Recipe_id limit 20".format(ingredient_id))
+	currr.execute("select * from recipes2 natural join ingredients where ingredients.Ing_ID = {} group by Recipe_id limit 20".format(ingredient_id))
 	recipes_info = [dict(k) for k in currr.fetchall()]
 
 	return render_template("ingredient.html",generic_ingredient_info=generic_ingredient_info, forms_info=forms_info, recipes_info=recipes_info)
@@ -419,7 +419,7 @@ def search_ingre(id):
 def search_recipeInfo(id):
 	con = sql.connect("recipe2-final.db")
 	con.row_factory = sql.Row
-	query='SELECT * from recipes1 where Recipe_id="' + id + '"'
+	query='SELECT * from recipes2 where Recipe_id="' + id + '"'
 	heading="Nutritional Profile of Recipe " + id + " is "
 
 	def dict_factory(cursor, row):
@@ -540,27 +540,27 @@ def category(id):
 	rec6=cur.fetchall()
 	fin=[]
 	for x,y in enumerate(rec2):
-		queryx='SELECT * from recipes1 where Recipe_id="' + (rec2[x]['Recipe_id']) + '"'
+		queryx='SELECT * from recipes2 where Recipe_id="' + (rec2[x]['Recipe_id']) + '"'
 		# print(queryx)
 		cur.execute(queryx)
 		fin.append(cur.fetchall())
 	for x,y in enumerate(rec2):
-		queryx='SELECT * from recipes1 where Recipe_id="' + (rec3[x]['Recipe_id']) + '"'
+		queryx='SELECT * from recipes2 where Recipe_id="' + (rec3[x]['Recipe_id']) + '"'
 		# print(queryx)
 		cur.execute(queryx)
 		fin.append(cur.fetchall())
 	for x,y in enumerate(rec2):
-		queryx='SELECT * from recipes1 where Recipe_id="' + (rec4[x]['Recipe_id']) + '"'
+		queryx='SELECT * from recipes2 where Recipe_id="' + (rec4[x]['Recipe_id']) + '"'
 		# print(queryx)
 		cur.execute(queryx)
 		fin.append(cur.fetchall())
 	for x,y in enumerate(rec2):
-		queryx='SELECT * from recipes1 where Recipe_id="' + (rec5[x]['Recipe_id']) + '"'
+		queryx='SELECT * from recipes2 where Recipe_id="' + (rec5[x]['Recipe_id']) + '"'
 		# print(queryx)
 		cur.execute(queryx)
 		fin.append(cur.fetchall())
 	for x,y in enumerate(rec2):
-		queryx='SELECT * from recipes1 where Recipe_id="' + (rec6[x]['Recipe_id']) + '"'
+		queryx='SELECT * from recipes2 where Recipe_id="' + (rec6[x]['Recipe_id']) + '"'
 		# print(queryx)
 		cur.execute(queryx)
 		fin.append(cur.fetchall())
