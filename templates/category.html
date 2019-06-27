@@ -61,7 +61,7 @@
 
         {% for x in row %}
 
-          <a class="carousel-item" href="/recipedb/search_ingre/id_{{x['aliases']}}_id"><img src="{{x['WikiImage']}}" height="400" width="100"><center><b><h5 style="text-transform: capitalize; font-family: 'Istok Web', sans-serif; color:#1e4d40;">{{loop.index}} - {{x['Ing_name']}}</h5></b></center></a>
+          <a class="carousel-item" href="/recipedb/search_ingre/id_id_{{x['Ing_ID']}}"><img src="{{x['WikiImage']}}" height="400" width="100"><center><b><h5 style="text-transform: capitalize; font-family: 'Istok Web', sans-serif; color:#1e4d40;">{{loop.index}} - {{x['Ing_name']}}</h5></b></center></a>
 
         {% endfor %}
       </center></div></li>
@@ -89,7 +89,7 @@
           <li class="collection-item avatar">
             <i class="fa fa-list-alt circle" style="background-color: #ee6e73;" aria-hidden="true"></i>
             <!--<img src="images/yuna.jpg" alt="" class="circle">-->
-            <a class="carousel-item" href="/recipedb/search_ingre/id_{{ing['aliases']}}_id"><span class="title" style="text-transform: capitalize";><strong>{{loop.index}} - {{ing['Ing_name']}}</strong></span></a>
+            <a class="carousel-item" href="/recipedb/search_ingre/id_id_{{ing['Ing_ID']}}"><span class="title" style="text-transform: capitalize";><strong>{{loop.index}} - {{ing['Ing_name']}}</strong></span></a>
 
           </li>
           {% endfor %}
