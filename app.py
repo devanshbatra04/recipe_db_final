@@ -144,7 +144,12 @@ def exec_query(name, region, Sub_region, page,ings,not_ings,recipe_ids,include_n
 
 	cur.execute("select * from ingredients where Recipe_id in (" + (query+limit).replace("*", "recipes1.Recipe_id as Recipe") +")")
 	all_ing = [dict(k) for k in cur.fetchall()]
-	cur.execute("select * from nutrients where Recipe_id in (" + (query+limit).replace("*", "recipes1.Recipe_id as Recipe") +")")
+	# import time
+	# start = time.time()
+	# end = time.time()
+	# time_taken = end - start
+	# print('Time: ',time_taken)
+	# cur.execute("select * from nutrients where Recipe_id in (" + (query+limit).replace("*", "recipes1.Recipe_id as Recipe") +")")
 	all_nutr = [dict(k) for k in cur.fetchall()]
 	ids = [rows[i]["Recipe_id"] for i in range(len(rows))]
 	for i in range(len(ids)):
@@ -423,6 +428,8 @@ def search_recipeInfo(id):
 		return d
 	con.row_factory = dict_factory
 	cur = con.cursor()
+	import time
+	start = time.time()
 	cur.execute(query)
 	row = cur.fetchall()
 	recipeSteps = "Recipe Steps are not available."
@@ -431,10 +438,16 @@ def search_recipeInfo(id):
 	cur = con.cursor()
 	cur.execute("select * from ingredients where Recipe_id = '" + id + "'")
 	all_ing = [dict(k) for k in cur.fetchall()]
+	end = time.time()
+	time_taken = end - start
+	print('Time1: ',time_taken)
 	cur.execute("select [Recipe_id], [ndb_id], [Carbohydrate, by difference], [Energy], [Protein], [Total lipid (fat)] from nutrients where Recipe_id like '%" + id + "%'")
 	all_nutr = [dict(k) for k in cur.fetchall()]
 	# ids = [rows[i]["Recipe_id"] for i in range(len(rows))]
-	print(all_nutr)
+	# print(all_nutr)
+	# end = time.time()
+	# time_taken = end - start
+	# print('Time1: ',time_taken)
 	con = sql.connect("recipe2-final.db")
 	con.row_factory = sql.Row
 	ndb = 0
@@ -488,7 +501,9 @@ def stats():
 def category(id):
 	con = sql.connect("recipe2-final.db")
 	con.row_factory = sql.Row
-	query='SELECT * from unique_ingredients where Category="' + id + '"'
+	query='SELECT * from unique_ingredientss where "Category-F-DB" ="' + id + '" and NOT aliases="" LIMIT 5'
+	query1='SELECT * from unique_ingredientss where "Category-F-DB" ="' + id + '" and NOT aliases="" LIMIT 20'
+	print(query)
 	heading="" + id + ""
 	print(heading)
 
@@ -502,8 +517,11 @@ def category(id):
 	cur = con.cursor()
 	cur.execute(query)
 	row = cur.fetchall()
-	print(row[0]['Ing_name'])
+	cur.execute(query1)
+	row2=cur.fetchall()
+	# print(row2[7]['Ing_name'])
+	# print(row[6]['Ing_name'])
 	title="lol"
-	return render_template("category.html", row=row,heading=heading)
+	return render_template("category.html", row=row,heading=heading,row2=row2)
 if __name__ == '__main__':
   app.run(debug=True)

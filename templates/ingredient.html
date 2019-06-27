@@ -103,8 +103,9 @@
                   <i class="fa fa-list-alt circle" style="background-color: #ee6e73;" aria-hidden="true"></i>
                   <!--<img src="images/yuna.jpg" alt="" class="circle">-->
                   <span class="title"><strong>Ingredient Category</strong></span>
+                  <a href='/recipedb/category/{{generic_ingredient_info["Category-F-DB"]}}' target="_blank">
                   <p>{{generic_ingredient_info["Category-F-DB"]}}
-                  </p>
+                  </p></a>
                 </li>
                     {% if generic_ingredient_info["aliases"] and generic_ingredient_info["aliases"] != "" %}
                 <li class="collection-item avatar">
@@ -117,15 +118,16 @@
                     {% endif %}
                 <li class="collection-item avatar">
                   <i class="fa fa-wikipedia-w circle" style="background-color: #ee6e73;"></i>
-                  <span class="title" style="display:block; margin-top:1%;"><strong><a href="${{generic_ingredient_info["Wikilink"]}}">Wikipedia Link to <span style="text-transform: capitalize">{{generic_ingredient_info["Ing_name"].strip()}}</span> <i class="fa fa-external-link"></i></a></strong></span>
+                  <span class="title" style="display:block; margin-top:1%;"><strong><a href="{{generic_ingredient_info["Wikilink"]}}" target="_blank">Wikipedia Link to <span style="text-transform: capitalize">{{generic_ingredient_info["Ing_name"].strip()}}</span> <i class="fa fa-external-link"></i></a></strong></span>
                 </li>
                 <li class="collection-item avatar">
                   <i class="fa fa-info circle" style="background-color: #ee6e73;"></i>
-                  <span class="title" style="display:block; margin-top:1%;"><strong><a href="${{generic_ingredient_info["Wikilink"]}}">Flavor Profile of <span style="text-transform: capitalize">{{generic_ingredient_info["Ing_name"].strip()}}</span> FlavorDB <i class="fa fa-external-link"></i></a></strong></span>
+                  <span class="title" style="display:block; margin-top:1%;"><strong><a href="{{generic_ingredient_info["Wikilink"]}}" target="_blank">Flavor Profile of <span style="text-transform: capitalize">{{generic_ingredient_info["Ing_name"].strip()}}</span> FlavorDB <i class="fa fa-external-link"></i></a></strong></span>
                 </li>
                 <li class="collection-item avatar">
                   <i class="fa fa-info circle" style="background-color: #ee6e73;"></i>
-                  <span class="title" style="display:block; margin-top:1%;"><strong><a href="${{generic_ingredient_info["Wikilink"]}}">Health Impacts of <span style="text-transform: capitalize">{{generic_ingredient_info["Ing_name"].strip()}}</span> from DietRx <i class="fa fa-external-link"></i></a></strong></span>
+
+                  <span class="title" style="display:block; margin-top:1%;"><strong><a href="{{generic_ingredient_info["Wikilink"]}}" target="_blank">Health Impacts of <span style="text-transform: capitalize">{{generic_ingredient_info["Ing_name"].strip()}}</span> from DietRx <i class="fa fa-external-link"></i></a></strong></span>
                 </li>
               </ul>
             </div>
