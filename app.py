@@ -410,7 +410,6 @@ def search_ingre(id):
 	print(generic_ingredient_info)
 	currr.execute("select * from recipes1 natural join ingredients where ingredients.Ing_ID = {} group by Recipe_id limit 20".format(ingredient_id))
 	recipes_info = [dict(k) for k in currr.fetchall()]
-	print(recipes_info)
 
 	return render_template("ingredient.html",generic_ingredient_info=generic_ingredient_info, forms_info=forms_info, recipes_info=recipes_info)
 
@@ -519,8 +518,6 @@ def category(id):
 	row = cur.fetchall()
 	cur.execute(query1)
 	row2=cur.fetchall()
-	# print(row2[7]['Ing_name'])
-	# print(row[6]['Ing_name'])
 	title="lol"
 	return render_template("category.html", row=row,heading=heading,row2=row2)
 if __name__ == '__main__':
