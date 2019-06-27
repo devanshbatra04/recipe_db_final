@@ -22,7 +22,35 @@
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.0/nouislider.min.css"> -->
     <link rel="stylesheet" href="/recipedb/static/noUIslider.css">
     <script src="/recipedb/static/noUIslider.js" type="text/javascript"></script>
-
+    <script>
+        function includeHTML() {
+          var z, i, elmnt, file, xhttp;
+          /*loop through a collection of all HTML elements:*/
+          z = document.getElementsByTagName("*");
+          for (i = 0; i < z.length; i++) {
+            elmnt = z[i];
+            /*search for elements with a certain atrribute:*/
+            file = elmnt.getAttribute("w3-include-html");
+            if (file) {
+              /*make an HTTP request using the attribute value as the file name:*/
+              xhttp = new XMLHttpRequest();
+              xhttp.onreadystatechange = function() {
+                if (this.readyState == 4) {
+                  if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+                  if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+                  /*remove the attribute, and call this function once more:*/
+                  elmnt.removeAttribute("w3-include-html");
+                  includeHTML();
+                }
+              }
+              xhttp.open("GET", file, true);
+              xhttp.send();
+              /*exit the function:*/
+              return;
+            }
+          }
+        };
+</script>
   </head>
    <body>
    	  	{% extends 'nav.html' %}
@@ -224,7 +252,7 @@
                 <input href="/recipedb" type="text" name="page" class="form-control query-field"
                 placeholder="Enter any ingredient's name (e.g. Cheese)" id="autocomplete-input">
               </div>
-              
+
                <h5>Region</h5>
                <input href="/recipedb" type="text" name="autocomplete_region" id="autocomplete-input" class="autocomplete_region"
                placeholder="Enter any region's name (e.g. Asian)"><br>
@@ -394,19 +422,21 @@
       <div class="row">
 
          <ul class="tabs tab-demo z-depth-1">
-        <li class="tab col s4"><a class="active" href="#tests1">Recipes</a></li>
-        <li class="tab col s4"><a class="" href="#tests2">Ingredient</a></li>
-        <li class="tab col s4"><a class="" href="#tests3">Nutrition</a></li>
+        <li class="tab col s3"><a class="active" href="#tests1">Recipes</a></li>
+        <li class="tab col s3"><a class="" href="#tests2">Ingredient</a></li>
+        <li class="tab col s3"><a class="" href="#tests3">Nutrition</a></li>
+        <li class="tab col s3"><a class="" href="#tests4">Testing</a></li>
       </ul>
       </div>
       <div class="container">
         <div class="row">
 
             <div id="tests1" class="col s12">
-              <iframe width="700" height="600" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/55.embed"></iframe>
+              <iframe width="700" height="600" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/66.embed"></iframe>
             </div>
             <div id="tests2" class="col s12"><iframe width="700" height="600" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/41.embed"></iframe></div>
-            <div id="tests3" class="col s12"><iframe width="700" height="600" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/49.embed"></iframe></div>
+            <div id="tests3" class="col s12"><iframe width="700" height="600" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/64.embed"></iframe></div>
+            <div id="tests4" class="col s12" w3-include-html="content.html">Testing </div>
         </div>
       </div>
     </div>
@@ -503,7 +533,7 @@
           data: {"Northern Africa" : null,
                   "Rest Africa" : null,
                   "Australian" : null,
-                  "Belgium and Netherlands" : null,
+                  "Belgium":null, 
                   "Central American" : null,
                   "Canadian" : null,
                   "Caribbean" : null,
@@ -609,6 +639,8 @@
           "Welsh" : null}
         });
       });
+
+      includeHTML();
 	</script>
   <footer class="primary-footer">
     <div class="copyright-wrap">

@@ -90,7 +90,7 @@ def exec_query(name, region, Sub_region, page,ings,not_ings,recipe_ids,include_n
 		conditions.append("from cuisine " + str(Sub_region.strip()))
 	if len(region):
 		#actually country
-		conditions.append("from continent " + str(region.strip()))
+		conditions.append("from cuisine " + str(region.strip()))
 	# No region mapping yet to be included soon
 	if len(ings):
 		queryType = 2
@@ -144,6 +144,11 @@ def exec_query(name, region, Sub_region, page,ings,not_ings,recipe_ids,include_n
 
 	cur.execute("select * from ingredients where Recipe_id in (" + (query+limit).replace("*", "recipes1.Recipe_id as Recipe") +")")
 	all_ing = [dict(k) for k in cur.fetchall()]
+	# import time
+	# start = time.time()
+	# end = time.time()
+	# time_taken = end - start
+	# print('Time: ',time_taken)
 	cur.execute("select * from nutrients where Recipe_id in (" + (query+limit).replace("*", "recipes1.Recipe_id as Recipe") +")")
 	all_nutr = [dict(k) for k in cur.fetchall()]
 	ids = [rows[i]["Recipe_id"] for i in range(len(rows))]
@@ -372,44 +377,41 @@ def search_ingre(id):
 	connn.row_factory = sql.Row
 	list_args=id.split('_')
 	ndb_id=list_args[0]
-	Recipe_id=list_args[2]
+	# Recipe_id=list_args[2]
+	ingredient_id=list_args[2]
 	name_Ingre=list_args[1]
 
 # WRITE QUERY FOR THE CASE WHEN WE GET TO INGREDIENT PAGE FROM CATEGORY PAGE. AFTER CLICKING ON CAROUSELS.
 
-	if ndb_id=="id":
-		query=''
-		heading=name_Ingre
-	else:
-		query='SELECT * from nutrients where ndb_id="' + ndb_id + '" AND Recipe_id="' + Recipe_id + '"'
-		query1='SELECT DISTINCT Recipe_title from recipes1 where Recipe_id="' + Recipe_id + '"'
-		query2='SELECT * from nutrients where Recipe_id="' + Recipe_id + '"ORDER BY RANDOM() LIMIT 1 '
-		heading=name_Ingre
+	# if ndb_id=="id":
+	# 	query=''
+	# 	heading=name_Ingre
+	# else:
+	# 	query='SELECT * from nutrients where ndb_id="' + ndb_id + '" AND Recipe_id="' + Recipe_id + '"'
+	# 	query1='SELECT DISTINCT Recipe_title from recipes1 where Recipe_id="' + Recipe_id + '"'
+	# 	query2='SELECT * from nutrients where Recipe_id="' + Recipe_id + '"ORDER BY RANDOM() LIMIT 1 '
+	# 	heading=name_Ingre
+	def dict_factory(cursor, row):
+		d = {}
+		for idx, col in enumerate(cursor.description):
+			d[col[0]] = row[idx]
+		return d
+	con.row_factory = dict_factory
+	connn.row_factory = dict_factory
+	cur = con.cursor()
+	curr = conn.cursor()
+	currr = connn.cursor()
+	query = "select * from unique_ingredients where Ing_ID = {}".format(ingredient_id)
+	cur.execute(query)
+	curr.execute("select ndb_id, state, ingredient_name, count(*) as value_occurence from ingredients where Ing_ID = {} group by ndb_id,state, ingredient_name having count(ingredient_name)=1 order by value_occurence DESC limit 20".format(ingredient_id))
+	generic_ingredient_info = cur.fetchone()
+	forms_info = [dict(k) for k in curr.fetchall()]
+	print(forms_info)
+	print(generic_ingredient_info)
+	currr.execute("select * from recipes1 natural join ingredients where ingredients.Ing_ID = {} group by Recipe_id limit 20".format(ingredient_id))
+	recipes_info = [dict(k) for k in currr.fetchall()]
 
-		def dict_factory(cursor, row):
-			d = {}
-			for idx, col in enumerate(cursor.description):
-				d[col[0]] = row[idx]
-			return d
-		con.row_factory = dict_factory
-		connn.row_factory = dict_factory
-		cur = con.cursor()
-		curr = conn.cursor()
-		currr = connn.cursor()
-		cur.execute(query)
-		curr.execute(query1)
-		currr.execute(query2)
-		row = cur.fetchall()
-		print(row)
-		row1 = currr.fetchall()
-		print(row1)
-		if len(row)== 0:
-			row=row1
-
-
-   # if(len(rows) == 0):
-   #    return render_template("home.html", empty = "yes")
-	return render_template("ingredient.html",row=row,heading=heading)
+	return render_template("ingredient.html",generic_ingredient_info=generic_ingredient_info, forms_info=forms_info, recipes_info=recipes_info)
 
 @app.route('/recipedb/search_recipeInfo/<string:id>',  methods = ['GET', 'POST'])
 def search_recipeInfo(id):
@@ -425,25 +427,33 @@ def search_recipeInfo(id):
 		return d
 	con.row_factory = dict_factory
 	cur = con.cursor()
+	import time
+	start = time.time()
 	cur.execute(query)
 	row = cur.fetchall()
 	recipeSteps = "Recipe Steps are not available."
 
 	con.row_factory = sql.Row
 	cur = con.cursor()
-	cur.execute("select * from ingredients where Recipe_id = " + id + "")
+	cur.execute("select * from ingredients where Recipe_id = '" + id + "'")
 	all_ing = [dict(k) for k in cur.fetchall()]
-	cur.execute("select [Recipe_id], [ndb_id], [Carbohydrate, by difference], [Energy], [Protein], [Total lipid (fat)] from nutrients where Recipe_id like '%" + id + "%'")
+	end = time.time()
+	time_taken = end - start
+	print('Time1: ',time_taken)
+	cur.execute("select [Recipe_id], [ndb_id], [Carbohydrate, by difference], [Energy], [Protein], [Total lipid (fat)] from nutrients where Recipe_id = '" + id + "'")
 	all_nutr = [dict(k) for k in cur.fetchall()]
 	# ids = [rows[i]["Recipe_id"] for i in range(len(rows))]
-	print(all_nutr)
+	# print(all_nutr)
+	# end = time.time()
+	# time_taken = end - start
+	# print('Time1: ',time_taken)
 	con = sql.connect("recipe2-final.db")
 	con.row_factory = sql.Row
 	ndb = 0
 	cur = con.cursor()
 	curr = con.cursor()
-	rows1 = [d for d in all_ing if str(d["Recipe_id"]) == str(id)]
-	rows2 = [d for d in all_nutr if str(d["Recipe_id"]) == str(id)]
+	rows1 = [d for d in all_ing if str(d["Recipe_id"]).strip() == str(id).strip()]
+	rows2 = [d for d in all_nutr if str(d["Recipe_id"]).strip() == str(id).strip()]
 
 	ing_names = []
 
@@ -490,7 +500,9 @@ def stats():
 def category(id):
 	con = sql.connect("recipe2-final.db")
 	con.row_factory = sql.Row
-	query='SELECT * from unique_ingredients where Category="' + id + '"'
+	query='SELECT * from unique_ingredients where "Category-F-DB" ="' + id + '" and NOT aliases="" LIMIT 5'
+	query1='SELECT * from unique_ingredients where "Category-F-DB" ="' + id + '" and NOT aliases="" LIMIT 20'
+	print(query)
 	heading="" + id + ""
 	print(heading)
 
@@ -504,8 +516,54 @@ def category(id):
 	cur = con.cursor()
 	cur.execute(query)
 	row = cur.fetchall()
-	print(row[0]['Ing_name'])
+	cur.execute(query1)
+	row2=cur.fetchall()
+	#FARZI KAAM 30TH KE BAAD HATAAAAAAOOOO
+
+	query2='SELECT Recipe_id from ingredients where ingredient_name="' + row[0]['Ing_name'] + '" LIMIT 4 '
+	query3='SELECT Recipe_id from ingredients where ingredient_name="' + row[1]['Ing_name'] + '" LIMIT 4 '
+	query4='SELECT Recipe_id from ingredients where ingredient_name="' + row[2]['Ing_name'] + '" LIMIT 4 '
+	query5='SELECT Recipe_id from ingredients where ingredient_name="' + row[3]['Ing_name'] + '" LIMIT 4 '
+	query6='SELECT Recipe_id from ingredients where ingredient_name="' + row[4]['Ing_name'] + '" LIMIT 4 '
+
+	cur.execute(query2)
+	rec2=cur.fetchall()
+	cur.execute(query3)
+	rec3=cur.fetchall()
+	cur.execute(query4)
+	rec4=cur.fetchall()
+	cur.execute(query5)
+	rec5=cur.fetchall()
+	cur.execute(query6)
+	rec6=cur.fetchall()
+	fin=[]
+	for x,y in enumerate(rec2):
+		queryx='SELECT * from recipes1 where Recipe_id="' + (rec2[x]['Recipe_id']) + '"'
+		# print(queryx)
+		cur.execute(queryx)
+		fin.append(cur.fetchall())
+	for x,y in enumerate(rec2):
+		queryx='SELECT * from recipes1 where Recipe_id="' + (rec3[x]['Recipe_id']) + '"'
+		# print(queryx)
+		cur.execute(queryx)
+		fin.append(cur.fetchall())
+	for x,y in enumerate(rec2):
+		queryx='SELECT * from recipes1 where Recipe_id="' + (rec4[x]['Recipe_id']) + '"'
+		# print(queryx)
+		cur.execute(queryx)
+		fin.append(cur.fetchall())
+	for x,y in enumerate(rec2):
+		queryx='SELECT * from recipes1 where Recipe_id="' + (rec5[x]['Recipe_id']) + '"'
+		# print(queryx)
+		cur.execute(queryx)
+		fin.append(cur.fetchall())
+	for x,y in enumerate(rec2):
+		queryx='SELECT * from recipes1 where Recipe_id="' + (rec6[x]['Recipe_id']) + '"'
+		# print(queryx)
+		cur.execute(queryx)
+		fin.append(cur.fetchall())
+	print(fin[0])
 	title="lol"
-	return render_template("category.html", row=row,heading=heading)
+	return render_template("category.html", row=row,heading=heading,row2=row2,fin=fin)
 if __name__ == '__main__':
   app.run(debug=True)

@@ -22,7 +22,6 @@
         #process_info .collection .collection-item:nth-child(odd) {
                          background: rgba(242,242,242,0.5);
                      }
-
      </style>
    </head>
    <body>
@@ -45,7 +44,7 @@
             <div class="col s12 m5 center" style="padding-top:50px">
               <!--&lt;!&ndash;<a href="{{(row[0]["Source"])}}">&ndash;&gt;</a>-->
               <img class="responsive-img" style="max-width:300px;" src="{{row[0]["img_url"]}}"  alt="">
-
+                <div>Source: {{row[0]["Source"]}}</div>
               </div>
             <div class="col s12 m7">
               <div style="overflow: auto; width:100%; max-height:250px;">
@@ -61,12 +60,23 @@
                 {% for dict_item in row %}
                    {% for key, value in dict_item.items() %}
 
-                   {% if key=="Energy(kcal)" or key =="Protein(g)" or key=="Carbohydratebydifference(g)" or key=="Totallipid(fat)(g)" %}
-                      <tr>
+                   {% if key=="Energy(kcal)" %}
+                      <tr><td><strong>Energy (kCal)</strong></td>
+
+                   {% elif key =="Protein(g)" %}
+                      <tr><td><strong>Protein (g)</strong></td>
+
+                   {% elif key=="Carbohydratebydifference(g)" %}
+                      <tr><td><strong>Carbohydrates (g)</strong></td>
+
+                   {% elif key=="Total fats (g)" %}
+                      <tr><td><strong>Total fats (g)</strong></td>
+
                   {% else %}
                       <tr class="extraVals" style="display:None">
-                  {% endif %}
                       <td><strong>{{key}}</strong></td>
+
+                  {% endif %}
                       <td>{{value}}</td>
                     </tr>
 
@@ -215,33 +225,26 @@
                 var cookingUtensils = "{{row[0]['Utensils']}}"
                 cookingProcesses = cookingProcesses.split("||");
                 cookingUtensils = Array.from(new Set(cookingUtensils.split("||")));
-
                 function chunkify(a, n, balanced) {
-
                     if (n < 2)
                         return [a];
-
                     var len = a.length,
                             out = [],
                             i = 0,
                             size;
-
                     if (len % n === 0) {
                         size = Math.floor(len / n);
                         while (i < len) {
                             out.push(a.slice(i, i += size));
                         }
                     }
-
                     else if (balanced) {
                         while (i < len) {
                             size = Math.ceil((len - i) / n--);
                             out.push(a.slice(i, i += size));
                         }
                     }
-
                     else {
-
                         n--;
                         size = Math.floor(len / n);
                         if (len % size === 0)
@@ -250,9 +253,7 @@
                             out.push(a.slice(i, i += size));
                         }
                         out.push(a.slice(size * n));
-
                     }
-
                     return out;
                 }
                 console.log(cookingUtensils);
@@ -267,19 +268,16 @@
                     str += (`<li class="collection-item">${utensil}</li>`)
                 });
                 document.getElementById("utensils").innerHTML = str;
-
                 str = "";
                 earlyP.forEach(process => {
                     str += (`<li class="collection-item">${process}</li>`);
                 });
                 document.getElementById("earlyStageP").innerHTML = str;
-
                 str = "";
                 MidP.forEach(process => {
                     str += (`<li class="collection-item">${process}</li>`);
                 });
                 document.getElementById("midStageP").innerHTML = str;
-
                 str = "";
                 LateP.forEach(process => {
                     str += (`<li class="collection-item">${process}</li>`);
@@ -289,8 +287,6 @@
                 console.log(instructionToPara)
                 document.getElementById("steps").innerHTML = `${instructionToPara}`
             });
-
-
             function myFunction() {
               var a = true;
               [...document.getElementsByClassName("extraVals")].forEach(el => {

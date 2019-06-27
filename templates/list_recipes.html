@@ -429,8 +429,8 @@
             const ingredients = inputRow["Ingredients"]; // Taking out the Ingredients.
             const recipeTitle = inputRow["Recipe_title"] ? inputRow["Recipe_title"] : "";
             const recipeId = inputRow["Recipe_id"] ? inputRow["Recipe_id"] : "";
-
-            addImageToModal(); // Hardcoded Image.
+            const imgURL = inputRow["img_url"];
+            addImageToModal(imgURL); // Hardcoded Image.
             addRowDataToModalTable(ingredients);
             addTitleAndIdToModal(recipeTitle, recipeId)
             addRowDataToModalTable3(inputRow);
@@ -487,10 +487,10 @@
                     const anchorTag = anchorTagForIngredientName(val, ndbId);
                     tableData.appendChild(anchorTag);
                   } else {
-                    tableData.innerHTML = "-";
+                    tableData.innerHTML = "N/A";
                   }
                 } else {
-                  tableData.innerHTML = ingredient[key] ? ingredient[key].trim() : "-";
+                  tableData.innerHTML = ingredient[key] ? ingredient[key].trim() : "N/A";
                 }
                 tableRow.appendChild(tableData);
               }
@@ -520,18 +520,18 @@
                     if (val) {
                       // tableData.innerHTML = 'Anchor Tag!'; // Temporary.
                       const ndbId = ingredient["ndb_id"];
-                      const R_id = ingredient["ndb_id"];
+                      const R_id = ingredient["Ing_id"];
                       const anchorTag = anchorTagForIngredientName(val, ndbId,R_id);
                       tableData.appendChild(anchorTag);
 
                     // Checking Whether The Trim Is Happening Or Not!
                     // console.log(`Value Before Trim: ${val}. Length Before Trim: ${val.length}. Value After Trim: ${val.trim()}. Length After Trim: ${val.trim().length}.`)
                     } else {
-                      tableData.innerHTML = "-"; // Using Hyphen, when there's no Data.
+                      tableData.innerHTML = "N/A"; // Using Hyphen, when there's no Data.
                     }
                   } else {
                     // Item will be trimmed if the key is in the Array in the If-Condition.
-                    tableData.innerHTML = ingredient[key] ? ingredient[key].trim() : "-";
+                    tableData.innerHTML = ingredient[key] ? ingredient[key].trim() : "N/A";
                   }
                 } else {
                     const val = ingredient['nutrient_info'];
@@ -544,7 +544,7 @@
 
                       tableData.innerHTML = dataVal;
                     } else {
-                      tableData.innerHTML = "-"; // Using Hyphen, when there's no Data.
+                      tableData.innerHTML = "N/A"; // Using Hyphen, when there's no Data.
                     }
                 }
                 tableRow.appendChild(tableData);
@@ -565,10 +565,10 @@
           }
 
           // This appends Image to the Modal.
-          function addImageToModal() {
+          function addImageToModal(imgURL) {
             let recipeImage = document.createElement('IMG');
             recipeImage.className = "responsive-img";
-            recipeImage.setAttribute('src', 'https://images.media-allrecipes.com/userphotos/720x405/4581739.jpg');
+            recipeImage.setAttribute('src', `${imgURL}`);
             recipeImage.setAttribute('alt', 'A Soup Bowl');
             document.getElementById('modalImage').appendChild(recipeImage);
             return null;
