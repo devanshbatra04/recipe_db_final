@@ -149,7 +149,7 @@ def exec_query(name, region, Sub_region, page,ings,not_ings,recipe_ids,include_n
 	# end = time.time()
 	# time_taken = end - start
 	# print('Time: ',time_taken)
-	# cur.execute("select * from nutrients where Recipe_id in (" + (query+limit).replace("*", "recipes1.Recipe_id as Recipe") +")")
+	cur.execute("select * from nutrients where Recipe_id in (" + (query+limit).replace("*", "recipes1.Recipe_id as Recipe") +")")
 	all_nutr = [dict(k) for k in cur.fetchall()]
 	ids = [rows[i]["Recipe_id"] for i in range(len(rows))]
 	for i in range(len(ids)):
@@ -518,7 +518,52 @@ def category(id):
 	row = cur.fetchall()
 	cur.execute(query1)
 	row2=cur.fetchall()
+	#FARZI KAAM 30TH KE BAAD HATAAAAAAOOOO
+
+	query2='SELECT Recipe_id from ingredients where ingredient_name="' + row[0]['Ing_name'] + '" LIMIT 4 '
+	query3='SELECT Recipe_id from ingredients where ingredient_name="' + row[1]['Ing_name'] + '" LIMIT 4 '
+	query4='SELECT Recipe_id from ingredients where ingredient_name="' + row[2]['Ing_name'] + '" LIMIT 4 '
+	query5='SELECT Recipe_id from ingredients where ingredient_name="' + row[3]['Ing_name'] + '" LIMIT 4 '
+	query6='SELECT Recipe_id from ingredients where ingredient_name="' + row[4]['Ing_name'] + '" LIMIT 4 '
+
+	cur.execute(query2)
+	rec2=cur.fetchall()
+	cur.execute(query3)
+	rec3=cur.fetchall()
+	cur.execute(query4)
+	rec4=cur.fetchall()
+	cur.execute(query5)
+	rec5=cur.fetchall()
+	cur.execute(query6)
+	rec6=cur.fetchall()
+	fin=[]
+	for x,y in enumerate(rec2):
+		queryx='SELECT * from recipes1 where Recipe_id="' + (rec2[x]['Recipe_id']) + '"'
+		# print(queryx)
+		cur.execute(queryx)
+		fin.append(cur.fetchall())
+	for x,y in enumerate(rec2):
+		queryx='SELECT * from recipes1 where Recipe_id="' + (rec3[x]['Recipe_id']) + '"'
+		# print(queryx)
+		cur.execute(queryx)
+		fin.append(cur.fetchall())
+	for x,y in enumerate(rec2):
+		queryx='SELECT * from recipes1 where Recipe_id="' + (rec4[x]['Recipe_id']) + '"'
+		# print(queryx)
+		cur.execute(queryx)
+		fin.append(cur.fetchall())
+	for x,y in enumerate(rec2):
+		queryx='SELECT * from recipes1 where Recipe_id="' + (rec5[x]['Recipe_id']) + '"'
+		# print(queryx)
+		cur.execute(queryx)
+		fin.append(cur.fetchall())
+	for x,y in enumerate(rec2):
+		queryx='SELECT * from recipes1 where Recipe_id="' + (rec6[x]['Recipe_id']) + '"'
+		# print(queryx)
+		cur.execute(queryx)
+		fin.append(cur.fetchall())
+	print(fin[0])
 	title="lol"
-	return render_template("category.html", row=row,heading=heading,row2=row2)
+	return render_template("category.html", row=row,heading=heading,row2=row2,fin=fin)
 if __name__ == '__main__':
   app.run(debug=True)
