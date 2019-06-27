@@ -405,7 +405,7 @@ def search_ingre(id):
 	currr = connn.cursor()
 	query = "select * from unique_ingredients where Ing_ID = {}".format(ingredient_id)
 	cur.execute(query)
-	curr.execute("select ndb_id, state, ingredient_name, count(*) as value_occurence from ingredients where Ing_ID = {} group by ndb_id,state, ingredient_name having count(ingredient_name)=1 order by value_occurence DESC limit 20".format(ingredient_id))
+	curr.execute("select * from USDA_100_grams natural join (select ndb_id, state, ingredient_name, count(*) as value_occurence from ingredients where Ing_ID = {} group by ndb_id,state, ingredient_name having count(ingredient_name)=1 order by value_occurence DESC limit 20)".format(ingredient_id))
 	generic_ingredient_info = cur.fetchone()
 	forms_info = [dict(k) for k in curr.fetchall()]
 	print(forms_info)

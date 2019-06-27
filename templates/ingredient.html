@@ -168,38 +168,39 @@
                 <table id="myTable" class="table striped" style="padding-left: 40px;">
                 <thead>
                   <tr>
-                    <th>USDA Description</th>
                     <th>Form</th>
                     <th>Occurences</th>
                     <th>Energy (kcal)</th>
-                    <th>Carbohydrates</th>
+                    <th>Carbohydrates (g)</th>
                     <th>Protein (g)</th>
                     <th>Total Lipid (Fat) (g)</th>
+                    <th>Full Profile</th>
+
                   </tr>
                 </thead>
                 <tbody style="">
                 {% for form in forms_info %}
                     <tr>
                         <td>
-                            {{ form["ndb_id"] }}
-                        </td>
-                        <td>
                             {{ (form["state"].strip() + " " + form["ingredient_name"].strip()).strip() }}
                         </td>
                         <td>
-                            {{ form["ndb_id"] }}
+                            {{ form["value_occurence"] }}
                         </td>
                         <td>
-                            {{ form["ndb_id"] }}
+                            {{ form["Energy (kcal)"] }}
                         </td>
                         <td>
-                            {{ form["ndb_id"] }}
+                            {{ form["Carbohydrate, by difference (g)"] }}
                         </td>
                         <td>
-                            {{ form["ndb_id"] }}
+                            {{ form["Protein (g)"] }}
                         </td>
                         <td>
-                            {{ form["ndb_id"] }}
+                            {{ form["Total lipid (fat) (g)"] }}
+                        </td>
+                        <td>
+                            <a href="https://ndb.nal.usda.gov/ndb/foods/show/{{ form["ndb_id"] }}" target="_blank"><i class="fa fa-external-link"></i></a>
                         </td>
                     </tr>
                 {% endfor %}
