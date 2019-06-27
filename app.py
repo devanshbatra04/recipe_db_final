@@ -90,7 +90,7 @@ def exec_query(name, region, Sub_region, page,ings,not_ings,recipe_ids,include_n
 		conditions.append("from cuisine " + str(Sub_region.strip()))
 	if len(region):
 		#actually country
-		conditions.append("from continent " + str(region.strip()))
+		conditions.append("from cuisine " + str(region.strip()))
 	# No region mapping yet to be included soon
 	if len(ings):
 		queryType = 2

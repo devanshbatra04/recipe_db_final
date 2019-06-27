@@ -61,12 +61,23 @@
                 {% for dict_item in row %}
                    {% for key, value in dict_item.items() %}
 
-                   {% if key=="Energy(kcal)" or key =="Protein(g)" or key=="Carbohydratebydifference(g)" or key=="Totallipid(fat)(g)" %}
-                      <tr>
+                   {% if key=="Energy(kcal)" %}
+                      <tr><td><strong>Energy (kCal)</strong></td>
+
+                   {% elif key =="Protein(g)" %}
+                      <tr><td><strong>Protein (g)</strong></td>
+
+                   {% elif key=="Carbohydratebydifference(g)" %}
+                      <tr><td><strong>Carbohydrates (g)</strong></td>
+
+                   {% elif key=="Total fats (g)" %}
+                      <tr><td><strong>Total fats (g)</strong></td>
+
                   {% else %}
                       <tr class="extraVals" style="display:None">
-                  {% endif %}
                       <td><strong>{{key}}</strong></td>
+
+                  {% endif %}
                       <td>{{value}}</td>
                     </tr>
 
