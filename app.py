@@ -500,8 +500,8 @@ def stats():
 def category(id):
 	con = sql.connect("recipe2-final.db")
 	con.row_factory = sql.Row
-	query='SELECT * from unique_ingredientss where "Category-F-DB" ="' + id + '" and NOT aliases="" LIMIT 5'
-	query1='SELECT * from unique_ingredientss where "Category-F-DB" ="' + id + '" and NOT aliases="" LIMIT 20'
+	query='SELECT * from unique_ingredients where "Category-F-DB" ="' + id + '" and NOT aliases="" LIMIT 5'
+	query1='SELECT * from unique_ingredients where "Category-F-DB" ="' + id + '" and NOT aliases="" LIMIT 20'
 	print(query)
 	heading="" + id + ""
 	print(heading)
