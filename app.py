@@ -440,7 +440,7 @@ def search_recipeInfo(id):
 	end = time.time()
 	time_taken = end - start
 	print('Time1: ',time_taken)
-	cur.execute("select [Recipe_id], [ndb_id], [Carbohydrate, by difference], [Energy], [Protein], [Total lipid (fat)] from nutrients where Recipe_id like '%" + id + "%'")
+	cur.execute("select [Recipe_id], [ndb_id], [Carbohydrate, by difference], [Energy], [Protein], [Total lipid (fat)] from nutrients where Recipe_id = '" + id + "'")
 	all_nutr = [dict(k) for k in cur.fetchall()]
 	# ids = [rows[i]["Recipe_id"] for i in range(len(rows))]
 	# print(all_nutr)
