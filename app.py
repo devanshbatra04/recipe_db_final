@@ -109,6 +109,14 @@ def exec_query(name, region, Sub_region, page,ings,not_ings, category, not_categ
 		queryType = 3
 		conditions.append("not having " + str(not_ings.strip()))
 
+	if len(category):
+		if queryType == 0:
+			queryType = 4
+
+	if len(not_category):
+		if queryType == 0:
+			queryType = 4
+
 	conditions = list(map(lambda x: x.strip(), conditions))
 
 	subq = ""
@@ -126,7 +134,9 @@ def exec_query(name, region, Sub_region, page,ings,not_ings, category, not_categ
 	queries = [
 		"select Distinct(recipes2.Recipe_id) from recipes2 where Recipe_title like \"%{}%\" and Region like \"%{}%\" and Sub_region like \"%{}%\" {}".format(name, region, Sub_region, subq),
 		"select Distinct(recipes2.Recipe_id) from recipes2 natural join ingredients where ingredient_name like \"%{}%\" and Recipe_title like \"%{}%\" and Sub_region like \"%{}%\" and Region like \"%{}%\" {}".format(ings, name, Sub_region, region, subq),
-		"select Distinct(recipes2.Recipe_id) from recipes2 where recipe_id not in (select recipe_id from ingredients where ingredient_name = \" {}\"){}"
+		"select Distinct(recipes2.Recipe_id) from recipes2 where recipe_id not in (select recipe_id from ingredients where ingredient_name = \" {}\"){}",
+		"select DISTINCT(Recipe_id) from ingredients where Ing_id in (select Ing_ID from unique_ingredients where " + ("unique_ingredients.\"Category-F-DB\" like \"{}\"".format(category) if len(category) else "")+ (" and " if (len(category) and len(not_category)) else "") + ("Ing_id not in (select Ing_ID from unique_ingredients where unique_ingredients.\"Category-F-DB\" like \"{}\")".format(not_category) if len(not_category) else "") + ")"
+
 	]
 
 	if r == 0:
@@ -136,11 +146,17 @@ def exec_query(name, region, Sub_region, page,ings,not_ings, category, not_categ
 	else:
 		smallQ = queries[r-1]
 	queries[2] = queries[2].format(not_ings, "" if v == False else " and recipe_id in ({})".format(smallQ))
+
+
 	heading = "Showing all recipes " + (", ".join(conditions))
 	query = queries[queryType-1]
 	queryf = "Select * from recipes2 where recipes2.Recipe_id in({})".format(query)
 	cur = con.cursor()
-	cur.execute(query.replace("Distinct(recipes2.Recipe_id)", "count(Distinct(recipes2.Recipe_id))"))
+	print(query)
+	if queryType < 4:
+		cur.execute(query.replace("Distinct(recipes2.Recipe_id)", "count(Distinct(recipes2.Recipe_id))"))
+	else:
+		cur.execute(query.replace("DISTINCT(Recipe_id)", "count(Distinct(ingredients.Recipe_id))"))
 	print(query)
 	rows=cur.fetchall()
 	num_recipes = rows[0][0]
@@ -159,11 +175,6 @@ def exec_query(name, region, Sub_region, page,ings,not_ings, category, not_categ
 
 	cur.execute("select * from ingredients where Recipe_id in (" + (query+limit) +")")
 	all_ing = [dict(k) for k in cur.fetchall()]
-	# import time
-	# start = time.time()
-	# end = time.time()
-	# time_taken = end - start
-	# print('Time: ',time_taken)
 	cur.execute("select * from 'nutrients-new' where Recipe_id in (" + (query+limit) +")")
 	all_nutr = [dict(k) for k in cur.fetchall()]
 	ids = [rows[i]["Recipe_id"] for i in range(len(rows))]
@@ -228,7 +239,6 @@ def all_recipes():
 
 @app.route('/recipedb/search_recipe', methods = ['GET', 'POST'])
 def search_recipe():
-	# print("hello")
 	if request.method == 'POST':
 		# print("ee ka hai")
 		page = 1
