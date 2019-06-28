@@ -147,13 +147,17 @@ def exec_query(name, region, Sub_region, page,ings,not_ings, category, not_categ
 		smallQ = queries[r-1]
 	queries[2] = queries[2].format(not_ings, "" if v == False else " and recipe_id in ({})".format(smallQ))
 
+	if queryType == 0:
+		queryType = 1
 
 	heading = "Showing all recipes " + (", ".join(conditions))
 	query = queries[queryType-1]
+
+
 	queryf = "Select * from recipes2 where recipes2.Recipe_id in({})".format(query)
 	cur = con.cursor()
-	print(query)
 	if queryType < 4:
+		print(query)
 		cur.execute(query.replace("Distinct(recipes2.Recipe_id)", "count(Distinct(recipes2.Recipe_id))"))
 	else:
 		cur.execute(query.replace("DISTINCT(Recipe_id)", "count(Distinct(ingredients.Recipe_id))"))
