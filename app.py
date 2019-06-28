@@ -131,6 +131,8 @@ def exec_query(name, region, Sub_region, page,ings,not_ings, category, not_categ
 
 	if r == 0:
 		smallQ = ""
+	elif r==2 and len(name) == 0 and len(region) == 0 and len(Sub_region) == 0:
+		smallQ = "select Distinct(recipes2.Recipe_id) from recipes2 natural join ingredients where ingredient_name like \"%{}%\"".format(ings)
 	else:
 		smallQ = queries[r-1]
 	queries[2] = queries[2].format(not_ings, "" if v == False else " and recipe_id in ({})".format(smallQ))
