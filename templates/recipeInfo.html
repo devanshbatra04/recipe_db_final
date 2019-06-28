@@ -61,27 +61,34 @@
                    {% for key, value in dict_item.items() %}
 
                    {% if key=="Energy(kcal)" %}
-                      <tr><td><strong>Energy (kCal)</strong></td>
+                      <tr class="smallRows"><td><strong>Energy (kCal)</strong></td><td>{{value}}</td>
+                    </tr>
 
                    {% elif key =="Protein(g)" %}
-                      <tr><td><strong>Protein (g)</strong></td>
+                      <tr class="smallRows"><td><strong>Protein (g)</strong></td><td>{{value}}</td>
+                    </tr>
 
                    {% elif key=="Carbohydratebydifference(g)" %}
-                      <tr><td><strong>Carbohydrates (g)</strong></td>
+                      <tr class="smallRows"><td><strong>Carbohydrates (g)</strong></td><td>{{value}}</td>
+                    </tr>
 
-                   {% elif key=="Total fats (g)" %}
-                      <tr><td><strong>Total fats (g)</strong></td>
-
-                  {% else %}
-                      <tr class="extraVals" style="display:None">
-                      <td><strong>{{key}}</strong></td>
+                   {% elif key=="Totallipid(fat)(g)" %}
+                      <tr class="smallRows"><td><strong>Total fats (g)</strong></td><td>{{value}}</td>
+                    </tr>
 
                   {% endif %}
-                      <td>{{value}}</td>
-                    </tr>
+
 
                    {% endfor %}
                 {% endfor %}
+
+                <!--{% for dict_item in row %}-->
+               {% for key, value in full_profile.items() %}
+                    {% if key !="Recipe_id" %}
+                  <tr class="bigRows" style="display:none;"><td><strong>{{key}}</strong></td><td>{{value}}</td>
+                      {% endif %}
+               {% endfor %}
+            <!--{% endfor %}-->
                 </table>
               </div>
               <button class="btn btn-small" onclick="myFunction()" id="myBtn" style="margin-top: 5px">Show More</button>
@@ -111,8 +118,7 @@
                   <i class="fa fa-cutlery circle" style="background-color: #ee6e73;" aria-hidden="true"></i>
                   <!--<i class="material-icons circle">folder</i>-->
                   <span class="title"><strong>Dietary Style</strong></span>
-                  <p>Keto Diet (Placeholder)<br>
-                     This recipe gets majority of its calories from ingredients high in Protein.
+                  <p id="dietary-text">
                   </p>
                 </li>
                 <li class="collection-item avatar">
@@ -178,6 +184,7 @@
 
               <!--<br><br>-->
               <div id="ingredient_nutri" class="col s12" style="max-height:500px; overflow: auto;">
+                  <h5 style="text-align:center;">Estimated Nutritional Profile for Ingredients</h5>
                 <table id="myTable" class="table striped" style="padding-left: 40px;">
                 <thead>
                   <tr>
@@ -198,10 +205,10 @@
                     <td>{{v["quantity"]}}</td>
                     <td>{{v["unit"]}}</td>
                     <td>{{v["state"]}}</td>
-                    <td>{{v["nutrient_info"]["Energy"]}}</td>
-                    <td>{{v["nutrient_info"]["Carbohydrate, by difference"]}}</td>
-                    <td>{{v["nutrient_info"]["Protein"]}}</td>
-                    <td>{{v["nutrient_info"]["Total lipid (fat)"]}}</td>
+                    <td>{{v["nutrient_info"]["Energy (kcal)"]}}</td>
+                    <td>{{v["nutrient_info"]["Carbohydrate, by difference (g)"]}}</td>
+                    <td>{{v["nutrient_info"]["Protein (g)"]}}</td>
+                    <td>{{v["nutrient_info"]["Total lipid (fat) (g)"]}}</td>
                   </tr>
                 {% endfor %}
                 </tbody>
@@ -221,7 +228,12 @@
                 console.log(elem)
                 M.Tabs.init(elem, {})
               });
-                var cookingProcesses = "{{row[0]['Processes']}}"
+              var diets = [ {{row[0]["vegan"]}} ? "Vegan": null, {{row[0]["pescetarian"]}} ? "Pescetarian": null, {{row[0]["ovo_vegetarian"]}} ? "Ovo-Vegetarian": null,{{row[0]["lacto_vegetarian"]}} ? "Lacto-Vegetarian": null, {{row[0]["ovo_lacto_vegetarian"]}}  ? "Ovo-Lacto-Vegetarian": null].filter(val => val).join(", ");
+              if (diets === "") document.getElementById("dietary-text").parentElement.style.display = "None";
+              else document.getElementById("dietary-text").innerText = diets;
+
+
+              var cookingProcesses = "{{row[0]['Processes']}}"
                 var cookingUtensils = "{{row[0]['Utensils']}}"
                 cookingProcesses = cookingProcesses.split("||");
                 cookingUtensils = Array.from(new Set(cookingUtensils.split("||")));
@@ -289,13 +301,21 @@
             });
             function myFunction() {
               var a = true;
-              [...document.getElementsByClassName("extraVals")].forEach(el => {
+              [...document.getElementsByClassName("smallRows")].forEach(el => {
+                if (el.style.display=="none") {
+                  el.style.display="table-row";
+                  a = false;
+                }
+                else el.style.display="none";
+              });
+              [...document.getElementsByClassName("bigRows")].forEach(el => {
                 if (el.style.display=="none") {
                   el.style.display="table-row";
                   a = false;
                 }
                 else el.style.display="none";
               })
+
               var btn = document.getElementById("myBtn")
               if (a == false) btn.textContent = "Show Less";
               else btn.textContent = "Show More"
