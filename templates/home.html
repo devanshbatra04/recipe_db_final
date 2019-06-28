@@ -18,6 +18,10 @@
     .copyright-wrap .panel .content p{ color:#ffffff; text-align:center; font-size:12px;}
     .copyright-wrap .panel .content p a{ text-decoration:none; color:#ffffff;}
     .copyright-wrap .panel .content p a:hover{ color:#1a202c;}
+
+    .full-height {
+      height: 30%;
+    }
     </style>
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.0/nouislider.min.css"> -->
     <link rel="stylesheet" href="/recipedb/static/noUIslider.css">
@@ -440,6 +444,8 @@
 
         </div>
       </div>
+      <p id="graph" class="conceptmap full-height" ></p>
+      <p id="graph-info" class="full-height"></p>
     </div>
 
 	<script>
@@ -495,6 +501,17 @@
             (rangeGroup.getElementsByClassName("max")[0]).value = (values[1]);
         });
         });
+
+        $(function(){
+        	plotConceptMap();
+        });
+        function plotConceptMap()
+        {
+        	d3.json("/recipedb/static/metadata.json", function(err, dataJson) {
+        		console.log(err, dataJson)
+        		var plot = new ConceptMap("graph", "graph-info", dataJson);
+        	});
+        }
 
           function toggleNutrSearch() {
             var checkbox = document.getElementById("check-nutrient-search")
