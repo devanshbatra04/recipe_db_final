@@ -564,6 +564,9 @@ def category(id):
 		fin.append(cur.fetchall())
 	print(fin[0])
 	title="lol"
-	return render_template("category.html", row=row,heading=heading,row2=row2,fin=fin)
+	queryimg='SELECT cat_Image from cat_Img where "Category" ="' + id + '"'
+	cur.execute(queryimg)
+	img=cur.fetchone()
+	return render_template("category.html", row=row,heading=heading,row2=row2,fin=fin,img=img)
 if __name__ == '__main__':
   app.run(debug=True)
