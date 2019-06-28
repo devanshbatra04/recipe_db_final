@@ -364,7 +364,7 @@ def redirect_to_ingredient(name):
 	con = sql.connect("recipe2-final.db")
 	con.row_factory = sql.Row
 	cur = con.cursor()
-	cur.execute("select Ing_id from unique_ingredients where aliases like \"{}\"".format(name))
+	cur.execute("select Ing_id from unique_ingredients where Ing_name like \"{}\"".format(name))
 	row = cur.fetchone()
 	t = "a_b_" + str(row[0])
 	# print(url_for('search_ingre', id=))
