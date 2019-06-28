@@ -99,6 +99,7 @@ def exec_query(name, region, Sub_region, page,ings,not_ings,recipe_ids,include_n
 	if len(not_ings):
 		queryType = 3
 		conditions.append("not having " + str(not_ings.strip()))
+		print(str(not_ings.strip()))
 
 	conditions = list(map(lambda x: x.strip(), conditions))
 
@@ -235,9 +236,9 @@ def search_recipe():
 		region = request.form.get('autocomplete_region') if request.form.get("autocomplete_region") else ""
 		print(region)
 		ings = request.form.get('autocomplete_ingredient') if request.form.get("autocomplete_ingredient") else ""
-		# print(ings)
+		print(ings)
 		not_ings = request.form.get('autocomplete_noningredient') if request.form.get("autocomplete_noningredient") else ""
-		# print(5)
+		print(not_ings)
 		include_nutrBorders = request.form.get('nutrRangeOn')
 		# print(6)
 		dict_nut_boundaries = {}

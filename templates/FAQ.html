@@ -113,15 +113,18 @@
                   <ul class="collapsible popout">
                     <li>
                       <div class="collapsible-header"><b>Q1.	What is RecipeDB?  </b></div>
-                      <div class="collapsible-body"><span>RecipeDB is a repository of structured data of over 100,000 recipes and approximately 2000 ingredients across over 22 world regions, intended to enable data-driven explorations of recipes. In conjunction with data of flavor molecules from FlavorDB, RecipeDB facilitates multi-level analysis of traditional recipes (recipes, categorical classifications, ingredient composition).  </span></div>
+                      <div class="collapsible-body"><span>RecipeDB is a structured repository of recipes and ingredients from over 22 world regions, intended to enable data-driven explorations of recipes. In conjunction with flavor molecules data from FlavorDB; RecipeDB facilitates multi-level analysis of traditional recipes (dietary classifications, ingredient composition, nutritional profile, recipes, etc.).  </span></div>
                     </li>
                     <li>
-                      <div class="collapsible-header"><b>Q2.	What are the different entities represented in RecipeDB and how do they relate to each other?  </b></div>
-                      <div class="collapsible-body"><span>Each recipe comprises of an ‘ingredients section’ and an ‘instructions section’. In the ingredients section, each ingredient is associated with a certain quantity, unit of measurement, state, temperature and process. In the instructions section, each ingredient is associated to a process. The instructions section also contains the utensils used. Furthermore, each ingredient is associated with a category.  </span></div>
+                      <div class="collapsible-header"><b>Q2.	What are the different concepts represented in RecipeDB and how do they relate to each other?  </b></div>
+                      <div class="collapsible-body"><span>Concepts presented in RecipeDB include recipes, the region they originated in, and the ingredients and utensils utilized in their preparation. It also includes the nutritional profiles of both recipes and their ingredients.
+The illustration depicts relationships among the different concepts incorporated into RecipeDB. In this example, we have the recipe ‘Prawn Nasi Goreng’ which belongs to the Southeast Asian region, specifically to the Indonesian sub-region. The estimated nutritional profile of the recipe contains information on its nutrient content such as the number of calories, proteins, etc. The recipe is characterized by its dietary attributes, list of utensils used as well as an ordered list of the processes that take place in the recipe. Each ingredient in a recipe is characterized by attributes such as quantity, unit and state as well as its own nutritional profile.
+<br>
+  <center><img src="../recipedb/static/q2.png" class="responsive-img" alt=""></center></span></div>
                     </li>
                     <li>
                       <div class="collapsible-header"><b> Q3.	What types of queries are processed by RecipeDB? </b></div>
-                      <div class="collapsible-body"><span>RecipeDB facilitates an elastic search to query recipes based on factors such as geographical location of origin (i.e. continent, region, country), categories and ingredients associated/unassociated with the recipes and nutritional information (i.e. calorie, protein, etc. content).  </span></div>
+                      <div class="collapsible-body"><span>RecipeDB facilitates an elastic search to query recipes based on factors such as geographical location of origin (i.e. region, country), name, dietary classification, ingredients associated/unassociated with the recipe and its nutritional information (i.e. calorie, protein, etc. content). </span></div>
                     </li>
                     <li>
                       <div class="collapsible-header"><b> Q4.	How do I use “Recipe Search”? </b></div>
@@ -137,53 +140,119 @@
                     </li>
                     <li>
                       <div class="collapsible-header"><b> Q7.	What are RecipeDB Statistics? </b></div>
-                      <div class="collapsible-body"><span> RecipeDB Statistics explain the vastness and depth of RecipeDB using interactive Google Charts. </span></div>
+                      <div class="collapsible-body"><span> RecipeDB Statistics explain the vastness and depth of RecipeDB using interactive plots made using <a href="https://plot.ly/">Plotly.</a> </span></div>
                     </li>
                     <li>
                       <div class="collapsible-header"><b> Q8.	What are the prerequisites required in order to use RecipeDB? </b></div>
                       <div class="collapsible-body"><span> A modern web browser. </span></div>
                     </li>
                     <li>
-                      <div class="collapsible-header"><b> Q9.	What browsers are supported by RecipeDB? </b></div>
-                      <div class="collapsible-body"><span> RecipeDB supports all modern web browsers, but it can be best viewed on Chrome, Firefox and Edge. </span></div>
+                      <div class="collapsible-header"><b> Q9.	How does the ‘Find Similar Recipes’ feature work? </b></div>
+                      <div class="collapsible-body"><span> The similarity in recipes was ascertained based on shared category composition of ingredients and processes. </span></div>
                     </li>
                     <li>
-                      <div class="collapsible-header"><b>Q10.	What is the Tech Stack used to build RecipeDB?  </b></div>
-                      <div class="collapsible-body"><span> Frontend: Bootstrap, Materialize CSS, JavaScript, Google Charts
-                                                           Backend: Flask, SQLite, Python
+                      <div class="collapsible-header"><b>Q10.	How does RecipeDB obtain the individual nutritional profiles of ingredients in a recipe?</b></div>
+                      <div class="collapsible-body"><span> RecipeDB uses information such as the state and quantity of an ingredient in a recipe to calculate its estimated nutritional profile by mapping it to the USDA data.
                       </span></div>
                     </li>
                     <li>
-                      <div class="collapsible-header"><b> Q11.	What are the sources of information for RecipeDB? </b></div>
-                      <div class="collapsible-body"><span>RecipeDB has sourced recipes from Genius Kitchen, allrecipes, and Tarla Dalal.
-                                                          RecipeDB has sourced nutritional information from USDA databases.
+                      <div class="collapsible-header"><b> Q11.	How does RecipeDB estimate a recipe’s nutritional profile? </b></div>
+                      <div class="collapsible-body"><span>For every ingredient of a recipe its features were extracted: ingredient name, state, quantity, unit, dry/fresh, temperature, and size. Using the name of the ingredient and its state, each ingredient was mapped to a unique ‘NDB ID’ from USDA database. Further using the standard nutrition data from USDA data tables, the nutritional profile of the ingredient was estimated by mapping quantity and unit. The final ‘estimated nutritional profile’ is a sum total of nutritional values of each ingredient in it.
                       </span></div>
                     </li>
                     <li>
-                      <div class="collapsible-header"><b>Q12.	Does RecipeDB use cookies?  </b></div>
-                      <div class="collapsible-body"><span>RecipeDB uses cookies to provide statistics that help us give the best possible experience for our site.  </span></div>
+                      <div class="collapsible-header"><b>Q12.	How were the Dietary Styles (vegan, pescatarian, ovo-vegetarian, lacto-vegetarian, ovo-lacto-vegetarian) ascertained for the recipes? </b></div>
+                      <div class="collapsible-body"><span>The Dietary Style of each recipe was decided based on the constraints followed by each of these categories. For this version the ingredient categories dish and bakery were refrained from the dietary style determination. </span></div>
                     </li>
                     <li>
-                      <div class="collapsible-header"><b>Q13.	Can I access RecipeDB using my mobile phone?  </b></div>
-                      <div class="collapsible-body"><span> Although RecipeDB is best viewed on a desktop, the website is accessible from most modern mobile web browsers. </span></div>
+                      <div class="collapsible-header"><b>Q13.	What are the categories ingredients are sorted into?  </b></div>
+                      <div class="collapsible-body"><span> The ingredients were manually curated into the 26 categories given below: <br>
+                        <ul class="collection">
+                          <li class="collection-item">•	Additive</li>
+                          <li class="collection-item">•	Bakery</li>
+                          <li class="collection-item">•	Beverage</li>
+                          <li class="collection-item">•	Beverage-Alcoholic</li>
+                          <li class="collection-item">•	Cereal</li>
+                          <li class="collection-item">•	Condiment</li>
+                          <li class="collection-item">•	Dairy</li>
+                          <li class="collection-item">•	Dish</li>
+                          <li class="collection-item">•	Essential Oil</li>
+                          <li class="collection-item">•	Fish</li>
+                          <li class="collection-item">•	Fruit</li>
+                          <li class="collection-item">•	Fungi</li>
+                          <li class="collection-item">•	Herb</li>
+                          <li class="collection-item">•	Legume</li>
+                          <li class="collection-item">•	Maize</li>
+                          <li class="collection-item">•	Meat</li>
+                          <li class="collection-item">•	Nuts and Seeds</li>
+                          <li class="collection-item">•	Plant</li>
+                          <li class="collection-item">•	Plant Derivative</li>
+                          <li class="collection-item">•	Seafood</li>
+                          <li class="collection-item">•	Spice</li>
+                          <li class="collection-item">•	Vegetable</li>
+ </span></div>
                     </li>
                     <li>
-                      <div class="collapsible-header"><b>Q14.	How do I access the data from RecipeDB?  </b></div>
-                      <div class="collapsible-body"><span>The data is available under Creative Commons License Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0).   </span></div>
+                      <div class="collapsible-header"><b>Q14.	How does the integration of RecipeDB with DietRx and FlavorDB work? </b></div>
+                      <div class="collapsible-body"><span>For each ingredient found in recipes of the database, a ‘Generic Ingredient Name’ was assigned manually to account for degeneracy due to derivative products. For each generic ingredient the FlavorDB ID and DietRx ID were manually labelled. These external resources provide details of the ‘Flavor Profile’ and ‘Health Impacts’ of the ingredient, respectively.  </span></div>
                     </li>
                     <li>
-                      <div class="collapsible-header"><b>Q15.	How do I contribute to the data from RecipeDB?  </b></div>
-                      <div class="collapsible-body"><span> You may contact us at bagler+RecipeDB@iiitd.ac.in for errata along with relevant references.
-                        Additionally, you may also fill the following form to report errors or give suggestions:
-                        [Insert google form here]
+                      <div class="collapsible-header"><b>Q15.	What browsers are supported by RecipeDB? </b></div>
+                      <div class="collapsible-body"><span> RecipeDB supports all modern web browsers, but it can be best viewed on Chrome, Firefox and Edge.
                        </span></div>
                     </li>
                     <li>
-                      <div class="collapsible-header"><b>Q16.	What is the license under which RecipeDB is available?  </b></div>
-                      <div class="collapsible-body"><span>This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.  </span></div>
+                      <div class="collapsible-header"><b>Q16.	What is the Tech Stack used to build RecipeDB? </b></div>
+                      <div class="collapsible-body"><span> Frontend: Bootstrap, Materialize CSS, JavaScript, Google Charts, Plotly<br><br>
+                        Backend: Flask, SQLite, Python
+
+                       </span></div>
                     </li>
                     <li>
-                      <div class="collapsible-header"><b>Q17.	Who is the team behind RecipeDB?  </b></div>
+                      <div class="collapsible-header"><b>Q17.	What are the sources of information for RecipeDB? </b></div>
+                      <div class="collapsible-body"><span> RecipeDB has sourced the recipes from many online resources, and its nutritional information from the USDA Food Composition Databases.
+                       </span></div>
+                    </li>
+                    <li>
+                      <div class="collapsible-header"><b>Q18.	Does RecipeDB use cookies?</b></div>
+                      <div class="collapsible-body"><span> RecipeDB uses cookies to provide statistics that help us give the best possible experience for our site.
+                       </span></div>
+                    </li>
+                    <li>
+                      <div class="collapsible-header"><b>Q19.	Can I access RecipeDB using my mobile phone?</b></div>
+                      <div class="collapsible-body"><span>Although RecipeDB is best viewed on a desktop, the website is accessible from most modern mobile web browsers.
+                       </span></div>
+                    </li>
+                    <li>
+                      <div class="collapsible-header"><b>Q20.	How do I access the data from RecipeDB? </b></div>
+                      <div class="collapsible-body"><span>We provide options for downloading the data from RecipeDB.
+                          The data is available under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons License Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0)</a><br><br>
+                          <br>
+                            <center><img src="../recipedb/static/lisence.png" class="responsive-img" alt=""></center>
+
+                       </span></div>
+                    </li>
+                    <li>
+                      <div class="collapsible-header"><b>Q21.	How do I contribute to the data from RecipeDB?</b></div>
+                      <div class="collapsible-body"><span> You may contact us at <a href="mailto:bagler+RecipeDB@iiitd.ac.in">bagler+RecipeDB@iiitd.ac.in</a> for errata along with relevant references.
+<br>
+Additionally, you may also fill the following form to report errata or give suggestions:
+<br><br>Errata: <a href="https://forms.gle/cRcdTbUUg7osr2Ak7">https://forms.gle/cRcdTbUUg7osr2Ak7</a>
+<br><br>
+Suggestions:<a href="https://forms.gle/bb44J6taJnmiwipo9"> https://forms.gle/bb44J6taJnmiwipo9</a>
+
+                       </span></div>
+                    </li>
+
+                    <li>
+                      <div class="collapsible-header"><b>Q22.	What is the license under which RecipeDB is available?  </b></div>
+                      <div class="collapsible-body"><span>We provide options for downloading the data from RecipeDB.
+                          The data is available under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons License Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0)</a></span></div>
+                          <br>
+                            <center><img src="../recipedb/static/lisence.png" class="responsive-img" alt=""></center>
+                    </li>
+                    <li>
+                      <div class="collapsible-header"><b>Q23.	Who is the team behind RecipeDB?  </b></div>
                       <div class="collapsible-body"><span>
                         <table table id="myTable" class="table table-striped" style="padding-left: 40px ">
                           <thead>
@@ -198,90 +267,98 @@
                           <tbody>
 
                               <tr>
-                                <td>Ganesh Bagler</td>
+                                <td><a href="https://cosylab.iiitd.edu.in/dietrx/contact_us">Ganesh Bagler</a></td>
                                 <td>Project Head</td>
                                 <td>Center for Computational Biology, Indraprastha Institute of Information Technology (IIIT-Delhi), New Delhi</td>
-                                <td></td>
+                                <td>Idea conception, Project design and management, Database design and implementation</td>
                              </tr>
 
                              <tr>
-                               <td>Devansh Batra</td>
+                               <td><a href="https://devanshbatra.com">Devansh Batra</a></td>
                                <td>Summer Research Intern</td>
                                <td>Center for Computational Biology, Indraprastha Institute of Information Technology (IIIT-Delhi), New Delhi</td>
-                               <td></td>
+                               <td>Data Compilation, Curation, Integration, Database and UI Design</td>
                             </tr>
 
                             <tr>
                               <td>Nirav Diwan</td>
                               <td>  Summer Research Intern</td>
                               <td>Center for Computational Biology, Indraprastha Institute of Information Technology (IIIT-Delhi), New Delhi</td>
-                              <td></td>
+                              <td>Data Compilation, Curation, Integration</td>
                            </tr>
 
                            <tr>
-                             <td>Utkarsh Upadhyay</td>
+                             <td><a href="http://utkarshiam.github.io/portfolio">Utkarsh Upadhyay</a></td>
                              <td>  Summer Research Intern</td>
                              <td>Center for Computational Biology, Indraprastha Institute of Information Technology (IIIT-Delhi), New Delhi</td>
-                             <td></td>
+                             <td>Data Compilation, Curation, Integration, Database and UI Design</td>
                           </tr>
 
                           <tr>
                             <td>Jushaan Singh Kalra </td>
                             <td>  Summer Research Intern</td>
                             <td>Center for Computational Biology, Indraprastha Institute of Information Technology (IIIT-Delhi), New Delhi</td>
-                            <td></td>
+                            <td>Data Compilation, Curation, Integration, Database Design</td>
                          </tr>
 
                          <tr>
                            <td>Tript Sharma</td>
                            <td>  Summer Research Intern</td>
                            <td>Center for Computational Biology, Indraprastha Institute of Information Technology (IIIT-Delhi), New Delhi</td>
-                           <td></td>
+                           <td>Data Compilation, Curation, Integration, Features Design.</td>
                         </tr>
 
                         <tr>
                           <td>Aman Kumar Sharma</td>
                           <td>  Summer Research Intern</td>
                           <td>Center for Computational Biology, Indraprastha Institute of Information Technology (IIIT-Delhi), New Delhi</td>
-                          <td></td>
+                          <td>Data Compilation, Curation, Integration, Features Design.</td>
                        </tr>
 
                        <tr>
                          <td>Dheeraj Khanna</td>
                          <td>  Summer Research Intern</td>
                          <td>Center for Computational Biology, Indraprastha Institute of Information Technology (IIIT-Delhi), New Delhi</td>
-                         <td></td>
+                         <td>Data Compilation, Curation, Integration, Features Design.</td>
                       </tr>
 
                       <tr>
                         <td>Jaspreet Singh Marwah</td>
                         <td>  Summer Research Intern</td>
                         <td>Center for Computational Biology, Indraprastha Institute of Information Technology (IIIT-Delhi), New Delhi</td>
-                        <td></td>
+                        <td>Data Compilation, Curation, Integration.</td>
                      </tr>
 
                      <tr>
                        <td>Srilakshmi Kalathil </td>
                        <td>  Summer Research Intern</td>
                        <td>Center for Computational Biology, Indraprastha Institute of Information Technology (IIIT-Delhi), New Delhi</td>
-                       <td></td>
+                       <td>Data Compilation, Curation, Integration.</td>
                     </tr>
                     <tr>
-                      <td>Jeelan Fakroddin </td>
+                      <td>Navjot Singh </td>
                       <td>  Summer Research Intern</td>
                       <td>Center for Computational Biology, Indraprastha Institute of Information Technology (IIIT-Delhi), New Delhi</td>
-                      <td></td>
+                      <td>Data Compilation, Curation, Integration.</td>
                    </tr>
+                   <tr>
+                     <td>Rudraksh Tuwani </td>
+                     <td>  Summer Research Intern</td>
+                     <td>Center for Computational Biology, Indraprastha Institute of Information Technology (IIIT-Delhi), New Delhi</td>
+                     <td>Data Compilation, Curation, Integration.</td>
+                  </tr>
 
                           </tbody>
                         </table>
                         </span></div>
                     </li>
                     <li>
-                      <div class="collapsible-header"><b> Q18.	How do I cite RecipeDB? </b></div>
-                      <div class="collapsible-body"><span>Devansh Batra †, Nirav Diwan†, Utkarsh Upadhyay†, Jushaan Singh Kalra†, Tript Sharma†, Aman Kumar Sharma†, Dheeraj Khanna†, Jaspreet Singh Marwah†, Srilakshmi Kalathil† and Ganesh Bagler*, RecipeDB: [inset tagline here] (2019), http://cosylab.iiitd.edu.in/recipedb/ .
+                      <div class="collapsible-header"><b> Q24.	How do I cite RecipeDB? </b></div>
+                      <div class="collapsible-body"><span>Devansh Batra†, Nirav Diwan†, Utkarsh Upadhyay†, Jushaan Singh Kalra†, Tript Sharma†, Aman Kumar Sharma†, Dheeraj Khanna†, Jaspreet Singh Marwah†, Srilakshmi Kalathil†, Navjot Singh†, Rudraksh Tuwani†, and Ganesh Bagler*, RecipeDB: A Resource for Exploring Recipes and Their Nutritional Profiles (2019), <br><br>
+                        <a href="http://cosylab.iiitd.edu.in/recipedb/">http://cosylab.iiitd.edu.in/recipedb/</a>  <br><br>
 
-                    †Equal contribution *Corresponding Author
+                        †Equal contribution *Corresponding Author
+
                       </span></div>
                     </li>
 
