@@ -542,22 +542,22 @@ def category(id):
 		# print(queryx)
 		cur.execute(queryx)
 		fin.append(cur.fetchall())
-	for x,y in enumerate(rec2):
+	for x,y in enumerate(rec3):
 		queryx='SELECT * from recipes2 where Recipe_id="' + (rec3[x]['Recipe_id']) + '"'
 		# print(queryx)
 		cur.execute(queryx)
 		fin.append(cur.fetchall())
-	for x,y in enumerate(rec2):
+	for x,y in enumerate(rec4):
 		queryx='SELECT * from recipes2 where Recipe_id="' + (rec4[x]['Recipe_id']) + '"'
 		# print(queryx)
 		cur.execute(queryx)
 		fin.append(cur.fetchall())
-	for x,y in enumerate(rec2):
+	for x,y in enumerate(rec5):
 		queryx='SELECT * from recipes2 where Recipe_id="' + (rec5[x]['Recipe_id']) + '"'
 		# print(queryx)
 		cur.execute(queryx)
 		fin.append(cur.fetchall())
-	for x,y in enumerate(rec2):
+	for x,y in enumerate(rec6):
 		queryx='SELECT * from recipes2 where Recipe_id="' + (rec6[x]['Recipe_id']) + '"'
 		# print(queryx)
 		cur.execute(queryx)
