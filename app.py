@@ -471,6 +471,7 @@ def search_recipeInfo(id):
 				break
 		dict_row["nutrient_info"] = nutr
 		ing_names.append(dict_row)
+		# print(ing_names)
 
 	# rows[i]["Ingredients"] = ing_names
 	if stepsJSON != {}:
@@ -566,6 +567,7 @@ def category(id):
 	queryimg='SELECT cat_Image from cat_Img where "Category" ="' + id + '"'
 	cur.execute(queryimg)
 	img=cur.fetchone()
+	print(img)
 	return render_template("category.html", row=row,heading=heading,row2=row2,fin=fin,img=img)
 if __name__ == '__main__':
   app.run(debug=True)
