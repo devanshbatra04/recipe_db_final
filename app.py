@@ -81,21 +81,30 @@ def exec_query(name, region, Sub_region, page,ings,not_ings, category, not_categ
 		return rows, heading, num_recipes
 
 	#Query for recipeTable
-	queryType = 1
+	queryType = 0
 	conditions = []
+	v = False
 	if len(name):
 		conditions.append("with keyword in its title" + str(name.strip()))
+		queryType = 1
+		v = True
 	if len(Sub_region):
 		#actually country
 		conditions.append("from cuisine " + str(Sub_region.strip()))
+		queryType = 1
+		v = True
 	if len(region):
 		#actually country
 		conditions.append("from cuisine " + str(region.strip()))
+		queryType = 1
+		v = True
 	# No region mapping yet to be included soon
 	if len(ings):
 		queryType = 2
 		conditions.append("having " + str(ings.strip()))
+		v = True
 
+	r = queryType
 	if len(not_ings):
 		queryType = 3
 		conditions.append("not having " + str(not_ings.strip()))
@@ -115,17 +124,21 @@ def exec_query(name, region, Sub_region, page,ings,not_ings, category, not_categ
 		subq = "and \"Protein(g)\" BETWEEN {} and {} and \"Energy(kcal)\" BETWEEN {} and {} and \"Totallipid(fat)(g)\" BETWEEN {} and {} and \"Carbohydratebydifference(g)\" BETWEEN {} and {}".format(int(float(protein_min)), int(float(protein_max)), int(float(energy_min)), int(float(energy_max)), int(float(fat_min)), int(float(fat_max)), int(float(carb_min)), int(float(carb_max)))
 
 	queries = [
-		"select * from recipes2 where Recipe_title like \"%{}%\" and Region like \"%{}%\" and Sub_region like \"%{}%\" {}".format(name, region, Sub_region, subq),
-		"select * from recipes2 natural join ingredients where ingredient_name like \"%{}%\" and Recipe_title like \"%{}%\" and Sub_region like \"%{}%\" and Region like \"%{}%\" {}".format(ings, name, Sub_region, region, subq),
-		"select * from recipes2 where recipe_id not in (select recipe_id from ingredients where ingredient_name = \" {}\") and recipe_id in ({})"
+		"select Distinct(recipes2.Recipe_id) from recipes2 where Recipe_title like \"%{}%\" and Region like \"%{}%\" and Sub_region like \"%{}%\" {}".format(name, region, Sub_region, subq),
+		"select Distinct(recipes2.Recipe_id) from recipes2 natural join ingredients where ingredient_name like \"%{}%\" and Recipe_title like \"%{}%\" and Sub_region like \"%{}%\" and Region like \"%{}%\" {}".format(ings, name, Sub_region, region, subq),
+		"select Distinct(recipes2.Recipe_id) from recipes2 where recipe_id not in (select recipe_id from ingredients where ingredient_name = \" {}\"){}"
 	]
 
-
-	queries[2] = queries[2].format(not_ings, queries[1].replace("*", "recipes2.Recipe_id"))
+	if r == 0:
+		smallQ = ""
+	else:
+		smallQ = queries[r-1]
+	queries[2] = queries[2].format(not_ings, "" if v == False else " and recipe_id in ({})".format(smallQ))
 	heading = "Showing all recipes " + (", ".join(conditions))
 	query = queries[queryType-1]
+	queryf = "Select * from recipes2 where recipes2.Recipe_id in({})".format(query)
 	cur = con.cursor()
-	cur.execute(query.replace("*", "count(*)"))
+	cur.execute(query.replace("Distinct(recipes2.Recipe_id)", "count(Distinct(recipes2.Recipe_id))"))
 	print(query)
 	rows=cur.fetchall()
 	num_recipes = rows[0][0]
@@ -135,21 +148,21 @@ def exec_query(name, region, Sub_region, page,ings,not_ings, category, not_categ
 	con = sql.connect("recipe2-final.db")
 	con.row_factory = sql.Row
 	cur = con.cursor()
-	cur.execute(query + limit)
+	cur.execute(queryf + limit)
 	rows = cur.fetchall()
 	for i in range(len(rows)):
 	   r = dict(rows[i])
 	   rows[i] = r
 	# con.close()
 
-	cur.execute("select * from ingredients where Recipe_id in (" + (query+limit).replace("*", "recipes2.Recipe_id as Recipe") +")")
+	cur.execute("select * from ingredients where Recipe_id in (" + (query+limit) +")")
 	all_ing = [dict(k) for k in cur.fetchall()]
 	# import time
 	# start = time.time()
 	# end = time.time()
 	# time_taken = end - start
 	# print('Time: ',time_taken)
-	cur.execute("select * from 'nutrients-new' where Recipe_id in (" + (query+limit).replace("*", "recipes2.Recipe_id as Recipe") +")")
+	cur.execute("select * from 'nutrients-new' where Recipe_id in (" + (query+limit) +")")
 	all_nutr = [dict(k) for k in cur.fetchall()]
 	ids = [rows[i]["Recipe_id"] for i in range(len(rows))]
 	for i in range(len(ids)):
@@ -181,7 +194,6 @@ def exec_query(name, region, Sub_region, page,ings,not_ings, category, not_categ
 	time_taken = end - start
 	print('Time: ',time_taken)
 
-	print(rows[0])
 	return rows, heading, num_recipes
 
 
