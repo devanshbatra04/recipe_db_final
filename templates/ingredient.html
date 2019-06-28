@@ -42,62 +42,13 @@
           </div>
             </li>
             <li>
-                <div class="row" style="margin-top:30px;">
+                <div class="row" style="margin-top:30px; margin-bottom:0">
             <div class="col s12 m4 center" style="padding-top:20px">
               <img class="responsive-img" style="max-height:300px;" src="{{generic_ingredient_info["WikiImage"] if generic_ingredient_info["WikiImage"] else "/recipedb/static/photonotyet.jpg"}}"  alt="">
 
               </div>
-            <div class="col s12 m8">
-              <div style="overflow: auto; width:100%; max-height:250px;">
-                <div class="center">
-                  <a class='dropdown-trigger btn' href='#' data-target='dropdown1' style=" background: white; color: #ee6e73; border-bottom: 2px solid #ee6e73; min-height: 40px; height: auto;">Showing Estimated Nutritional Profile for Apple &nbsp <i class="fa fa-caret-down"></i></a>
-                </div>
-
-                  <!-- Dropdown Structure -->
-                  <ul id='dropdown1' class='dropdown-content'>
-                    <li><a href="#!">one</a></li>
-                    <li><a href="#!">two</a></li>
-                    <li class="divider" tabindex="-1"></li>
-                    <li><a href="#!">three</a></li>
-                    <li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
-                    <li><a href="#!"><i class="material-icons">cloud</i>five</a></li>
-                  </ul>
-
-                <table class="highlight striped" >
-                  <thead>
-
-                    <tr>
-                      <th>Nutrient</th>
-                      <th>Quantity</th>
-                    </tr>
-                  </thead>
-
-
-                      <tr>
-                      <td><strong>a</strong></td>
-                      <td>b</td>
-                    </tr>
-
-
-                </table>
-              </div>
-              <button class="btn btn-small" onclick="myFunction()" id="myBtn" style="background: white; color: #ee6e73; border-bottom: 2px solid #ee6e73; min-height: 40px; height: auto; margin-top: 5px">Show More</button>
-              </div>
-
-              </div>
-            </li>
-            <li class="collection-item">
-                <div class="row" style="margin-top:50px; border-top: 1px solid black;">
-             <div class="row">
-            <div class="col s12">
-              <ul class="tabs">
-                <li class="tab col s4"><a class="active" href="#ingredient_info">Ingredient Overview</a></li>
-                <li class="tab col s4"><a href="#form_info">All Forms</a></li>
-                <li class="tab col s4"><a href="#recipe_info">Recipes</a></li>
-                <!--<li class="tab col s3"><a href="#steps">Steps</a></li>-->
-              </ul>
-            </div>
-            <div id="ingredient_info" class="col s12">
+                                <div class="col s12 m8">
+                                    <h5>Ingredient Overview</h5>
                 <ul class="collection">
                 <li class="collection-item avatar">
                   <i class="fa fa-list-alt circle" style="background-color: #ee6e73;" aria-hidden="true"></i>
@@ -131,8 +82,23 @@
                 </li>
               </ul>
             </div>
+
+
+              </div>
+            </li>
+            <li class="collection-item">
+                <div class="row" style="margin-top:50px; border-top: 1px solid black;">
+             <div class="row">
+            <div class="col s12">
+              <ul class="tabs">
+                <li class="tab col s6"><a href="#form_info">All Forms</a></li>
+                <li class="tab col s6"><a href="#recipe_info">Recipes</a></li>
+                <!--<li class="tab col s3"><a href="#steps">Steps</a></li>-->
+              </ul>
+            </div>
             <div id="recipe_info" class="col s12" style="max-height:500px; overflow: auto;">
               <div class="row">
+                  <h6 style="text-align:center">Recipes which include {{generic_ingredient_info["Ing_name"]}} as an ingredient</h6>
                 <table id="recipes_table" class="table striped" style="padding-left: 40px;">
                 <thead>
                   <tr>
@@ -148,7 +114,7 @@
                 {% for recipe in recipes_info %}
                     <tr>
                         <td><a href="/recipedb/search_recipeInfo/{{recipe["Recipe_id"]}}">{{ recipe["Recipe_title"] }}</a></td>
-                        <td>{{ recipe["state"] + recipe["ingredient_name"].strip() }}</td>
+                        <td style="text-transform: capitalize">{{ (recipe["state"].strip() + " " + recipe["ingredient_name"].strip()).strip() }}</td>
                         <td>{{ recipe["Region"] }}</td>
                         <td>{{ recipe["Sub_region"] }}</td>
                         <td>Unavailable</td>
@@ -165,6 +131,7 @@
 
               <!--<br><br>-->
               <div id="form_info" class="col s12" style="max-height:500px; overflow: auto;">
+                  <h6 style="text-align: center">Nutritional Information per 100 g for common forms of {{generic_ingredient_info["Ing_name"]}} </h6>
                 <table id="myTable" class="table striped" style="padding-left: 40px;">
                 <thead>
                   <tr>
@@ -181,7 +148,7 @@
                 <tbody style="">
                 {% for form in forms_info %}
                     <tr>
-                        <td>
+                        <td style="text-transform: capitalize">
                             {{ (form["state"].strip() + " " + form["ingredient_name"].strip()).strip() }}
                         </td>
                         <td>
