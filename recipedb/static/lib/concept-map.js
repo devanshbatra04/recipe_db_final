@@ -127,13 +127,10 @@ function O() {
 
 function G(Y, X) {
     if (L.node === Y && X !== true) {
-        console.log(Y, X)
         if (Y.type === "ditem") {
             window.open("/recipedb/category/" + Y.name, '_blank');
             return
         } else if (Y.type === "perspective") {
-            window.open("/recipedb/ingredient/" + Y.name, '_blank');
-        } else if (Y.type === "theme") {
             window.open("/recipedb/ingredient/" + Y.name, '_blank');
         }
         // L.node.children.forEach(function(aa) {
@@ -375,7 +372,7 @@ function C(Z) {
         // })
     } else {
         if (ab && ab.type === "theme") {
-            // Y.append("text").attr("fill", "#aaa").attr("text-anchor", "middle").attr("y", (o + t) * -1).text("Ingredient")
+            Y.append("text").attr("fill", "#aaa").attr("text-anchor", "middle").attr("y", (o + t) * -1).text("Ingredient")
         } else {
             if (ab && ab.type === "perspective") {
                 console.log("hanji")
