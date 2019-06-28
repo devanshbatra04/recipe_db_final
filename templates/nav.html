@@ -116,51 +116,51 @@
 				    $("#autocomplete_region").autocomplete('search', '');
 				});;
 
-			    $("#autocomplete_ingredient").autocomplete({
-			    	source:function(request, response) {
-			    		$.getJSON("{{url_for('autocomplete_ingredient')}}",{
-			    			q: extractLast( request.term),
-			    		}, function(data) {
-			    			response(data.matching_results);
-			    		});
-			    	},
-			    	minLength: 1,
-			    	select: function(event, ui) {
-			    		var terms = split( this.value );
-          				// remove the current input
-          				terms.pop();
-          				// add the selected item
-          				terms.push( ui.item.value );
-          				// add placeholder to get the comma-and-space at the end
-          				terms.push( "" );
-          				this.value = terms.join( ", " );
-          				console.log(ui.item.value);
-          				return false;
-			    	}
-			    });
-
-					$("#autocomplete_noningredient").autocomplete({
-			    	source:function(request, response) {
-			    		$.getJSON("{{url_for('autocomplete_noningredient')}}",{
-			    			q: extractLast( request.term),
-			    		}, function(data) {
-			    			response(data.matching_results);
-			    		});
-			    	},
-			    	minLength: 1,
-			    	select: function(event, ui) {
-			    		var terms = split( this.value );
-          				// remove the current input
-          				terms.pop();
-          				// add the selected item
-          				terms.push( ui.item.value );
-          				// add placeholder to get the comma-and-space at the end
-          				terms.push( "" );
-          				this.value = terms.join( ", " );
-          				console.log(ui.item.value);
-          				return false;
-			    	}
-			    });
+			    // $("#autocomplete_ingredient").autocomplete({
+			    // 	source:function(request, response) {
+			    // 		$.getJSON("{{url_for('autocomplete_ingredient')}}",{
+			    // 			q: extractLast( request.term),
+			    // 		}, function(data) {
+			    // 			response(data.matching_results);
+			    // 		});
+			    // 	},
+			    // 	minLength: 1,
+			    // 	select: function(event, ui) {
+			    // 		var terms = split( this.value );
+          		// 		// remove the current input
+          		// 		terms.pop();
+          		// 		// add the selected item
+          		// 		terms.push( ui.item.value );
+          		// 		// add placeholder to get the comma-and-space at the end
+          		// 		terms.push( "" );
+          		// 		this.value = terms.join( ", " );
+          		// 		console.log(ui.item.value);
+          		// 		return false;
+			    // 	}
+			    // });
+				//
+				// 	$("#autocomplete_noningredient").autocomplete({
+			    // 	source:function(request, response) {
+			    // 		$.getJSON("{{url_for('autocomplete_noningredient')}}",{
+			    // 			q: extractLast( request.term),
+			    // 		}, function(data) {
+			    // 			response(data.matching_results);
+			    // 		});
+			    // 	},
+			    // 	minLength: 1,
+			    // 	select: function(event, ui) {
+			    // 		var terms = split( this.value );
+          		// 		// remove the current input
+          		// 		terms.pop();
+          		// 		// add the selected item
+          		// 		terms.push( ui.item.value );
+          		// 		// add placeholder to get the comma-and-space at the end
+          		// 		terms.push( "" );
+          		// 		this.value = terms.join( ", " );
+          		// 		console.log(ui.item.value);
+          		// 		return false;
+			    // 	}
+			    // });
 
 			})
 
