@@ -106,6 +106,8 @@
         <h5 style="display: none" id="REGION">{{region}}</h5>
         <h5 style="display: none" id="INGS">{{ings}}</h5>
         <h5 style="display: none" id="non_INGS">{{not_ings}}</h5>
+        <h5 style="display: none" id="category">{{category}}</h5>
+        <h5 style="display: none" id="not_category">{{not_category}}</h5>
         <h5 style="display: none" id="bold_button">{{boldbuttonnum}}</h5>
         <h5 style="display: none;" id="delete">{{to_delete}}</h5>
         <h5 style="display: none;" id="include_nutrBorders">{{include_nutrBorders}}
@@ -687,6 +689,8 @@
             var region = document.getElementById("REGION").innerHTML;
             var ings = document.getElementById("INGS").innerHTML;
             var not_ings = document.getElementById("non_INGS").innerHTML;
+            var categoryVal = document.getElementById("category").innerHTML;
+            var notCategoryVal = document.getElementById("not_category").innerHTML;
             var include_nutrBorders = document.getElementById("include_nutrBorders").innerHTML;
             var dict_nut_boundaries = document.getElementById("dict_nut_boundaries").innerHTML;
             var page_number = document.getElementById(num).childNodes[0].innerHTML;
@@ -759,6 +763,24 @@
               form.append(dict_nut_boundaries_field);
 
 
+            var category_field = $('<input></input>');
+
+              category_field.attr("type", "hidden");
+              category_field.attr("name", "autocomplete_category");
+              category_field.attr("value", categoryVal);
+
+              form.append(category_field);
+
+            var not_category_field = $('<input></input>');
+
+              not_category_field.attr("type", "hidden");
+              not_category_field.attr("name", "autocomplete_noncategory");
+              not_category_field.attr("value", notCategoryVal);
+
+              form.append(category_field);
+
+
+
             var page_field = $('<input></input>');
 
             page_field.attr("type", "hidden");
@@ -777,6 +799,8 @@
             var cuisine = document.getElementById("CUISINE").innerHTML;
             var region = document.getElementById("REGION").innerHTML;
             var ings = document.getElementById("INGS").innerHTML;
+            var categoryVal = document.getElementById("category").innerHTML;
+            var notCategoryVal = document.getElementById("not_category").innerHTML;
             var non_ings = document.getElementById("non_INGS").innerHTML;
             var include_nutrBorders = document.getElementById("include_nutrBorders").innerHTML;
             var dict_nut_boundaries = document.getElementById("dict_nut_boundaries").innerHTML;
@@ -841,7 +865,7 @@
 
             non_ings_field.attr("type", "hidden");
             non_ings_field.attr("name", "autocomplete_noningredient");
-            non_ings_field.attr("value", ings);
+            non_ings_field.attr("value", non_ings);
 
             form.append(non_ings_field);
 
@@ -863,8 +887,6 @@
               include_nutrBorders_field.attr("name", "nutrRangeOn");
               include_nutrBorders_field.attr("value", include_nutrBorders);
 
-              form.append(include_nutrBorders_field);
-
               var dict_nut_boundaries_field = $('<input></input>');
 
               dict_nut_boundaries_field.attr("type", "hidden");
@@ -874,6 +896,22 @@
               form.append(dict_nut_boundaries_field);
 
             form.append(dict_nut_boundaries_field);
+
+            var category_field = $('<input></input>');
+
+              category_field.attr("type", "hidden");
+              category_field.attr("name", "autocomplete_category");
+              category_field.attr("value", categoryVal);
+
+              form.append(category_field);
+
+            var not_category_field = $('<input></input>');
+
+              not_category_field.attr("type", "hidden");
+              not_category_field.attr("name", "autocomplete_noncategory");
+              not_category_field.attr("value", notCategoryVal);
+
+              form.append(category_field);
 
             $(document.body).append(form);
             form.submit();
