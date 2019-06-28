@@ -500,8 +500,8 @@ def stats():
 def category(id):
 	con = sql.connect("recipe2-final.db")
 	con.row_factory = sql.Row
-	query='SELECT * from unique_ingredients where "Category-F-DB" ="' + id + '" and NOT aliases="" LIMIT 5'
-	query1='SELECT * from unique_ingredients where "Category-F-DB" ="' + id + '" and NOT aliases="" LIMIT 20'
+	query='SELECT * from unique_ingredients where "Category-F-DB" like "' + id + '" and NOT aliases="" LIMIT 5'
+	query1='SELECT * from unique_ingredients where "Category-F-DB" like "' + id + '" and NOT aliases="" LIMIT 20'
 	print(query)
 	heading="" + id + ""
 	print(heading)
@@ -518,6 +518,7 @@ def category(id):
 	row = cur.fetchall()
 	cur.execute(query1)
 	row2=cur.fetchall()
+	# print(row[4])
 	#FARZI KAAM 30TH KE BAAD HATAAAAAAOOOO
 
 	query2='SELECT Recipe_id from ingredients where ingredient_name="' + row[0]['Ing_name'] + '" LIMIT 4 '
@@ -534,6 +535,7 @@ def category(id):
 	rec4=cur.fetchall()
 	cur.execute(query5)
 	rec5=cur.fetchall()
+	print(rec5)
 	cur.execute(query6)
 	rec6=cur.fetchall()
 	fin=[]
@@ -562,10 +564,12 @@ def category(id):
 		# print(queryx)
 		cur.execute(queryx)
 		fin.append(cur.fetchall())
-	print(fin[0])
+	print("hello")
+	print(fin[6][0]['Recipe_title'])
 	title="lol"
-	queryimg='SELECT cat_Image from cat_Img where "Category" ="' + id + '"'
+	queryimg='SELECT cat_Image from cat_Img where "Category" like "' + id + '"'
 	cur.execute(queryimg)
+	print(queryimg)
 	img=cur.fetchone()
 	print(img)
 	return render_template("category.html", row=row,heading=heading,row2=row2,fin=fin,img=img)
