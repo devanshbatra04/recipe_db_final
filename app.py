@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect, url_for
 import sqlite3 as sql
 import json
 app = Flask(__name__, static_folder="recipedb")
@@ -359,6 +359,17 @@ def search_region(id):
    #    return render_template("home.html", empty = "yes")
 	return render_template("list_recipes.html", rows = rows, heading = heading, name = name, cuisine = Sub_region, region = region, ings = ings,not_ings=not_ings, pagenum = page, page_num_info = page_num_list, boldbuttonnum = bold_num, to_delete = to_delete)
 
+@app.route('/recipedb/ingredient/<string:name>',  methods = ['GET', 'POST'])
+def redirect_to_ingredient(name):
+	con = sql.connect("recipe2-final.db")
+	con.row_factory = sql.Row
+	cur = con.cursor()
+	cur.execute("select Ing_id from unique_ingredients where aliases like \"{}\"".format(name))
+	row = cur.fetchone()
+	t = "a_b_" + str(row[0])
+	# print(url_for('search_ingre', id=))
+	return redirect((url_for('search_ingre', id=t)))
+
 @app.route('/recipedb/search_subregion/<string:id>',  methods = ['GET', 'POST'])
 def search_subregion(id):
 	page = 1
@@ -382,8 +393,6 @@ def search_subregion(id):
 	return render_template("list_recipes.html", rows = rows, heading = heading, name = name, cuisine = Sub_region, region = region, ings = ings,not_ings=not_ings, pagenum = page, page_num_info = page_num_list, boldbuttonnum = bold_num, to_delete = to_delete)
 
 @app.route('/recipedb/search_ingre/<string:id>',  methods = ['GET', 'POST'])
-
-
 def search_ingre(id):
 	con = sql.connect("recipe2-final.db")
 	conn = sql.connect("recipe2-final.db")

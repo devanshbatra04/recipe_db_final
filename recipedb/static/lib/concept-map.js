@@ -128,13 +128,15 @@ function O() {
 function G(Y, X) {
     if (L.node === Y && X !== true) {
         if (Y.type === "ditem") {
-            window.location.href = "/recipedb/category/" + Y.name;
+            window.open("/recipedb/category/" + Y.name, '_blank');
             return
+        } else if (Y.type === "perspective") {
+            window.open("/recipedb/ingredient/" + "apple", '_blank');
         }
-        L.node.children.forEach(function(aa) {
-            aa.children = aa._group
-        });
-        e();
+        // L.node.children.forEach(function(aa) {
+        //     aa.children = aa._group
+        // });
+        // e();
         return
     }
     if (Y.isGroup) {
@@ -362,17 +364,18 @@ function C(Z) {
     var Y = ac.enter().append("g").attr("class", "detail");
     var ab = Z[0];
     if (ab && ab.type === "ditem") {
-        var aa = Y.append("a").attr("xlink:href", function(ae) {
-            return "/recipedb/category" + ae.name
-        });
-        aa.append("text").attr("fill", N).attr("text-anchor", "middle").attr("y", (o + t) * -1).text(function(ae) {
-            return "ITEM " + ae.ditem
-        })
+        // var aa = Y.append("a").attr("xlink:href", function(ae) {
+        //     return "/recipedb/category/" + ae.name
+        // });
+        // aa.append("text").attr("fill", N).attr("text-anchor", "middle").attr("y", (o + t) * -1).text(function(ae) {
+        //     return "ITEM " + ae.ditem
+        // })
     } else {
         if (ab && ab.type === "theme") {
             Y.append("text").attr("fill", "#aaa").attr("text-anchor", "middle").attr("y", (o + t) * -1).text("Ingredient")
         } else {
             if (ab && ab.type === "perspective") {
+                console.log("hanji")
                 var ad = ac.selectAll(".pair").data(A.get(ab.group).filter(function(ae) {
                     return ae !== ab
                 }), u);
