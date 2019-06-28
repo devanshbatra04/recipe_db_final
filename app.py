@@ -56,7 +56,7 @@ def get_bold_num(page, page_num_list):
 def exec_ingre_query():
 	print("lol")
 
-def exec_query(name, region, Sub_region, page,ings,not_ings,recipe_ids,include_nutrBorders=None, dict_nut_boundaries={}):
+def exec_query(name, region, Sub_region, page,ings,not_ings, category, not_category, recipe_ids,include_nutrBorders=None, dict_nut_boundaries={}):
 	limit = " LIMIT 20 OFFSET " + str(((int(page)-1) * 20))
 	con = sql.connect("recipe2-final.db")
 	con.row_factory = sql.Row
@@ -81,25 +81,33 @@ def exec_query(name, region, Sub_region, page,ings,not_ings,recipe_ids,include_n
 		return rows, heading, num_recipes
 
 	#Query for recipeTable
-	queryType = 1
+	queryType = 0
 	conditions = []
+	v = False
 	if len(name):
 		conditions.append("with keyword in its title" + str(name.strip()))
+		queryType = 1
+		v = True
 	if len(Sub_region):
 		#actually country
 		conditions.append("from cuisine " + str(Sub_region.strip()))
+		queryType = 1
+		v = True
 	if len(region):
 		#actually country
 		conditions.append("from cuisine " + str(region.strip()))
+		queryType = 1
+		v = True
 	# No region mapping yet to be included soon
 	if len(ings):
 		queryType = 2
 		conditions.append("having " + str(ings.strip()))
+		v = True
 
+	r = queryType
 	if len(not_ings):
 		queryType = 3
 		conditions.append("not having " + str(not_ings.strip()))
-		print(str(not_ings.strip()))
 
 	conditions = list(map(lambda x: x.strip(), conditions))
 
@@ -116,17 +124,23 @@ def exec_query(name, region, Sub_region, page,ings,not_ings,recipe_ids,include_n
 		subq = "and \"Protein(g)\" BETWEEN {} and {} and \"Energy(kcal)\" BETWEEN {} and {} and \"Totallipid(fat)(g)\" BETWEEN {} and {} and \"Carbohydratebydifference(g)\" BETWEEN {} and {}".format(int(float(protein_min)), int(float(protein_max)), int(float(energy_min)), int(float(energy_max)), int(float(fat_min)), int(float(fat_max)), int(float(carb_min)), int(float(carb_max)))
 
 	queries = [
-		"select * from recipes2 where Recipe_title like \"%{}%\" and Region like \"%{}%\" and Sub_region like \"%{}%\" {}".format(name, region, Sub_region, subq),
-		"select * from recipes2 inner join ingredients on recipes2.Recipe_id = ingredients.Recipe_id where ingredient_name like \"%{}%\" and Recipe_title like \"%{}%\" and Sub_region like \"%{}%\" and Region like \"%{}%\" {}".format(ings, name, Sub_region, region, subq),
-		"select * from recipes2 where recipe_id not in (select recipe_id from ingredients where ingredient_name = \" {}\") and recipe_id in ({})"
+		"select Distinct(recipes2.Recipe_id) from recipes2 where Recipe_title like \"%{}%\" and Region like \"%{}%\" and Sub_region like \"%{}%\" {}".format(name, region, Sub_region, subq),
+		"select Distinct(recipes2.Recipe_id) from recipes2 natural join ingredients where ingredient_name like \"%{}%\" and Recipe_title like \"%{}%\" and Sub_region like \"%{}%\" and Region like \"%{}%\" {}".format(ings, name, Sub_region, region, subq),
+		"select Distinct(recipes2.Recipe_id) from recipes2 where recipe_id not in (select recipe_id from ingredients where ingredient_name = \" {}\"){}"
 	]
 
-
-	queries[2] = queries[2].format(not_ings, queries[1].replace("*", "recipes2.Recipe_id"))
+	if r == 0:
+		smallQ = ""
+	elif r==2 and len(name) == 0 and len(region) == 0 and len(Sub_region) == 0:
+		smallQ = "select Distinct(Recipe_id) from recipes2 natural join ingredients where ingredient_name like \"%{}%\"".format(ings)
+	else:
+		smallQ = queries[r-1]
+	queries[2] = queries[2].format(not_ings, "" if v == False else " and recipe_id in ({})".format(smallQ))
 	heading = "Showing all recipes " + (", ".join(conditions))
 	query = queries[queryType-1]
+	queryf = "Select * from recipes2 where recipes2.Recipe_id in({})".format(query)
 	cur = con.cursor()
-	cur.execute(query.replace("*", "count(*)"))
+	cur.execute(query.replace("Distinct(recipes2.Recipe_id)", "count(Distinct(recipes2.Recipe_id))"))
 	print(query)
 	rows=cur.fetchall()
 	num_recipes = rows[0][0]
@@ -136,21 +150,21 @@ def exec_query(name, region, Sub_region, page,ings,not_ings,recipe_ids,include_n
 	con = sql.connect("recipe2-final.db")
 	con.row_factory = sql.Row
 	cur = con.cursor()
-	cur.execute(query + limit)
+	cur.execute(queryf + limit)
 	rows = cur.fetchall()
 	for i in range(len(rows)):
 	   r = dict(rows[i])
 	   rows[i] = r
 	# con.close()
 
-	cur.execute("select * from ingredients where Recipe_id in (" + (query+limit).replace("*", "recipes2.Recipe_id as Recipe") +")")
+	cur.execute("select * from ingredients where Recipe_id in (" + (query+limit) +")")
 	all_ing = [dict(k) for k in cur.fetchall()]
 	# import time
 	# start = time.time()
 	# end = time.time()
 	# time_taken = end - start
 	# print('Time: ',time_taken)
-	cur.execute("select * from 'nutrients-new' where Recipe_id in (" + (query+limit).replace("*", "recipes2.Recipe_id as Recipe") +")")
+	cur.execute("select * from 'nutrients-new' where Recipe_id in (" + (query+limit) +")")
 	all_nutr = [dict(k) for k in cur.fetchall()]
 	ids = [rows[i]["Recipe_id"] for i in range(len(rows))]
 	for i in range(len(ids)):
@@ -182,7 +196,6 @@ def exec_query(name, region, Sub_region, page,ings,not_ings,recipe_ids,include_n
 	time_taken = end - start
 	print('Time: ',time_taken)
 
-	print(rows[0])
 	return rows, heading, num_recipes
 
 
@@ -204,9 +217,9 @@ def home():
 
 @app.route('/recipedb/all_recipes', methods=['GET'])
 def all_recipes():
-	rows, heading, num_recipes = exec_query("", "", "", 1,"", "recipe_search")
+	rows, heading, num_recipes = exec_query("", "", "", 1,"","","", "recipe_search")
 	if len(rows) == 0:
-		rows, heading, num_recipes = exec_query(name, region, Sub_region, 1, "recipe_search")
+		rows, heading, num_recipes = exec_query(name, region, Sub_region, 1,"","", "recipe_search")
 	page_num_list, to_delete = get_page_num_list(1, num_recipes)
 	bold_num = get_bold_num(1, page_num_list)
 	if(len(rows) == 0):
@@ -227,18 +240,20 @@ def search_recipe():
 				page = 1
 			else:
 				page = request.form['page']
-		# print("maakabhoda ")
 		name = request.form.get('autocomplete_recipe') if request.form.get("autocomplete_recipe") else ""
 		# print(1)
 
 		Sub_region = request.form.get('autocomplete_cuisine') if request.form.get("autocomplete_cuisine") else ""
 		# print(2)
 		region = request.form.get('autocomplete_region') if request.form.get("autocomplete_region") else ""
-		print(region)
 		ings = request.form.get('autocomplete_ingredient') if request.form.get("autocomplete_ingredient") else ""
-		print(ings)
+		# print(ings)
 		not_ings = request.form.get('autocomplete_noningredient') if request.form.get("autocomplete_noningredient") else ""
-		print(not_ings)
+		# print(5)
+		category = request.form.get('autocomplete_category') if request.form.get("autocomplete_category") else ""
+		notcategory = request.form.get('autocomplete_noncategory') if request.form.get("autocomplete_noncategory") else ""
+
+
 		include_nutrBorders = request.form.get('nutrRangeOn')
 		# print(6)
 		dict_nut_boundaries = {}
@@ -259,12 +274,12 @@ def search_recipe():
 
 		print(request.form.get("dict_nut_json"))
 
-		rows, heading, num_recipes = exec_query(name, region, Sub_region, page,ings,not_ings, "recipe_search", include_nutrBorders, dict_nut_boundaries)
+		rows, heading, num_recipes = exec_query(name, region, Sub_region, page,ings,not_ings,category, notcategory, "recipe_search", include_nutrBorders, dict_nut_boundaries)
 		print(str(num_recipes) + " recipes found")
 
 		if len(rows) == 0:
 			page = int(page) - 1
-			rows, heading, num_recipes = exec_query(name, region, Sub_region, page,ings,not_ings, "recipe_search")
+			rows, heading, num_recipes = exec_query(name, region, Sub_region, page,ings,not_ings,category, notcategory, "recipe_search")
 		if page == 0:
 			page = 1
 		page_num_list, to_delete = get_page_num_list(page, num_recipes)
@@ -312,8 +327,6 @@ def auto_query(check):
 		cur.execute("select * from recipes2 where Sub_region like '%" + name + "%'")
 	elif (check == "Region"):
 		cur.execute("select * from recipes2 where Region like '%" + name + "%'")
-	elif (check == "Entity_alias"):
-		cur.execute("select * from entities where Entity_alias like '%" + name + "%'")
 
 	rows = cur.fetchall()
 	rows = [dict(row) for row in rows]
@@ -333,11 +346,11 @@ def search_region(id):
 	ings=""
 	not_ings=""
 
-	rows, heading, num_recipes = exec_query(name, region, Sub_region, page,ings,not_ings, "recipe_search")
+	rows, heading, num_recipes = exec_query(name, region, Sub_region, page,ings,not_ings,"","", "recipe_search")
 
 	if len(rows) == 0:
 		page = int(page) - 1
-		rows, heading, num_recipes = exec_query(name, region, Sub_region, page,ings,not_ings, "recipe_search")
+		rows, heading, num_recipes = exec_query(name, region, Sub_region, page,ings,not_ings,"","", "recipe_search")
 	if page == 0:
 		page = 1
 	page_num_list, to_delete = get_page_num_list(page, num_recipes)
@@ -355,11 +368,11 @@ def search_subregion(id):
 	ings=""
 	not_ings=""
 
-	rows, heading, num_recipes = exec_query(name, region, Sub_region, page,ings,not_ings, "recipe_search")
+	rows, heading, num_recipes = exec_query(name, region, Sub_region, page,ings,not_ings,"","", "recipe_search")
 
 	if len(rows) == 0:
 		page = int(page) - 1
-		rows, heading, num_recipes = exec_query(name, region, Sub_region, page,ings,not_ings, "recipe_search")
+		rows, heading, num_recipes = exec_query(name, region, Sub_region, page,ings,not_ings,"","", "recipe_search")
 	if page == 0:
 		page = 1
 	page_num_list, to_delete = get_page_num_list(page, num_recipes)
