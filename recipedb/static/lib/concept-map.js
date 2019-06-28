@@ -131,7 +131,7 @@ function G(Y, X) {
             window.open("/recipedb/category/" + Y.name, '_blank');
             return
         } else if (Y.type === "perspective") {
-            window.open("/recipedb/ingredient/" + "apple", '_blank');
+            window.open("/recipedb/ingredient/" + Y.name, '_blank');
         }
         // L.node.children.forEach(function(aa) {
         //     aa.children = aa._group
