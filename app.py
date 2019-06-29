@@ -519,6 +519,10 @@ def search_recipeInfo(id):
 def FAQ():
 	return render_template("FAQ.html")
 
+@app.route('/recipedb/receptors',  methods = ['GET', 'POST'])
+def Receptors():
+	return render_template("receptors.html")
+
 @app.route('/recipedb/contactUs',  methods = ['GET', 'POST'])
 def ContactUs():
 	return render_template("contactUs.html")

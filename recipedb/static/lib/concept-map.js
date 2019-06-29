@@ -121,7 +121,7 @@ function O() {
             y2: Math.sin(a2) * X
         })
     });
-    window.location.hash = "";
+    window.location.hash = "visual-search";
     M()
 }
 
@@ -188,6 +188,7 @@ function G(Y, X) {
         aa.children = Z > 50 ? aa._group : aa._children
     });
     window.location.hash = L.node.key;
+    console.log(L.node.key)
     e()
 }
 
