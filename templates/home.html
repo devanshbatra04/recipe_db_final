@@ -104,9 +104,9 @@
 
 
   <div  style="margin: 0; padding:0;">
-  <div class="row" style="margin-top:50px; padding-bottom:30px; border-top:2px solid #ee6e73; border-bottom:2px solid #ee6e73; padding-top:15px;">
+  <div class="row section scrollspy" id="search" style="margin-top:50px; padding-bottom:30px; border-top:2px solid #ee6e73; border-bottom:2px solid #ee6e73; padding-top:15px;">
 
-      <div class="col s9 section scrollspy" id="search">
+      <div class="col s9">
         <h4 id="mainBodyHeading" class="blue-grey-text text-darken-2" style="text-transform: capitalize; font-family: 'Istok Web', sans-serif;">Search By</h4><br>
       </div>
 
@@ -165,7 +165,7 @@
               <span class="switch">
                 <label>
                   Off
-                  <input name="nutrRangeOn" value="on" type="checkbox" id="check-nutrient-search" onclick="toggleNutrSearch()">
+                  <input id="nutrButton" name="nutrRangeOn" value="on" type="checkbox" id="check-nutrient-search" onclick="toggleNutrSearch()">
                   <span class="lever"></span>
                   On
                 </label>
@@ -407,6 +407,7 @@
                     </div>
                   </div>
                 </div>
+                <input name="nutrRangeOn" value="on" style="display:none;">
 
 
             </div>
@@ -464,6 +465,16 @@
           var elems = document.querySelectorAll('.tabs');
           var instance = M.Tabs.init(elems, {});
         });
+
+		// [...document.querySelectorAll("#search .tabs li")].filter(el => !el.classList.contains('indicator')).forEach(el => el.addEventListener("click", function(event){
+        //     var targetElement = event.target || event.srcElement;
+        //     if (targetElement.classList.contains("active") && targetElement.innerText === "NUTRITION") {
+        //         // document.getElementById("nutrButton").value = "on"
+        //     }
+        //     else {
+        //         // document.getElementById("nutrButton").value = "off"
+        //     }
+        // }));
 
         function loadStats(){
         	var form = $('<form></form>');
