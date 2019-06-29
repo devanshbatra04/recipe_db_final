@@ -53,8 +53,6 @@ def get_bold_num(page, page_num_list):
 	return bold_num
 
 #function to query for Ingredients
-def exec_ingre_query():
-	print("lol")
 
 def exec_query(name, region, Sub_region, page,ings,not_ings, category, not_category, recipe_ids,include_nutrBorders=None, dict_nut_boundaries={}):
 	limit = " LIMIT 20 OFFSET " + str(((int(page)-1) * 20))
@@ -226,16 +224,9 @@ def load_conceptMap():
 def load_Ingstats():
 	return render_template('recipe_size.html')
 
-@app.route('/recipedb/', methods=['GET', 'POST'])
+@app.route('/recipedb/')
 def home():
-	con = sql.connect("recipe2-final.db")
-	con.row_factory = sql.Row
-	query='SELECT * FROM recipes2 ORDER BY RANDOM() LIMIT 1'
-	cur = con.cursor()
-	cur.execute(query)
-	row=cur.fetchall()
-	print(row[0]['Recipe_title'])
-	return render_template('home.html', empty = "no",row=row)
+	return render_template('home.html', empty = "no")
 
 @app.route('/recipedb/all_recipes', methods=['GET'])
 def all_recipes():
@@ -527,6 +518,10 @@ def search_recipeInfo(id):
 @app.route('/recipedb/FAQ',  methods = ['GET', 'POST'])
 def FAQ():
 	return render_template("FAQ.html")
+
+@app.route('/recipedb/receptors',  methods = ['GET', 'POST'])
+def Receptors():
+	return render_template("receptors.html")
 
 @app.route('/recipedb/contactUs',  methods = ['GET', 'POST'])
 def ContactUs():

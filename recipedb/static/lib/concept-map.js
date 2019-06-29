@@ -121,7 +121,7 @@ function O() {
             y2: Math.sin(a2) * X
         })
     });
-    window.location.hash = "";
+    window.location.hash = "visual-search";
     M()
 }
 
@@ -130,7 +130,7 @@ function G(Y, X) {
         if (Y.type === "ditem") {
             window.open("/recipedb/category/" + Y.name, '_blank');
             return
-        } else if (Y.type === "perspective") {
+        } else {
             window.open("/recipedb/ingredient/" + Y.name, '_blank');
         }
         // L.node.children.forEach(function(aa) {
@@ -188,6 +188,7 @@ function G(Y, X) {
         aa.children = Z > 50 ? aa._group : aa._children
     });
     window.location.hash = L.node.key;
+    console.log(L.node.key)
     e()
 }
 
