@@ -130,7 +130,7 @@ function G(Y, X) {
         if (Y.type === "ditem") {
             window.open("/recipedb/category/" + Y.name, '_blank');
             return
-        } else if (Y.type === "perspective") {
+        } else {
             window.open("/recipedb/ingredient/" + Y.name, '_blank');
         }
         // L.node.children.forEach(function(aa) {
