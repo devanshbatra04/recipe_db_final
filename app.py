@@ -560,15 +560,16 @@ def category(id):
 
 	query2='SELECT * from recipes2 where Recipe_id in (Select Recipe_id from ingredients where ingredient_name="' + row[0]['Ing_name'] + '" OR ingredient_name="' + row[1]['Ing_name'] + '" OR ingredient_name="' + row[2]['Ing_name'] + '" OR ingredient_name="' + row[3]['Ing_name'] + '" LIMIT 21 )'
 	print(query2)
-	query3='SELECT Recipe_id from ingredients where ingredient_name="' + row[1]['Ing_name'] + '" LIMIT 4 '
-	query4='SELECT Recipe_id from ingredients where ingredient_name="' + row[2]['Ing_name'] + '" LIMIT 4 '
-	query5='SELECT Recipe_id from ingredients where ingredient_name="' + row[3]['Ing_name'] + '" LIMIT 4 '
-	query6='SELECT Recipe_id from ingredients where ingredient_name="' + row[4]['Ing_name'] + '" LIMIT 4 '
+	# query3='SELECT Recipe_id from ingredients where ingredient_name="' + row[1]['Ing_name'] + '" LIMIT 4 '
+	# query4='SELECT Recipe_id from ingredients where ingredient_name="' + row[2]['Ing_name'] + '" LIMIT 4 '
+	# query5='SELECT Recipe_id from ingredients where ingredient_name="' + row[3]['Ing_name'] + '" LIMIT 4 '
+	# query6='SELECT Recipe_id from ingredients where ingredient_name="' + row[4]['Ing_name'] + '" LIMIT 4 '
 
 
 	cur.execute(query2)
 	rec2=cur.fetchall()
 	print(rec2)
+	show=len(rec2)
 	# cur.execute(query3)
 	# rec3=cur.fetchall()
 	# cur.execute(query4)
@@ -613,6 +614,6 @@ def category(id):
 	print(queryimg)
 	img=cur.fetchone()
 	print(img)
-	return render_template("category.html", row=row,heading=heading,row2=row2,fin=rec2,img=img)
+	return render_template("category.html", row=row,heading=heading,row2=row2,fin=rec2,img=img,show=show)
 if __name__ == '__main__':
   app.run(debug=True)
