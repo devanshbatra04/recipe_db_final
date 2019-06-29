@@ -166,8 +166,8 @@
                         <td>
                             {{ form["Total lipid (fat) (g)"] }}
                         </td>
-                        <td>
-                            <a href="https://ndb.nal.usda.gov/ndb/foods/show/{{ form["ndb_id"] }}" target="_blank"><i class="fa fa-external-link"></i></a>
+                        <td class="ndbLinks">
+                            <a data-ndbID="{{ form["ndb_id"] }}" href="https://ndb.nal.usda.gov/ndb/foods/show/{{ form["ndb_id"] }}" target="_blank"><i class="fa fa-external-link"></i></a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -195,6 +195,10 @@
                 console.log(elems);
                 var instances = M.Dropdown.init(elems, {});
               // var instances = M.Tabs.init(elems, {});
+            });
+
+            [...document.getElementsByClassName("ndbLinks")].forEach(td => {
+                td.querySelector("a").href = `https://ndb.nal.usda.gov/ndb/foods/show/${"0".repeat(5 - td.querySelector("a").dataset.ndbid.length) + td.querySelector("a").dataset.ndbid}`
             });
 
 
