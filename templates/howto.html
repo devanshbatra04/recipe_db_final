@@ -38,7 +38,7 @@
           <div class="col s12">
             <div class="card blue-grey lighten-5">
               <div class="card-content black-text">
-                <span class="card-title"><b><h4><strong><center>RecipeDb 101</center></strong></h4></b></span>
+                <span class="card-title"><b><h4><strong><center>RecipeDB 101</center></strong></h4></b></span>
                 <h6><center>A guide to using this resource and its features</center></h6>
 
               </div>
@@ -49,40 +49,377 @@
         <div class="row">
 
            <ul class="tabs tab-demo z-depth-1">
-          <li class="tab col s3"><a class="active" href="#test1">RecipeDB Overview</a></li>
-          <li class="tab col s3"><a class="active" href="#test2">Visual Search</a></li>
-          <li class="tab col s3"><a class="active" href="#test3">Advanced Search</a></li>
-          <li class="tab col s3"><a class="active" href="#test4">RecipeDB Statistics</a></li>
+          <li class="tab col s2"><a class="active" href="#test1">Overview</a></li>
+          <li class="tab col s2"><a class="active" href="#test2">Visual Search</a></li>
+          <li class="tab col s2"><a class="active" href="#test3">Recipe Search</a></li>
+          <li class="tab col s3"><a class="active" href="#test4">Advanced Search</a></li>
+          <li class="tab col s3"><a class="active" href="#test5">RecipeDB Statistics</a></li>
         </ul>
         </div>
-        <div class="container">
+        <!-- <div class="container"> -->
           <div class="row">
 
               <div id="test1" class="col s12">
                 <div class="row">
+                  <h5>RecipeDB Overview</h5>
                     <div class="col s12 m6">
-                        <h5>Summary</h5>
+
                         <blockquote>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium adipisci assumenda, at, beatae commodi corporis dolorum eius enim excepturi illo in nihil quidem quis reprehenderit, saepe soluta ut vel veritatis.
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi, blanditiis cupiditate ea expedita laudantium libero magnam, porro quidem quod repellendus sit ut voluptas. Eum, rem, tempore. Accusantium nam saepe voluptates.
-                        </p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium adipisci assumenda, at, beatae commodi corporis dolorum eius enim excepturi illo in nihil quidem quis reprehenderit, saepe soluta ut vel veritatis.
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi, blanditiis cupiditate ea expedita laudantium libero magnam, porro quidem quod repellendus sit ut voluptas. Eum, rem, tempore. Accusantium nam saepe voluptates.
+                        <p>RecipeDB is a resource with extensive coverage of over 100,000 recipes and approximately 2000 ingredients across over 22 world regions. It offers a user-friendly interface for querying and browsing through recipes. Data visualizations and interlinked search options are provided to retrieve relevant information. It intends to enable data-driven explorations of recipes. It facilitates multi-level analysis of traditional recipes (recipes, categorical classifications, ingredient composition).
                         </p>
                         </blockquote>
                     </div>
                     <div class="col s12 m6">
-                        <img src="/recipedb/static/figure-schema.jpg" class="responsive-img" alt="">
+                        <img style="max-height: 100%; max-width: 100%;" src="../recipedb/static/sect1.png" class="responsive-img" alt="">
                     </div>
                 </div>
               </div>
-              <div id="test2" class="col s12">Test 2</div>
-              <div id="test3" class="col s12">Test 3</div>
-              <div id="test4" class="col s12">Test 4</div>
+              <div id="test3" class="col s12">
 
+                <div class="row"><blockquote>
+                  <h5>III. RecipeDB Search</h5>
+                <p>RecipeDB facilitates an elastic search to query recipes based on cuisine (geographical location of origin), ingredients used/not used, dietary classifications (vegan, vegetarian, vegetarian but not vegan, etc.) and nutritional profile (amount of energy, carbohydrates, etc.).
+                Each search option allows the user to use any combination of the search parameters in their queries. All search boxes come with an autocomplete option to assist the user with any query containing a string with two or more characters typed, greatly enabling the user’s ability to explore the database.
+                In case the user is not looking for anything specific, they can hit the ‘Submit’ button without providing any specific query. This will yield a result showing a list of all the recipes in RecipeDB.
+                In case the user would like to filter the database using a more nuanced list of constraints, clicking on the ‘Advanced’ button will reveal a host of more parameters to query from.
+              </p></blockquote></div>
+
+              <div class="row"><div class="col s12" style="border-top:2px solid #ee6e73; padding-top:15px;">
+                <h5>I) Cuisine Search</h5>
+              </div>
+              <div class="col s12 m6">
+
+                  <blockquote>
+                  <p>RecipeDB is a resource with extensive coverage of over 100,000 recipes and approximately 2000 ingredients across over 22 world regions. It offers a user-friendly interface for querying and browsing through recipes. Data visualizations and interlinked search options are provided to retrieve relevant information. It intends to enable data-driven explorations of recipes. It facilitates multi-level analysis of traditional recipes (recipes, categorical classifications, ingredient composition).
+                  </p>
+                  </blockquote>
+              </div><br>
+              <div class="col s12 m6">
+                  <img style="max-height: 100%; max-width: 100%;" src="../recipedb/static/sect2-2.png" class="responsive-img" alt="">
+              </div><br>
+            </div>
+            <div class="row">
+              <div class="col s12" style="border-top:2px solid #ee6e73; padding-top:15px;">
+                <h5>II) Ingredient Search</h5>
+              </div>
+              <div class="col s12 m6">
+
+                  <blockquote>
+                  <p>‘Ingredient’ search facilitates querying and browsing RecipeDB based on the following features: ingredient used, and ingredient not used.
+                  </p>
+                  </blockquote>
+              </div><br>
+              <div class="col s12 m6">
+                  <img style="max-height: 100%; max-width: 100%;" src="../recipedb/static/sect2-3.png" class="responsive-img" alt="">
+              </div><br>
+            </div>
+            <div class="row">
+              <div class="col s12" style="border-top:2px solid #ee6e73; padding-top:15px;">
+                <h5>III) Category Search</h5>
+              </div>
+              <div class="col s12 m6">
+
+                  <blockquote>
+                  <p>‘Category’ search facilitates querying and browsing RecipeDB based on the following features: dietary style included, and dietary style not included.
+                  </p>
+                  </blockquote>
+              </div>
+              <div class="col s12 m6">
+                  <img style="max-height: 100%; max-width: 100%;" src="../recipedb/static/sect2-4.png" class="responsive-img" alt="">
+              </div><br>
+            </div>
+            <div class="row">
+
+              <div class="col s12" style="border-top:2px solid #ee6e73; padding-top:15px;">
+                <h5>IV) Nutrition Search</h5>
+              </div>
+              <div class="col s12 m6">
+
+                  <blockquote>
+                  <p>‘Nutrition’ search facilitates querying and browsing RecipeDB based on the following features: calories of energy, grams of carbohydrates, grams of protein, and grams of fat.
+                  </p>
+                  </blockquote>
+              </div>
+              <div class="col s12 m6">
+                  <img style="max-height: 100%; max-width: 100%;" src="../recipedb/static/sect2-5.png" class="responsive-img" alt="">
+              </div><br>
+            </div>
+            <div class="row">
+              <div class="col s12" style="border-top:2px solid #ee6e73; padding-top:15px;">
+                <h5>RecipeDB Search: Results</h5>
+              </div>
+              <div class="col s12 m6">
+
+                  <blockquote>
+                  <p>In response to the query provided, a list of all the recipes that satisfy that query will be shown. The ‘Results’ page displays the query used at the top of the page. In case multiple fileds are used for creating a query, the results will show recipes that satisfy all the conditions. The list displays the following information for each recipe: ‘Recipe Title’, ‘Region’, ‘Sub-Region’, ‘Servings’, ‘Calories’, ‘Protein’, ‘Fat’, and a ‘More Info’ button. Clicking on this button will open the recipe information panel for the corresponding recipe. Additionally, clicking on the ‘Recipe Title’ will lead you to the ‘Recipe Page’ and clicking on the ‘Region’ or ‘Sub-Region’ will show a search result of all recipes belonging to that area. Additionally, the ‘Results’ page provides a search box at the top right corner to easily sort through the results.
+                  </p>
+                  </blockquote>
+              </div>
+              <div class="col s12 m6">
+                  <img style="max-height: 100%; max-width: 100%;" src="../recipedb/static/sect2-6.png" class="responsive-img" alt="">
+              </div><br>
+            </div>
+            <div class="row">
+              <div class="col s12" style="border-top:2px solid #ee6e73; padding-top:15px;">
+                <h5>RecipeDB Search: Recipe Informational Panel</h5>
+              </div>
+              <div class="col s12 m6">
+
+                  <blockquote>
+                  <p>This panel provides the ‘Estimated Nutritional Profile’ and ‘Recipe Elements’ of the recipe. This includes attributes of the recipe such as calories, carbohydrates, protein, and fat content as well as information on the constituent ingredients of the recipe such as ingredient name, quantity, etc.
+Further, this panel also provides the ‘Recipe Title’ and a 'Complete Profile’ button. When the user clicks on either of these, they are redirected to the ‘Recipe Page’ and when the user clicks on an ingredient name, they are redirected to the Ingredient Page’.
+</p>
+                  </blockquote>
+              </div>
+              <div class="col s12 m6">
+                  <img style="max-height: 100%; max-width: 100%;" src="../recipedb/static/sect2-7.png" class="responsive-img" alt="">
+              </div><br>
+            </div>
+            <div class="row">
+              <div class="col s12" style="border-top:2px solid #ee6e73; padding-top:15px;">
+                <h5>RecipeDB Search: Recipe Page</h5>
+              </div>
+              <div class="col s12 m6">
+
+                  <blockquote>
+                  <p>This page contains the following sections: ‘Estimated Nutritional Profile’, ‘Recipe Overview’, ‘Ingredients’, ‘Cooking Processes and Utensils’, and ‘Instructions’. Additionally, the page also provides a ‘Show More’ button, an image of the recipe, and the recipe’s name.
+‘Estimated Nutritional Profile’ contains our calculated estimates of nutrition information such as the number of calories, carbohydrates and protein. When the user clicks on the ‘show more’ button, this section expands to reveal more nutrition information.
+‘Recipe Overview’ contains information about the recipe’s cuisine, dietary style, and preparation time as well as a link to RecipeDB’s source for the recipe.
+  </p>
+                  </blockquote>
+              </div>
+              <div class="col s12 m6">
+                  <img style="max-height: 100%; max-width: 100%;" src="../recipedb/static/sect2-8.png" class="responsive-img" alt="">
+              </div>
+            </div>
+            <div class="row" style="border-top:2px solid #ee6e73; padding-top:15px;">
+              <div class="col s12 m6" >
+
+                  <blockquote>
+                  <p>‘Ingredients’ contains a list of all the ingredients in the recipe with information about them such as their name, quantity, unit, and state as well as their estimated nutritional profile. When a user clicks on any ingredient name, they are redirected to the ‘Ingredient Page’.</p>
+                  </blockquote>
+              </div>
+              <div class="col s12 m6">
+                  <img style="max-height: 100%; max-width: 100%; margin-top:15px;" src="../recipedb/static/sect2-9.png" class="responsive-img" alt="">
+              </div>
+            </div>
+            <div class="row" style="border-top:2px solid #ee6e73; padding-top:15px;">
+
+              <div class="col s12 m6" >
+
+                  <blockquote>
+                  <p>‘Cooking Processes and Utensils’ contains a temporal sequence of cooking processes implemented in the recipe as well as the utensils used to carry out those processes.</p>
+                  </blockquote>
+              </div>
+              <div class="col s12 m6">
+                  <img style="max-height: 100%; max-width: 100%;" src="../recipedb/static/sect2-10.png" class="responsive-img" alt="">
+              </div><br>
+            </div>
+            <div class="row" style="border-top:2px solid #ee6e73; padding-top:15px;">
+              <div class="col s12 m6" >
+
+                  <blockquote>
+                  <p>‘Instructions’ contains the instructions to make that recipe.</p>
+                  </blockquote>
+              </div>
+              <div class="col s12 m6">
+                  <img style="max-height: 100%; max-width: 100%;" src="../recipedb/static/sect2-11.png" class="responsive-img" alt="">
+              </div><br>
+            </div>
+            <div class="row" style="border-top:2px solid #ee6e73; padding-top:15px;">
+              <div class="col s12" >
+                <h5>RecipeDB Search: Ingredient Page</h5>
+              </div>
+              <div class="col s12 m6">
+
+                  <blockquote>
+                  <p>This page contains the following sections: ‘Ingredient Overview’, ‘All Forms’, and ‘Recipes’. Additionally, the page also provides an image of the ingredient, and the ingredient’s name.
+‘Ingredient Overview’ contains information about the ingredient category and its aliases. It also contains links to the ingredient’s Wikipedia page, 'Flavor Profile’ page from <a href="https://cosylab.iiitd.edu.in/flavordb/">FlavorDB</a>, and ‘Health Impacts’ page from <a href="https://cosylab.iiitd.edu.in/dietrx/index">DietRx</a>. If the user clicks on the ingredient’s category, they will be redirected to the corresponding ‘Category Page’.
+
+  </p>
+                  </blockquote>
+              </div>
+              <div class="col s12 m6">
+                  <img style="max-height: 100%; max-width: 100%;" src="../recipedb/static/sect2-12.png" class="responsive-img" alt="">
+              </div><br>
+            </div>
+            <div class="row" style="border-top:2px solid #ee6e73; padding-top:15px;">
+              <div class="col s12 m6">
+
+                  <blockquote>
+                  <p>‘All Forms’ contains a list of all the different forms in which this ingredient exists (broiled, peeled, roasted, etc.), their corresponding nutritional information, number of occurrences across all recipes, and a link to their USDA Nutrient Database page which contains their full nutritional profile.
+
+  </p>
+                  </blockquote>
+              </div>
+              <div class="col s12 m6">
+                  <img style="max-height: 100%; max-width: 100%;" src="../recipedb/static/sect2-13.png" class="responsive-img" alt="">
+              </div><br>
+            </div>
+            <div class="row" style="border-top:2px solid #ee6e73; padding-top:15px;">
+              <div class="col s12 m6">
+
+                  <blockquote>
+                  <p>‘Recipes’ contains a list of recipes that use this ingredient along with information such as the recipe’s name, state of the ingredient in the recipe, region and sub-region of origin of the recipe, dietary style of the recipe, and the source of the recipe. If the user clicks on any recipe name, they will be redirected to the ‘Recipe Page’ of that recipe.</p>
+                  </blockquote>
+              </div>
+              <div class="col s12 m6">
+                  <img style="max-height: 100%; max-width: 100%;" src="../recipedb/static/sect2-14.png" class="responsive-img" alt="">
+              </div><br>
+            </div>
+            <div class="row" style="border-top:2px solid #ee6e73; padding-top:15px;">
+              <div class="col s12" >
+                <h5>RecipeDB Search: Category Pagee</h5>
+              </div>
+              <div class="col s12 m6">
+
+                  <blockquote>
+                  <p>This page contains the following sections: A carrousel with the 5 most frequently used ingredients belonging to the category, a list of all the ingredients within the category, and a list of all recipes that contain one or more of the 5 most frequently used ingredients from the category. Additionally, the page also provides an image of the category, and the category’s name.
+The carrousel is a scrollable list that shows the name of image of the 5 most frequently used ingredients belonging to the category. When the user clicks on an ingredient they are redirected to the corresponding ‘Ingredient Page’.
+The list of ingredients contains the names of all ingredients belonging to this category. When the user clicks on an ingredient name they are redirected to the corresponding ‘Ingredient Page’.
+</p>
+                  </blockquote>
+              </div>
+              <div class="col s12 m6">
+                  <img style="max-height: 100%; max-width: 100%;" src="../recipedb/static/sect2-15.png" class="responsive-img" alt="">
+              </div><br>
+            </div>
+            <div class="row" style="border-top:2px solid #ee6e73; padding-top:15px;">
+              <div class="col s12 m6">
+
+                  <blockquote>
+                  <p>The list of recipes contains the recipe name, region and sub-region of origin, and the source of the recipe.</p>
+                  </blockquote>
+              </div>
+              <div class="col s12 m6">
+                  <img style="max-height: 100%; max-width: 100%;" src="../recipedb/static/sect2-16.png" class="responsive-img" alt="">
+              </div><br>
+            </div>
           </div>
+              <div id="test2" class="col s12">
+                <div class="row"><div class="col s12" style="border-top:2px solid #ee6e73; padding-top:15px;">
+                  <h5>II.	Visual Search</h5>
+                </div>
+                <div class="col s12 m6">
+
+                    <blockquote>
+                    <p>Visual search represents a graph of the relationship between ingredients and ingredient categories. The categories are represented by a column of rectangles in the middle of the graph while the ingredients are listed along the circumference of semi-circles on either side of the categories. To observe the pattern of relation for any entity in the graph, the user can hover over it.
+As our database of ingredients is incredibly dense, this network would not be meaningfully usable if it were to include all the ingredients. To address this issue, only the 6 most frequently used ingredients from each category were chosen to be included in the network.
+
+                    </p>
+                    </blockquote>
+                </div><br>
+                <div class="col s12 m6">
+                    <img style="max-height: 100%; max-width: 100%;" src="../recipedb/static/sect3-1.png" class="responsive-img" alt="">
+                </div><br>
+              </div>
+
+              <div class="row" style="border-top:2px solid #ee6e73; padding-top:15px;">
+              <div class="col s12 m6">
+
+                  <blockquote>
+                  <p>Clicking on any ingredient from the main network (or from any category’s network) reveals the ingredient’s own network. This network shows the ingredient at the center in a bubble with its category as well as the other ingredients from that category surrounding the bubble’s periphery. Clicking on the bubble redirects the user to the ingredient’s page. Clicking on any of the entities surrounding the periphery of the bubble reveals their network.</p>
+                  </blockquote>
+              </div><br>
+              <div class="col s12 m6">
+                  <img style="max-height: 100%; max-width: 100%;" src="../recipedb/static/sect3-2.png" class="responsive-img" alt="">
+              </div><br>
+            </div>
+
+            <div class="row" style="border-top:2px solid #ee6e73; padding-top:15px;">
+            <div class="col s12 m6">
+
+                <blockquote>
+                <p>Clicking on any category from the main network reveals the category’s own network with the top 6 most frequently used ingredients from that category occurring along its periphery. Clicking on the category’s bubble redirects the user to its ‘Category’ page while clicking on any of the ingredients reveals the ingredient’s network.
+                </p>
+                </blockquote>
+            </div><br>
+            <div class="col s12 m6">
+                <img style="max-height: 100%; max-width: 100%;" src="../recipedb/static/sect3-3.png" class="responsive-img" alt="">
+            </div><br>
+          </div>
+
+              </div>
+              <div id="test4" class="col s12">
+                <div class="row"><div class="col s12" style="border-top:2px solid #ee6e73; padding-top:15px;">
+                  <h5>IV.	Advanced Search</h5>
+                </div>
+                <div class="col s12 m6">
+
+                    <blockquote>
+                    <p>Advanced Search is provided to enable users who would like to probe RecipeDB by viewing the data through refined parameters. The modality of Advanced Search is like that of Recipe Search which allows filtering RecipeDB data by conjunction of parameters. Advanced search combines parameters from all the searches under Recipe Search (i.e. cuisine, ingredient, and nutrition search) to facilitate extremely tailored queries.
+                    </p>
+                    </blockquote>
+                </div><br>
+                <div class="col s12 m6">
+                    <img style="max-height: 100%; max-width: 100%;" src="../recipedb/static/sect4.png" class="responsive-img" alt="">
+                </div><br>
+              </div>
+              </div>
+              <div id="test5" class="col s12">
+                <div class="row"><div class="col s12" style="border-top:2px solid #ee6e73; padding-top:15px;">
+                  <h5>V.  RecipeDB Statistics</h5>
+                </div>
+                <div class="col s12 m6">
+
+                    <blockquote>
+                    <p>‘RecipeDB Statistics’ are provided on the landing page of RecipeDB.</p>
+                    </blockquote>
+                </div><br></div>
+                <div class="row"><div class="col s12" style="border-top:2px solid #ee6e73; padding-top:15px;">
+                  <h5>RecipeDB Statistics: Recipes</h5>
+                </div>
+                <div class="col s12 m6">
+
+                    <blockquote>
+                    <p>The ‘Recipes’ tab provides a geographical plot of the number of recipes that belong to each of the cuisines in the database. Each area on the map is color-coded in accordance to the cuisine that influences it. On hovering over a sub-region, an information box will appear next to it containing its name, the cuisine that influences it, and the number of recipes in that cuisine.</p>
+                    </blockquote>
+                </div><br>
+                <div class="col s12 m6">
+                    <img style="max-height: 100%; max-width: 100%;" src="../recipedb/static/sect5-1.png" class="responsive-img" alt="">
+                </div><br>
+              </div>
+              <div class="row"><div class="col s12" style="border-top:2px solid #ee6e73; padding-top:15px;">
+                <h5>RecipeDB Statistics: Ingredient</h5>
+              </div>
+              <div class="col s12 m6">
+
+                  <blockquote>
+                  <p>The ‘Ingredient’ tab provides a pie chart which shows the percentage of ingredients from the database that exist in each ingredient category. Hovering over the chart pops up the name of the ingredient category as well as the percentage of ingredients in it.
+                  </p></blockquote>
+              </div><br>
+              <div class="col s12 m6">
+                  <img style="max-height: 100%; max-width: 100%;" src="../recipedb/static/sect5-2.png" class="responsive-img" alt="">
+              </div><br>
+            </div>
+            <div class="row"><div class="col s12" style="border-top:2px solid #ee6e73; padding-top:15px;">
+              <h5>RecipeDB Statistics: Nutrition</h5>
+            </div>
+            <div class="col s12 m6">
+
+                <blockquote>
+                <p>The 'Nutrition’ tab provides a bar graph which shows the average number of calories across each cuisine. Hovering over a bar reveals the exact number of average calories for the respective cuisine.</p></blockquote>
+            </div><br>
+            <div class="col s12 m6">
+                <img style="max-height: 100%; max-width: 100%;" src="../recipedb/static/sect5-3.png" class="responsive-img" alt="">
+            </div><br>
+          </div>
+          <div class="row"><div class="col s12" style="border-top:2px solid #ee6e73; padding-top:15px;">
+            <h5>RecipeDB Statistics: Calories</h5>
+          </div>
+          <div class="col s12 m6">
+
+              <blockquote>
+              <p>The ‘Calories’ tab provides a geographical plot of the average number of calories of each of the cuisines in the database. Each area on the map is color-coded in accordance to the cuisine that influences it. On hovering over a sub-region, an information box will appear next to it containing its name, the cuisine that influences it, and the average number of calories of that cuisine.</p></blockquote>
+          </div><br>
+          <div class="col s12 m6">
+              <img style="max-height: 100%; max-width: 100%;" src="../recipedb/static/sect5-4.png" class="responsive-img" alt="">
+          </div><br>
         </div>
-        </div>
+              </div>
+              </div>
+          </div>
+
           <script>
             document.addEventListener('DOMContentLoaded', function() {
               var elems = document.querySelectorAll('.collapsible');

@@ -83,19 +83,22 @@
         <!-- SUMMARY AND PHOTO ADDED -->
 
         <div class="row">
+
             <div class="col s12 m6">
-                <h5>Summary</h5>
+              <h5>Summary</h5>
                 <blockquote>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium adipisci assumenda, at, beatae commodi corporis dolorum eius enim excepturi illo in nihil quidem quis reprehenderit, saepe soluta ut vel veritatis.
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi, blanditiis cupiditate ea expedita laudantium libero magnam, porro quidem quod repellendus sit ut voluptas. Eum, rem, tempore. Accusantium nam saepe voluptates.
-                </p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium adipisci assumenda, at, beatae commodi corporis dolorum eius enim excepturi illo in nihil quidem quis reprehenderit, saepe soluta ut vel veritatis.
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi, blanditiis cupiditate ea expedita laudantium libero magnam, porro quidem quod repellendus sit ut voluptas. Eum, rem, tempore. Accusantium nam saepe voluptates.
-                </p>
+                <p>RecipeDB is a resource with extensive coverage of over 100,000 recipes and approximately 2000 ingredients across over 22 world regions. It offers a user-friendly interface for querying and browsing through recipes. Data visualizations and interlinked search options are provided to retrieve relevant information. It intends to enable data-driven explorations of recipes. It facilitates multi-level analysis of traditional recipes (recipes, categorical classifications, ingredient composition).</p>
                 </blockquote>
             </div>
-            <div class="col s12 m6">
-                <img src="/recipedb/static/figure-schema.jpg" class="responsive-img" alt="">
+            <h5>Recipe of the day</h5>
+            <div class="col s12 m6" style="border:1px solid black;">
+                <!-- <img src="/recipedb/static/figure-schema.jpg" class="responsive-img" alt=""> -->
+
+
+
+          				<img style="height: 50%; width: 100%;" src="{{row[0]['img_url']}}">
+
+                <h5 class="text-capitalize">{{row[0]['Recipe_title']}}</h5>
             </div>
         </div>
 
