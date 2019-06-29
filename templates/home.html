@@ -165,7 +165,7 @@
               <span class="switch">
                 <label>
                   Off
-                  <input id="nutrButton" name="nutrRangeOn" value="on" type="checkbox" id="check-nutrient-search" onclick="toggleNutrSearch()">
+                  <input name="nutrRangeOn" value="on" type="checkbox" id="check-nutrient-search" onclick="toggleNutrSearch()">
                   <span class="lever"></span>
                   On
                 </label>
@@ -173,7 +173,7 @@
               &nbsp &nbsp &nbsp
               <span>Include nutrition based filtering</span>
             </div>
-            <div id="range-rows" style="display:None">
+            <div id="range-rows1" style="display:None">
                 <div class="row">
                   <div class="col s12 m4">
                       <center>
@@ -458,7 +458,7 @@
 		   if("{{empty|safe}}" == "yes"){
 		   	alert("We found 0 results for your search query!");
 		   }
-           document.getElementById("cal_stats").addEventListener ("click", loadStats, false);
+           // document.getElementById("cal_stats").addEventListener ("click", loadStats, false);
         }
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -530,7 +530,7 @@
 
           function toggleNutrSearch() {
             var checkbox = document.getElementById("check-nutrient-search")
-            text = document.getElementById("range-rows")
+            text = document.getElementById("range-rows1")
             if (checkbox.checked == true){
               text.style.display = "block";
             } else {
