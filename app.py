@@ -53,8 +53,6 @@ def get_bold_num(page, page_num_list):
 	return bold_num
 
 #function to query for Ingredients
-def exec_ingre_query():
-	# print("lol")
 
 def exec_query(name, region, Sub_region, page,ings,not_ings, category, not_category, recipe_ids,include_nutrBorders=None, dict_nut_boundaries={}):
 	limit = " LIMIT 20 OFFSET " + str(((int(page)-1) * 20))
