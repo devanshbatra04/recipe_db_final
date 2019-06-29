@@ -54,7 +54,7 @@ def get_bold_num(page, page_num_list):
 
 #function to query for Ingredients
 def exec_ingre_query():
-	print("lol")
+	# print("lol")
 
 def exec_query(name, region, Sub_region, page,ings,not_ings, category, not_category, recipe_ids,include_nutrBorders=None, dict_nut_boundaries={}):
 	limit = " LIMIT 20 OFFSET " + str(((int(page)-1) * 20))
@@ -157,11 +157,11 @@ def exec_query(name, region, Sub_region, page,ings,not_ings, category, not_categ
 	queryf = "Select * from recipes2 where recipes2.Recipe_id in({})".format(query)
 	cur = con.cursor()
 	if queryType < 4:
-		print(query)
+		# print(query)
 		cur.execute(query.replace("Distinct(recipes2.Recipe_id)", "count(Distinct(recipes2.Recipe_id))"))
 	else:
 		cur.execute(query.replace("DISTINCT(Recipe_id)", "count(Distinct(ingredients.Recipe_id))"))
-	print(query)
+	# print(query)
 	rows=cur.fetchall()
 	num_recipes = rows[0][0]
 	con.close()
@@ -286,10 +286,10 @@ def search_recipe():
 				"carb_max" : request.form.get('CarbMax')
 			}
 
-		print(request.form.get("dict_nut_json"))
+		# print(request.form.get("dict_nut_json"))
 
 		rows, heading, num_recipes = exec_query(name, region, Sub_region, page,ings,not_ings,category, notcategory, "recipe_search", include_nutrBorders, dict_nut_boundaries)
-		print(str(num_recipes) + " recipes found")
+		# print(str(num_recipes) + " recipes found")
 
 		if len(rows) == 0:
 			page = int(page) - 1
@@ -445,8 +445,8 @@ def search_ingre(id):
 	curr.execute("select * from USDA_100_grams natural join (select ndb_id, state, ingredient_name, count(*) as value_occurence from ingredients where Ing_ID = {} group by ndb_id,state, ingredient_name having count(ingredient_name)=1 order by value_occurence DESC limit 20)".format(ingredient_id))
 	generic_ingredient_info = cur.fetchone()
 	forms_info = [dict(k) for k in curr.fetchall()]
-	print(forms_info)
-	print(generic_ingredient_info)
+	# print(forms_info)
+	# print(generic_ingredient_info)
 	currr.execute("select * from recipes2 natural join ingredients where ingredients.Ing_ID = {} group by Recipe_id limit 20".format(ingredient_id))
 	recipes_info = [dict(k) for k in currr.fetchall()]
 
@@ -539,9 +539,9 @@ def category(id):
 	con.row_factory = sql.Row
 	query='SELECT * from unique_ingredients where "Category-F-DB" like "' + id + '" and NOT aliases="" LIMIT 5'
 	query1='SELECT * from unique_ingredients where "Category-F-DB" like "' + id + '" and NOT aliases="" LIMIT 20'
-	print(query)
+	# print(query)
 	heading="" + id + ""
-	print(heading)
+	# print(heading)
 
 
 	def dict_factory(cursor, row):
@@ -559,7 +559,7 @@ def category(id):
 	#FARZI KAAM 30TH KE BAAD HATAAAAAAOOOO
 
 	query2='SELECT * from recipes2 where Recipe_id in (Select Recipe_id from ingredients where ingredient_name="' + row[0]['Ing_name'] + '" OR ingredient_name="' + row[1]['Ing_name'] + '" OR ingredient_name="' + row[2]['Ing_name'] + '" OR ingredient_name="' + row[3]['Ing_name'] + '" LIMIT 21 )'
-	print(query2)
+	# print(query2)
 	# query3='SELECT Recipe_id from ingredients where ingredient_name="' + row[1]['Ing_name'] + '" LIMIT 4 '
 	# query4='SELECT Recipe_id from ingredients where ingredient_name="' + row[2]['Ing_name'] + '" LIMIT 4 '
 	# query5='SELECT Recipe_id from ingredients where ingredient_name="' + row[3]['Ing_name'] + '" LIMIT 4 '
@@ -568,7 +568,7 @@ def category(id):
 
 	cur.execute(query2)
 	rec2=cur.fetchall()
-	print(rec2)
+	# print(rec2)
 	show=len(rec2)
 	# cur.execute(query3)
 	# rec3=cur.fetchall()
@@ -611,9 +611,9 @@ def category(id):
 
 	queryimg='SELECT cat_Image from cat_Img where "Category" like "' + id + '"'
 	cur.execute(queryimg)
-	print(queryimg)
+	# print(queryimg)
 	img=cur.fetchone()
-	print(img)
+	# print(img)
 	return render_template("category.html", row=row,heading=heading,row2=row2,fin=rec2,img=img,show=show)
 if __name__ == '__main__':
   app.run(debug=True)
