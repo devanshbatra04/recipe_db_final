@@ -476,12 +476,18 @@
             var elems = document.querySelectorAll('#search .tabs');
             var instance = M.Tabs.init(elems, {});
 
-            setTimeout(() => {
-                var elems = document.querySelectorAll('#stats .tabs');
-                var instance = M.Tabs.init(elems, {});
-                }
-            ,5000)
+            // setTimeout(() => {
+            //     var elems = document.querySelectorAll('#stats .tabs');
+            //     var instance = M.Tabs.init(elems, {});
+            //     }
+            // ,5000)
 
+            var elems = document.querySelectorAll('#stats .tabs');
+                var instance = M.Tabs.init(elems, {
+                    onShow: (tab) => {
+                        tab.querySelector("iframe").contentWindow.location.reload(true);
+                    }
+                });
         });
 
         function loadStats(){
