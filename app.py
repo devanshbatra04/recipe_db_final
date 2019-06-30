@@ -84,7 +84,7 @@ def exec_query(name, region, Sub_region, page,ings,not_ings, category, not_categ
 	v = False
 	d=False
 	if len(name):
-		conditions.append("with keyword in its title" + str(name.strip()))
+		conditions.append("with " + str(name.strip())+ " keyword in its title")
 		queryType = 1
 		v = True
 
