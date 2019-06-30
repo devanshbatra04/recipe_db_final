@@ -41,7 +41,7 @@
             <!--<div class="card " style="background-color:#ee6e73">-->
               <div class="card-content">
                 <div class="col s6" style="padding-top:20px">
-                  <img class="responsive-img" style="max-height: 50%; max-width: 20%;" src="{{img['cat_Image']}}"  alt="">
+                  <img class="responsive-img" style="max-height:300px;" src="{{img['cat_Image']}}"  alt="">
 
                   </div>
               <div class="col s6" style="padding-top:50px"><b><h4 style="text-transform: capitalize; font-family: 'Istok Web', sans-serif; color:#1e4d40;">{{heading}}</h4></b></div>
@@ -83,12 +83,12 @@
       <!-- <div class="row" style="overflow: scroll; max-height:450px;"> -->
       <div id="ingredient_info" style="overflow: scroll; max-height:450px;" class="col s12">
           <ul class="collection">
-          <!-- <li class="collection-item avatar">
+          <li class="collection-item avatar">
             <i class="fa fa-list-alt circle" style="background-color: #ee6e73;" aria-hidden="true"></i>
-
+            <!--<img src="images/yuna.jpg" alt="" class="circle">-->
             <span class="title" style="text-transform: capitalize";><strong>Ingredient List</strong></span>
 
-          </li> -->
+          </li>
           {% for ing in row2 %}
           <li class="collection-item avatar">
             <i class="fa fa-list-alt circle" style="background-color: #ee6e73;" aria-hidden="true"></i>
@@ -99,7 +99,6 @@
           {% endfor %}
         </ul>
       <!-- </div> -->
-      Disclaimer- Top 20 ingredients of <span class="title" style="text-transform: capitalize";><strong>'{{heading}}'</span></strong> category that occur most frequently across all recipes are listed.
     </div>
     <div id="recipe_info" class="col s12" style="max-height:500px; overflow: auto;">
       <div class="row">
@@ -130,8 +129,7 @@
       </table>
 
     </div><br>
-    Disclaimer- Recipes shown use atleast one of the 5 most frequently occuring ingredients of <span class="title" style="text-transform: capitalize";><strong>'{{heading}}'</span></strong> category.
-
+        Recipes shown use at least one of the 5 most frequently occurring ingredients of  the '{{heading}}' category.
           </div>
         </div>
       </li>
@@ -167,7 +165,7 @@
           	<div class="copyright-wrap">
           		<div class="panel">
           			<div class="content">
-          				<p><img alt="" src="../recipedb/static/iiitd.png"></p>
+          				<p><img alt="" src="/iiitd.png"></p>
           				<p>Copyright © 2019 &nbsp; All rights reserved.<br><br>
           					<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png"></a><br>This work is licensed under a <a style="font-weight: bold;" rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
           				</p>

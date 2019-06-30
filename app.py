@@ -489,14 +489,12 @@ def search_ingre(id):
 	cur = con.cursor()
 	curr = conn.cursor()
 	currr = connn.cursor()
-	query = "select * from unique_ingredients where Ing_ID = {}".format(ingredient_id)
+	query = "select * from unique_ingredients where Ing_ID = '{}'".format(ingredient_id)
 	cur.execute(query)
-	curr.execute("select * from USDA_100_grams natural join (select ndb_id, state, ingredient_name, count(*) as value_occurence from ingredients where Ing_ID = {} group by ndb_id,state, ingredient_name having count(ingredient_name)=1 order by value_occurence DESC limit 20)".format(ingredient_id))
+	curr.execute("select * from USDA_100_grams natural join (select ndb_id, state, ingredient_name, count(*) as value_occurence from ingredients where Ing_ID = '{}' group by ndb_id,state, ingredient_name having count(ingredient_name)=1 order by value_occurence DESC limit 20)".format(ingredient_id))
 	generic_ingredient_info = cur.fetchone()
 	forms_info = [dict(k) for k in curr.fetchall()]
-	# print(forms_info)
-	# print(generic_ingredient_info)
-	currr.execute("select * from recipes2 natural join ingredients where ingredients.Ing_ID = {} group by Recipe_id limit 20".format(ingredient_id))
+	currr.execute("select * from recipes2 natural join ingredients where ingredients.Ing_ID = '{}' group by Recipe_id limit 20".format(ingredient_id))
 	recipes_info = [dict(k) for k in currr.fetchall()]
 
 	return render_template("ingredient.html",generic_ingredient_info=generic_ingredient_info, forms_info=forms_info, recipes_info=recipes_info)

@@ -101,7 +101,7 @@
               <ul class="tabs">
                 <li class="tab col s3"><a class="active" href="#recipe_info">Recipe Overview</a></li>
                 <li class="tab col s3"><a href="#ingredient_nutri">Ingredients</a></li>
-                <li class="tab col s3"><a href="#process_info">Cooking Processes and Utensils</a></li>
+                <li class="tab col s3"><a href="#process_info">Processes - Utensils</a></li>
                 <li class="tab col s3"><a href="#steps">Instructions</a></li>
               </ul>
             </div>
@@ -111,7 +111,7 @@
                   <i class="fa fa-globe circle" style="background-color: #ee6e73;" aria-hidden="true"></i>
                   <!--<img src="images/yuna.jpg" alt="" class="circle">-->
                   <span class="title"><strong>Cuisine</strong></span>
-                  <p>Sub Region - {{row[0]["Sub_region"]}}, Region - {{row[0]["Region"]}}, Continent - {{row[0]["Continent"]}}
+                  <p>{{row[0]["Continent"]}} >> {{row[0]["Region"]}} >> {{row[0]["Sub_region"]}}
                   </p>
                 </li>
                 <li class="collection-item avatar">
@@ -213,7 +213,7 @@
                 {% endfor %}
                 </tbody>
               </table>
-
+                <p>N/A - Suitable USDA nutrition profile could not be mapped for this ingredient-unit combination.</p>
               </div>
               </div>
 
