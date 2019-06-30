@@ -573,6 +573,10 @@
           function addImageToModal(imgURL) {
             let recipeImage = document.createElement('IMG');
             recipeImage.className = "responsive-img";
+            if(imgURL === "https://geniuskitchen.sndimg.com/gk/img/gk-shareGraphic.png")
+            {
+              imgURL="../recipedb/static/recipe_temp.jpg"
+            }
             recipeImage.setAttribute('src', `${imgURL}`);
             recipeImage.setAttribute('alt', 'A Soup Bowl');
             document.getElementById('modalImage').appendChild(recipeImage);
