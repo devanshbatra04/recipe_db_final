@@ -86,8 +86,12 @@
         <div class="col s12 m6" >
           <h5>Summary</h5>
             <blockquote>
-            <p>RecipeDB is a resource with extensive coverage of over 100,000 recipes and approximately 2000 ingredients across over 22 world regions. It offers a user-friendly interface for querying and browsing through recipes. Data visualizations and interlinked search options are provided to retrieve relevant information. It intends to enable data-driven explorations of recipes. It facilitates multi-level analysis of traditional recipes (recipes, categorical classifications, ingredient composition).
-            </p>
+                <p>
+                    Cooking is the act of turning nature into the culture which has enabled the advent of the omnivorous human diet. The cultural wisdom of processing a variety of raw ingredients into delicious dishes is embodied in their cuisines. Recipes thus are the cultural capsules that encode elaborate cooking protocols for evoking sensory satiation. As we stand on the verge of an epidemic of diet-linked disorders (such as obesity, type II diabetes and cardiac diseases), it is eminently important to investigate the culinary correlates of diet to probe their association with sensory responses as well as consequences for nutrition and health.
+                </p>
+                <p>
+                    RecipeDB is a structured compilation of recipes, ingredients, nutrition profiles interlinked with flavor profiles, and health associations. The repertoire comprises of meticulous integration of over 1,18,000 recipes from cuisines across the globe (6 continents, 26 geo-cultural regions, and 74 countries), cooked using 268 processes (heat, cook, boil, simmer, bake, etc.), by blending over 8700 ingredients from diverse categories, which are further linked to their flavor molecules (FlavorDB), nutritional profiles (USDA) and empirical records of disease associations obtained from Medline (DietRx). This resource is aimed at facilitating scientific explorations of the culinary space (recipe, ingredient, cooking processes, dietary styles, etc.) to taste attributes (flavor profile) and health (nutrition and disease associations) seeking for divergent applications.
+                </p>
             </blockquote>
         </div>
         <div class="col s12 m6" style="background: aliceblue">
@@ -429,25 +433,28 @@
         <div class="row">
 
          <ul class="tabs tab-demo z-depth-1">
-        <li class="tab col s3"><a class="active" href="#tests1">Recipes</a></li>
-        <li class="tab col s2"><a class="" href="#tests5">Category</a></li>
-        <li class="tab col s2"><a class="" href="#tests2">Ingredient</a></li>
-        <li class="tab col s2"><a class="" href="#tests3">Nutrition</a></li>
-        <li class="tab col s3"><a class="" href="#tests4">Calories</a></li>
+        <li class="tab col s2"><a class="active" href="#recipes-stat">Recipes</a></li>
+        <li class="tab col s2"><a class="" href="#categories-stat">Categories</a></li>
+        <li class="tab col s2"><a class="" href="#ingredients-stat">Ingredients</a></li>
+        <li class="tab col s2"><a class="" href="#nutrition-stat">Nutrition</a></li>
+        <li class="tab col s2"><a class="" href="#processes-stat">Processes</a></li>
+        <li class="tab col s2"><a class="" href="#utensils-stat">Utensils</a></li>
       </ul>
       </div>
       </div>
 
-      <div class="container">
+      <div class="center">
         <div class="row">
 
-            <div id="tests1" class="col s12 center">
+            <div id="recipes-stat" class="col s12 center">
               <iframe width="900" height="600" frameborder="0" scrolling="no" src="/recipedb/static/geoplots/recipe_geoplot.html"></iframe>
             </div>
-            <div id="tests2" class="col s12 center"><iframe width="700" height="600" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/41.embed"></iframe></div>
-            <div id="tests3" class="col s12 center"><iframe width="700" height="600" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/64.embed"></iframe></div>
-            <div id="tests4" class="col s12 center"><iframe width="900" height="600" frameborder="0" scrolling="no" src="/recipedb/static/geoplots/calorie_geoplot.html"></iframe></div>
-            <div id="tests5" class="col s12 center"><iframe width="700" height="600" frameborder="0" scrolling="no" src="/recipedb/static/geoplots/category_heatmaps.html"></iframe></div>
+            <div id="ingredients-stat" class="col s12 center"><iframe width="700" height="600" frameborder="0" scrolling="no" src="/recipedb/static/geoplots/ingredient_pie_chart.html"></iframe></div>
+            <!--<div id="tests3" class="col s12 center"><iframe width="700" height="600" frameborder="0" scrolling="no" src="//plot.ly/~amansharma3/64.embed"></iframe></div>-->
+            <div id="nutrition-stat" class="col s12 center"><iframe width="900" height="600" frameborder="0" scrolling="no" src="/recipedb/static/geoplots/calorie_geoplot.html"></iframe></div>
+            <div id="categories-stat" class="col s12 center"><iframe width="700" height="600" frameborder="0" scrolling="no" src="/recipedb/static/geoplots/category_heatmaps.html"></iframe></div>
+            <div id="processes-stat" class="col s12 center"><iframe width="700" height="600" frameborder="0" scrolling="no" src="/recipedb/static/geoplots/processes_pie_chart.html"></iframe></div>
+            <div id="utensils-stat" class="col s12 center"><iframe width="700" height="600" frameborder="0" scrolling="no" src="/recipedb/static/geoplots/utensils_pie_chart.html"></iframe></div>
 
         </div>
       </div>
