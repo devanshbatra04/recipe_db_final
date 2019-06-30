@@ -270,6 +270,9 @@ def home():
 	cur.execute(query)
 	row=cur.fetchone()
 	print(row)
+	if row['img_url']=="https://geniuskitchen.sndimg.com/gk/img/gk-shareGraphic.png" or row['img_url']=="https://images.media-allrecipes.com/images/79591.png":
+		row['img_url']="/recipedb/static/recipe_temp.jpg"
+	print(row['img_url'])
 	return render_template('home.html', row=row,empty = "no")
 
 @app.route('/recipedb/all_recipes', methods=['GET'])
