@@ -121,8 +121,11 @@ function O() {
             y2: Math.sin(a2) * X
         })
     });
-    window.location.hash = "visual-search";
-    M()
+    if (window.location.hash !== "") {
+        window.location.hash = "visual-search";
+        M()
+    }
+
 }
 
 function G(Y, X) {
