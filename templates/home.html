@@ -426,8 +426,7 @@
 
       <div class="col s9 section scrollspy" id="stats">
         <h4 id="mainBodyHeading" class="blue-grey-text text-darken-2" style="text-transform: capitalize; font-family: 'Istok Web', sans-serif;">Statistics</h4>
-      </div>
-      <div class="row">
+        <div class="row">
 
          <ul class="tabs tab-demo z-depth-1">
         <li class="tab col s3"><a class="active" href="#tests1">Recipes</a></li>
@@ -437,6 +436,8 @@
         <li class="tab col s3"><a class="" href="#tests4">Calories</a></li>
       </ul>
       </div>
+      </div>
+
       <div class="container">
         <div class="row">
 
@@ -464,19 +465,17 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-          var elems = document.querySelectorAll('.tabs');
-          var instance = M.Tabs.init(elems, {});
-        });
 
-		// [...document.querySelectorAll("#search .tabs li")].filter(el => !el.classList.contains('indicator')).forEach(el => el.addEventListener("click", function(event){
-        //     var targetElement = event.target || event.srcElement;
-        //     if (targetElement.classList.contains("active") && targetElement.innerText === "NUTRITION") {
-        //         // document.getElementById("nutrButton").value = "on"
-        //     }
-        //     else {
-        //         // document.getElementById("nutrButton").value = "off"
-        //     }
-        // }));
+            var elems = document.querySelectorAll('#search .tabs');
+            var instance = M.Tabs.init(elems, {});
+
+            setTimeout(() => {
+                var elems = document.querySelectorAll('#stats .tabs');
+                var instance = M.Tabs.init(elems, {});
+                }
+            ,5000)
+
+        });
 
         function loadStats(){
         	var form = $('<form></form>');
