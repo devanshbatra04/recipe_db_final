@@ -82,20 +82,29 @@ def exec_query(name, region, Sub_region, page,ings,not_ings, category, not_categ
 	queryType = 0
 	conditions = []
 	v = False
+	d=False
 	if len(name):
 		conditions.append("with keyword in its title" + str(name.strip()))
 		queryType = 1
 		v = True
-	if len(Sub_region):
-		#actually country
-		conditions.append("from " + str(Sub_region.strip()) + " cuisine")
-		queryType = 1
-		v = True
+
+
 	if len(region):
 		#actually country
 		conditions.append("from " + str(region.strip()) + " cuisine")
 		queryType = 1
 		v = True
+		d= True
+
+	if len(Sub_region):
+		#actually country
+		if d==True :
+			x=len(conditions)
+			conditions.pop((x-1))
+		conditions.append("from " + str(Sub_region.strip()) + " cuisine")
+		queryType = 1
+		v = True
+
 	# No region mapping yet to be included soon
 	if len(ings):
 		queryType = 2
