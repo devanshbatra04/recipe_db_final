@@ -82,25 +82,20 @@
 
         <!-- SUMMARY AND PHOTO ADDED -->
 
-        <div class="row">
-
-            <div class="col s12 m6">
-              <h5>Summary</h5>
-                <blockquote>
-                <p>RecipeDB is a resource with extensive coverage of over 100,000 recipes and approximately 2000 ingredients across over 22 world regions. It offers a user-friendly interface for querying and browsing through recipes. Data visualizations and interlinked search options are provided to retrieve relevant information. It intends to enable data-driven explorations of recipes. It facilitates multi-level analysis of traditional recipes (recipes, categorical classifications, ingredient composition).</p>
-                </blockquote>
-            </div>
-            <h5>Recipe of the day</h5>
-            <div class="col s12 m6" style="border:1px solid black;">
-                <!-- <img src="/recipedb/static/figure-schema.jpg" class="responsive-img" alt=""> -->
-
-
-
-          				<img style="height: 50%; width: 100%;" src="placeholder">
-
-                <h5 class="text-capitalize">placeholder</h5>
-            </div>
+        <div class="row" style="border-top:2px solid #ee6e73; padding-top:15px;">
+        <div class="col s12 m6" >
+          <h5>Summary</h5>
+            <blockquote>
+            <p>RecipeDB is a resource with extensive coverage of over 100,000 recipes and approximately 2000 ingredients across over 22 world regions. It offers a user-friendly interface for querying and browsing through recipes. Data visualizations and interlinked search options are provided to retrieve relevant information. It intends to enable data-driven explorations of recipes. It facilitates multi-level analysis of traditional recipes (recipes, categorical classifications, ingredient composition).
+            </p>
+            </blockquote>
         </div>
+        <div class="col s12 m6" style="border:0.5px solid #000;">
+            <center><h5>Recipe of the day</h5>
+            <img style="max-height: 100%; max-width: 100%;" src="{{row['img_url']}}" class="responsive-img" alt="">
+            <h5 class="text-capitalize"><a href="/recipedb/search_recipeInfo/{{row['Recipe_id']}}">{{row['Recipe_title']}}</a></h5></center>
+        </div><br>
+      </div>
 
         <!-- SEARCH PAGE STARTS HERE -->
             <div class="col s9 section scrollspy" style="margin-top:50px; padding-bottom:30px; border-top:2px solid #ee6e73;  padding-top:15px;" id="visual-search">

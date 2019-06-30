@@ -226,7 +226,42 @@ def load_Ingstats():
 
 @app.route('/recipedb/')
 def home():
-	return render_template('home.html', empty = "no")
+	import random
+	from datetime import date
+	today = date.today()
+	choose=[2614,2618,2888,2887]
+	print(today)
+	# today="2019-07-03"
+	today=(hash(today))
+	print(today)
+
+	if today<-1:
+		today=today*(-1)
+	today=today//1009795955354653
+	print(today)
+		# today=32s000
+	if today<2610:
+		today=2614
+	today=str(today)
+	con = sql.connect("recipe2-final.db")
+	con.row_factory = sql.Row
+	print(today)
+
+	query='SELECT * from recipes2 where Recipe_id="' + today + '"'
+	print(query)
+	# heading="Nutritional Profile of Recipe " + id + " is "
+
+	# def dict_factory(cursor, row):
+	# 	d = {}
+	# 	for idx, col in enumerate(cursor.description):
+	# 		d[col[0]] = row[idx]
+	# 	return d
+	# con.row_factory = dict_factory
+	cur = con.cursor()
+	cur.execute(query)
+	row=cur.fetchone()
+	print(row)
+	return render_template('home.html', row=row,empty = "no")
 
 @app.route('/recipedb/all_recipes', methods=['GET'])
 def all_recipes():
