@@ -23,10 +23,17 @@
          max-height:200px !important;
          width: auto !important;
        }
-
+         tbody tr td:nth-child(4) {
+             text-transform: capitalize;
+         }
+         select {
+             display: inline-block !important;
+         }
 
 
      </style>
+       <!--<link href="https://datatables.net/download/build/dataTables.responsive.nightly.css" rel="stylesheet" type="text/css" />-->
+<!--<script src="https://datatables.net/download/build/dataTables.responsive.nightly.js"></script>-->
    </head>
    <body>
       {% extends 'nav.html' %}
@@ -34,74 +41,90 @@
 
 
       <div class = "container">
-        <div class="row">
-          <div class="col s12">
-            <div class="card blue-grey lighten-5">
-              <div class="card-content black-text">
-                <span class="card-title"><b><h4><strong><center>RecipeDb 101</center></strong></h4></b></span>
-                <h6><center>A guide to using this resource and its features</center></h6>
+        <!--<div class="row">-->
+          <!--<div class="col s12">-->
+            <!--<div class="card blue-grey lighten-5">-->
+              <!--<div class="card-content black-text">-->
+                <!--&lt;!&ndash;<span class="card-title"><b><h4><strong><center>RecipeDB </center></strong></h4></b></span>&ndash;&gt;-->
+                <!--&lt;!&ndash;<h6><center>A guide to using this resource and its features</center></h6>&ndash;&gt;-->
 
-              </div>
-            </div>
-          </div>
-        </div>
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
         <hr>
         <div class="row">
            <ul class="tabs tab-demo z-depth-1">
-          <li class="tab col s6"><a class="active" href="#taste">Taste Receptors</a></li>
-          <li class="tab col s6"><a class="active" href="#odour">Odour receptors</a></li>
+          <li class="tab col s6" id="taste-tab"><a class="active" href="#t1">Taste Receptors</a></li>
+          <li class="tab col s6" id="odor-tab"><a class="active" href="#t2">Odour receptors</a></li>
         </ul>
         </div>
-          <div class="row">
-
-              <div id="taste" class="col s12">
-                <div class="row">
-                    <div class="col s12 m6">
-                        <h5>Summary</h5>
-                        <blockquote>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium adipisci assumenda, at, beatae commodi corporis dolorum eius enim excepturi illo in nihil quidem quis reprehenderit, saepe soluta ut vel veritatis.
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi, blanditiis cupiditate ea expedita laudantium libero magnam, porro quidem quod repellendus sit ut voluptas. Eum, rem, tempore. Accusantium nam saepe voluptates.
-                        </p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium adipisci assumenda, at, beatae commodi corporis dolorum eius enim excepturi illo in nihil quidem quis reprehenderit, saepe soluta ut vel veritatis.
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi, blanditiis cupiditate ea expedita laudantium libero magnam, porro quidem quod repellendus sit ut voluptas. Eum, rem, tempore. Accusantium nam saepe voluptates.
-                        </p>
-                        </blockquote>
-                    </div>
-                    <div class="col s12 m6">
-                        <img src="/recipedb/static/figure-schema.jpg" class="responsive-img" alt="">
-                    </div>
-                </div>
+          <div>
+            <!--<div class="row">-->
+                <div id="taste">
+                  <h5 style="font-family: Helvetica; text-align: center">Taste Receptors for Sensory Percepts of Food Ingredients</h5>
+                    <center>Bitter, Sour, Sweet, Umami</center>
+                  <table id="taste-receptors" class="stripe">
+                     <thead>
+                        <tr>
+                            <th>Uniprot Id</th>
+                            <th>Entry name</th>
+                            <th>Organism</th>
+                            <th>Receptor Type</th>
+                            <th>URL</th>
+                        </tr>
+                    </thead>
+                  </table>
               </div>
-              <div id="odour" class="col s12">Test 2</div>
-
+              <div id="odour">
+                  <h5 style="font-family: Helvetica; text-align: center">Odour Receptors for Sensory Percepts of Food Ingredients</h5>
+                  <table id="odor-receptors" class="stripe hover">
+                      <thead>
+                        <tr>
+                            <th>Uniprot Id</th>
+                            <th>Entry name</th>
+                            <th>Organism</th>
+                            <th>Receptor Type</th>
+                            <th>URL</th>
+                        </tr>
+                    </thead>
+                  </table>
+              </div>
           </div>
         </div>
           <script>
             document.addEventListener('DOMContentLoaded', function() {
-              var elems = document.querySelectorAll('.collapsible');
-              var instances = M.Collapsible.init(elems, {});
-            });
 
-            document.addEventListener('DOMContentLoaded', function() {
               var elems = document.querySelectorAll('.tabs');
               var instance = M.Tabs.init(elems, {});
-            });
-
-
-            document.addEventListener('DOMContentLoaded', function() {
-                var elems = document.querySelectorAll('.dropdown-trigger');
-                var instances = M.Dropdown.init(elems, {});
-                var elems = document.querySelectorAll('.carousel');
-                var instance = M.Carousel.init(elems,{
-                  fullWidth: true
-                });
-
+              $("#odor-tab").click(function() {
+                  $("#taste").css("display", "none");
+                  $("#odour").css("display","block");
               });
+              $("#taste-tab").click(function() {
+                  $("#odour").css("display", "none");
+                  $("#taste").css("display","block");
+              })
+                setTimeout(function (){
+                    [...document.querySelectorAll(".dataTables_length label")].forEach(el => {
+                    for (var i = 0; i < el.childNodes.length; i++) {
+                        var curNode = el.childNodes[i];
+                        if (curNode.nodeName === "#text") {
+                            if (curNode.nodeValue === "Show ") curNode.nodeValue = "Entries per page";
+                            if (curNode.nodeValue === " entries") curNode.nodeValue = "";
+                        }
+                    }
+                })
+
+                  $("#odour").css("display", "none");
+                  $("#taste").css("display","block");
+                  document.querySelectorAll("tbody tr td:nth-child(5)").forEach(el => el.innerHTML = `<a href=${el.innerText}>${el.innerText}</a>`)
+                  document.querySelectorAll("tbody tr td:nth-child(4)").forEach(el => el.style.textTransform = "capitalize");
+                }, 1000);
 
 
 
-
-
+            });
           </script>
           <footer class="primary-footer">
           	<div class="copyright-wrap">
@@ -123,6 +146,46 @@
           		</div>
           	</div>
           </footer>
+      <script>
+          $('#taste-receptors').DataTable( {
+            ajax: {
+                url: "/recipedb/static/taste-receptors.json",
+                dataSrc:''
+            },
+              "lengthMenu": [[10,15, 25, 50, -1], [10,15, 25, 50, "All"]],
+              "pageLength": 15,
+          "columns": [
+                { "data": "Uniprot Id" },
+                { "data": "Entry name" },
+                { "data": "Organism" },
+                { "data": "Receptor Type" },
+                { "data": "URL",
+                    "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                        $(nTd).html("<a href='"+oData.URL+"'>"+oData.URL+" <i class=\"fa fa-external-link\"></i> </a>");
+                    }
+                }
+            ]
+          } );
+          $('#odor-receptors').DataTable( {
+            ajax: {
+                url: "/recipedb/static/odor-receptors.json",
+                dataSrc:''
+            },
+              "lengthMenu": [[10, 15, 25, 50, -1], [10, 25, 50, "All"]],
+              "pageLength": 15,
+          "columns": [
+                { "data": "Uniprot Id" },
+                { "data": "Entry name" },
+                { "data": "Organism" },
+                { "data": "Receptor Type" },
+                { "data": "URL",
+                 "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                        $(nTd).html("<a href='"+oData.URL+"'>"+oData.URL+" <i class=\"fa fa-external-link\"></i> </a>");
+                    }
+                }
+            ]
+          } );
+      </script>
           {% endblock %}
       </body>
       </html>
