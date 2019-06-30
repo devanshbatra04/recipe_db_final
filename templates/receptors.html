@@ -59,7 +59,7 @@
         <div class="row">
            <ul class="tabs tab-demo z-depth-1">
           <li class="tab col s6" id="taste-tab"><a class="active" href="#t1">Taste Receptors</a></li>
-          <li class="tab col s6" id="odor-tab"><a class="active" href="#t2">Odour receptors</a></li>
+          <li class="tab col s6" id="odor-tab"><a class="active" href="#t2">Odor receptors</a></li>
         </ul>
         </div>
           <div>
@@ -80,12 +80,12 @@
                   </table>
               </div>
               <div id="odour">
-                  <h5 style="font-family: Helvetica; text-align: center">Odour Receptors for Sensory Percepts of Food Ingredients</h5>
+                  <h5 style="font-family: Helvetica; text-align: center">Odor Receptors for Sensory Percepts of Food Ingredients</h5>
                   <table id="odor-receptors" class="stripe hover">
                       <thead>
                         <tr>
-                            <th>Uniprot Id</th>
-                            <th>Entry name</th>
+                            <th>Uniprot ID</th>
+                            <th>Receptor name</th>
                             <th>Organism</th>
                             <th>Receptor Type</th>
                             <th>URL</th>
@@ -122,7 +122,13 @@
                   $("#odour").css("display", "none");
                   $("#taste").css("display","block");
                   document.querySelectorAll("tbody tr td:nth-child(5)").forEach(el => el.innerHTML = `<a href=${el.innerText}>${el.innerText}</a>`)
-                  document.querySelectorAll("tbody tr td:nth-child(4)").forEach(el => el.style.textTransform = "capitalize");
+                  document.querySelectorAll("tbody tr td:nth-child(3)").forEach(el => el.innerHTML = `<em>${el.innerText}</em>`)
+                  document.querySelectorAll("tbody tr td:nth-child(4)").forEach(el => {
+                      el.style.textTransform = "capitalize";
+                      if (el.textContent === "ODOR") {
+                          el.textContent = "Odor";
+                      }
+                  });
                 }, 1000);
 
 
