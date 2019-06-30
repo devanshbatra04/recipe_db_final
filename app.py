@@ -88,12 +88,12 @@ def exec_query(name, region, Sub_region, page,ings,not_ings, category, not_categ
 		v = True
 	if len(Sub_region):
 		#actually country
-		conditions.append("from cuisine " + str(Sub_region.strip()))
+		conditions.append("from " + str(Sub_region.strip()) + " cuisine")
 		queryType = 1
 		v = True
 	if len(region):
 		#actually country
-		conditions.append("from cuisine " + str(region.strip()))
+		conditions.append("from " + str(region.strip()) + " cuisine")
 		queryType = 1
 		v = True
 	# No region mapping yet to be included soon
@@ -110,11 +110,11 @@ def exec_query(name, region, Sub_region, page,ings,not_ings, category, not_categ
 	if len(category):
 		if queryType == 0:
 			queryType = 4
-
+		conditions.append("having ingredients from " + str(category.strip())+ " category")
 	if len(not_category):
 		if queryType == 0:
 			queryType = 4
-
+		conditions.append("not having ingredients from " + str(not_category.strip())+ " category")
 	conditions = list(map(lambda x: x.strip(), conditions))
 
 	subq = ""
@@ -417,6 +417,22 @@ def redirect_to_ingredient(name):
 	# print(url_for('search_ingre', id=))
 	return redirect((url_for('search_ingre', id=t)))
 
+
+# @app.route('/recipedb/ingredient/<string:name>',  methods = ['GET', 'POST'])
+# def redirect_to_home(name):
+# 	con = sql.connect("recipe2-final.db")
+# 	con.row_factory = sql.Row
+# 	cur = con.cursor()
+# 	cur.execute("select Ing_id from unique_ingredients where Ing_name like \"{}\"".format(name))
+# 	row = cur.fetchone()
+# 	t = "a_b_" + str(row[0])
+# 	# print(url_for('search_ingre', id=))
+# 	return redirect((url_for('home'))
+#
+# @app.errorhandler(werkzeug.exceptions.BadRequest)
+# def handle_bad_request(e):
+#     return ('bad request!', 400)
+
 @app.route('/recipedb/search_subregion/<string:id>',  methods = ['GET', 'POST'])
 def search_subregion(id):
 	page = 1
@@ -590,6 +606,7 @@ def category(id):
 	cur = con.cursor()
 	cur.execute(query)
 	row = cur.fetchall()
+	# print(row[0])
 	cur.execute(query1)
 	row2=cur.fetchall()
 	# print(row[4])
@@ -607,6 +624,7 @@ def category(id):
 	rec2=cur.fetchall()
 	# print(rec2)
 	show=len(rec2)
+	# print(show)
 	# cur.execute(query3)
 	# rec3=cur.fetchall()
 	# cur.execute(query4)
