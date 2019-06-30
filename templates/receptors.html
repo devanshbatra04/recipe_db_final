@@ -121,14 +121,6 @@
 
                   $("#odour").css("display", "none");
                   $("#taste").css("display","block");
-                  document.querySelectorAll("tbody tr td:nth-child(5)").forEach(el => el.innerHTML = `<a href=${el.innerText}>${el.innerText}</a>`)
-                  document.querySelectorAll("tbody tr td:nth-child(3)").forEach(el => el.innerHTML = `<em>${el.innerText}</em>`)
-                  document.querySelectorAll("tbody tr td:nth-child(4)").forEach(el => {
-                      el.style.textTransform = "capitalize";
-                      if (el.textContent === "ODOR") {
-                          el.textContent = "Odor";
-                      }
-                  });
                 }, 1000);
 
 
@@ -166,7 +158,11 @@
           "columns": [
                 { "data": "Uniprot Id" },
                 { "data": "Entry name" },
-                { "data": "Organism" },
+                { "data": "Organism",
+                    "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                        $(nTd).html("<em>"+oData.Organism+"</em>");
+                    }
+                },
                 { "data": "Receptor Type" },
                 { "data": "URL",
                     "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
@@ -180,13 +176,21 @@
                 url: "/recipedb/static/odor-receptors.json",
                 dataSrc:''
             },
-              "lengthMenu": [[10, 15, 25, 50, -1], [10, 25, 50, "All"]],
+              "lengthMenu": [[10, 15, 25, 50, -1], [10, 15, 25, 50, "All"]],
               "pageLength": 15,
           "columns": [
                 { "data": "Uniprot Id" },
                 { "data": "Entry name" },
-                { "data": "Organism" },
-                { "data": "Receptor Type" },
+                { "data": "Organism",
+                "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                        $(nTd).html("<em>"+oData.Organism+"</em>");
+                    }
+                },
+                { "data": "Receptor Type",
+                "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                        $(nTd).html("Odor");
+                    }
+                },
                 { "data": "URL",
                  "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                         $(nTd).html("<a href='"+oData.URL+"'>"+oData.URL+" <i class=\"fa fa-external-link\"></i> </a>");

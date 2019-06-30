@@ -67,18 +67,20 @@
                     <p>{{generic_ingredient_info["aliases"]}}</p>
                 </li>
                     {% endif %}
-                <li class="collection-item avatar">
-                  <i class="fa fa-wikipedia-w circle" style="background-color: #ee6e73;"></i>
-                  <span class="title" style="display:block; margin-top:1%;"><strong><a href="{{generic_ingredient_info["Wikilink"]}}" target="_blank">Wikipedia Link to <span style="text-transform: capitalize">{{generic_ingredient_info["Ing_name"].strip()}}</span> <i class="fa fa-external-link"></i></a></strong></span>
-                </li>
-                <li class="collection-item avatar">
-                  <i class="fa fa-info circle" style="background-color: #ee6e73;"></i>
-                  <span class="title" style="display:block; margin-top:1%;"><strong><a href="{{generic_ingredient_info["Wikilink"]}}" target="_blank">Flavor Profile of <span style="text-transform: capitalize">{{generic_ingredient_info["Ing_name"].strip()}}</span> FlavorDB <i class="fa fa-external-link"></i></a></strong></span>
-                </li>
-                <li class="collection-item avatar">
+
+                    <li id="drx-li" class="collection-item avatar">
                   <i class="fa fa-info circle" style="background-color: #ee6e73;"></i>
 
-                  <span class="title" style="display:block; margin-top:1%;"><strong><a href="{{generic_ingredient_info["Wikilink"]}}" target="_blank">Health Impacts of <span style="text-transform: capitalize">{{generic_ingredient_info["Ing_name"].strip()}}</span> from DietRx <i class="fa fa-external-link"></i></a></strong></span>
+                  <span class="title" style="display:block; margin-top:1%;"><strong>Health Impacts of <span style="text-transform: capitalize">{{generic_ingredient_info["Ing_name"].strip()}}</span> from DietRx</strong></span>
+                    <p id="drx-text"></p>
+                </li>
+                    <li id="fdb-li" class="collection-item avatar">
+                  <i class="fa fa-info circle" style="background-color: #ee6e73;"></i>
+                  <span class="title" style="display:block; margin-top:1%;"><strong><a id="fdbHREF" target="_blank">Flavor Profile of <span style="text-transform: capitalize">{{generic_ingredient_info["Ing_name"].strip()}}</span> FlavorDB <i class="fa fa-external-link"></i></a></strong></span>
+                </li>
+                <li id="wiki-li" class="collection-item avatar">
+                  <i class="fa fa-wikipedia-w circle" style="background-color: #ee6e73;"></i>
+                  <span class="title" style="display:block; margin-top:1%;"><strong><a href="{{generic_ingredient_info["Wikilink"]}}" target="_blank">Wikipedia Link to <span style="text-transform: capitalize">{{generic_ingredient_info["Ing_name"].strip()}}</span> <i class="fa fa-external-link"></i></a></strong></span>
                 </li>
               </ul>
             </div>
@@ -187,12 +189,10 @@
             document.addEventListener('DOMContentLoaded', function() {
               var elems = document.querySelectorAll('.tabs');
               elems.forEach(elem => {
-                console.log(elem)
                 M.Tabs.init(elem, {})
               })
 
                 elems = document.querySelectorAll('.dropdown-trigger');
-                console.log(elems);
                 var instances = M.Dropdown.init(elems, {});
               // var instances = M.Tabs.init(elems, {});
             });
@@ -237,8 +237,29 @@
           	</div>
           </footer>
       <script>
-              window.fdbLinks = "{{generic_ingredient_info["flavordb-link"]}}"
-                window.drxLinks = "{{generic_ingredient_info["flavordb-link"]}}"
+          if (!("{{generic_ingredient_info["flavordb-link"]}}".trim())) {
+              document.getElementById("fdb-li").style.display = "none";
+          }
+          else {
+              document.getElementById("fdbHREF").href = "{{generic_ingredient_info["flavordb-link"]}}".split("~")[1].trim()
+          }
+          if (!("{{generic_ingredient_info["DietRX-link"]}}".trim())) document.getElementById("drx-li").style.display = "none";
+          if (!("{{generic_ingredient_info["Wikilink"]}}".trim())) document.getElementById("wiki-li").style.display = "none";
+
+
+
+          drxLinks = "{{generic_ingredient_info["DietRX-link"]}}"
+          try {
+              document.getElementById("drx-text").innerHTML = [...drxLinks.match(/([A-Za-z\s]{1,}~[^\s]*)/g)].map(str => {
+                      var name = str.split("~").map(st => st.trim()) [0];
+                      var url = str.split("~").map(st => st.trim()) [1];
+                      return (`<a href="${url}" target="_blank" style="text-transform: capitalize">${name} <i class="fa fa-external-link"></i></a>`);
+                  }
+              ).join(", ")
+          }
+          catch (e) {
+              console.log("dietrx link not found")
+          }
       </script>
           {% endblock %}
       </body>
