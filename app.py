@@ -569,7 +569,9 @@ def search_recipeInfo(id):
 	# rows[i]["Ingredients"] = ing_names
 	if stepsJSON != {}:
 		recipeSteps = next((x['steps'] for x in stepsJSON if x['Recipe_id'] == id), "Recipe Steps are not available.")
-
+	if row[0]['img_url']=="https://geniuskitchen.sndimg.com/gk/img/gk-shareGraphic.png" or row[0]['img_url']=="https://images.media-allrecipes.com/images/79591.png":
+		row[0]['img_url']="/recipedb/static/recipe_temp.jpg"
+	print(row[0]['img_url'])
 	return render_template("recipeInfo.html",row=row,heading=heading, instructions=recipeSteps, ing_names=ing_names, full_profile=full_profile)
 
 
