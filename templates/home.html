@@ -94,11 +94,17 @@
                 </p>
             </blockquote>
         </div>
+
         <div class="col s12 m6" style="background: aliceblue; margin-top:155px;"">
+            {% if row %}
             <center><h5>Recipe of the day</h5>
             <img style="max-height: 100%; max-width: 100%;" src="{{row['img_url']}}" class="responsive-img" alt="">
             <h5 class="text-capitalize"><a href="/recipedb/search_recipeInfo/{{row['Recipe_id']}}">{{row['Recipe_title']}}</a></h5></center>
+            {% else %}
+            <img style="max-height: 100%; max-width: 100%;" src="/recipedb/static/sect1.png" class="responsive-img" alt="">
+            {% endif %}
         </div><br>
+
       </div>
 
         <!-- SEARCH PAGE STARTS HERE -->
@@ -141,7 +147,7 @@
             placeholder="Enter any region's name (e.g. Southeast Asian)"><br>
           </div>
           <div class="input-field col s4">
-            <h5>Country</h5>
+            <h5>Subregion</h5>
             <input href="/recipedb" type="text" name="autocomplete_cuisine" id="autocomplete-input" class="autocomplete_cuisine"
             placeholder="Enter any cuisine's name (e.g. Indonesian)"><br>
            </div>
