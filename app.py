@@ -285,67 +285,69 @@ def all_recipes():
 @app.route('/recipedb/search_recipe', methods = ['GET', 'POST'])
 def search_recipe():
 	if request.method == 'POST':
-		# print("ee ka hai")
-		page = 1
-		# print( "lol")
-		pageinfo = request.form['page']
-
-		if len(pageinfo) != 0:
-			if int(pageinfo) < 1:
-				page = 1
-			else:
-				page = request.form['page']
-		name = request.form.get('autocomplete_recipe') if request.form.get("autocomplete_recipe") else ""
-		# print(1)
-
-		Sub_region = request.form.get('autocomplete_cuisine') if request.form.get("autocomplete_cuisine") else ""
-		# print(2)
-		region = request.form.get('autocomplete_region') if request.form.get("autocomplete_region") else ""
-		ings = request.form.get('autocomplete_ingredient') if request.form.get("autocomplete_ingredient") else ""
-		# print(ings)
-		not_ings = request.form.get('autocomplete_noningredient') if request.form.get("autocomplete_noningredient") else ""
-		# print(5)
-		if ings.replace(",", "").strip().lower() == not_ings.replace(",", "").strip().lower():
-			return render_template("home.html", empty="yes")
-		category = request.form.get('autocomplete_category') if request.form.get("autocomplete_category") else ""
-		notcategory = request.form.get('autocomplete_noncategory') if request.form.get("autocomplete_noncategory") else ""
-		if category.replace(",", "").strip().lower() == notcategory.replace(",", "").strip().lower():
-			return render_template("home.html", empty="yes")
-
-		include_nutrBorders = request.form.get('nutrRangeOn')
-		# print(6)
-		dict_nut_boundaries = {}
-		if request.form.get("dict_nut_json") and request.form.get("dict_nut_json") != "{}":
-			dict_nut_boundaries = json.loads(request.form.get("dict_nut_json"))
-
-		else:
-			dict_nut_boundaries = {
-				"protein_min" : request.form.get('proteinMin'),
-				"protein_max" : request.form.get('proteinMax'),
-				"fat_min" : request.form.get('fatMin'),
-				"fat_max" : request.form.get('fatMax'),
-				"energy_min" : request.form.get('energyMin'),
-				"energy_max" : request.form.get('energyMax'),
-				"carb_min" : request.form.get('carbMin'),
-				"carb_max" : request.form.get('CarbMax')
-			}
-
-		# print(request.form.get("dict_nut_json"))
-
-		rows, heading, num_recipes = exec_query(name, region, Sub_region, page,ings,not_ings,category, notcategory, "recipe_search", include_nutrBorders, dict_nut_boundaries)
-		# print(str(num_recipes) + " recipes found")
-
-		if len(rows) == 0:
-			page = int(page) - 1
-			rows, heading, num_recipes = exec_query(name, region, Sub_region, page,ings,not_ings,category, notcategory, "recipe_search")
-		if page == 0:
+		try:
+			# print("ee ka hai")
 			page = 1
-		page_num_list, to_delete = get_page_num_list(page, num_recipes)
-		bold_num = get_bold_num(page, page_num_list)
-		if(len(rows) == 0):
-			return render_template("home.html", empty = "yes")
-		return render_template("list_recipes.html", rows = rows, heading = heading, name = name, cuisine = Sub_region, region = region, ings = ings,not_ings=not_ings, pagenum = page, page_num_info = page_num_list, boldbuttonnum = bold_num, to_delete = to_delete, include_nutrBorders=include_nutrBorders, dict_nut_boundaries=json.dumps(dict_nut_boundaries), category=category, not_category=notcategory)
+			# print( "lol")
+			pageinfo = request.form['page']
 
+			if len(pageinfo) != 0:
+				if int(pageinfo) < 1:
+					page = 1
+				else:
+					page = request.form['page']
+			name = request.form.get('autocomplete_recipe') if request.form.get("autocomplete_recipe") else ""
+			# print(1)
+
+			Sub_region = request.form.get('autocomplete_cuisine') if request.form.get("autocomplete_cuisine") else ""
+			# print(2)
+			region = request.form.get('autocomplete_region') if request.form.get("autocomplete_region") else ""
+			ings = request.form.get('autocomplete_ingredient') if request.form.get("autocomplete_ingredient") else ""
+			# print(ings)
+			not_ings = request.form.get('autocomplete_noningredient') if request.form.get("autocomplete_noningredient") else ""
+			# print(5)
+			if ings.replace(",", "").strip().lower() == not_ings.replace(",", "").strip().lower():
+				return render_template("home.html", empty="yes")
+			category = request.form.get('autocomplete_category') if request.form.get("autocomplete_category") else ""
+			notcategory = request.form.get('autocomplete_noncategory') if request.form.get("autocomplete_noncategory") else ""
+			if category.replace(",", "").strip().lower() == notcategory.replace(",", "").strip().lower():
+				return render_template("home.html", empty="yes")
+
+			include_nutrBorders = request.form.get('nutrRangeOn')
+			# print(6)
+			dict_nut_boundaries = {}
+			if request.form.get("dict_nut_json") and request.form.get("dict_nut_json") != "{}":
+				dict_nut_boundaries = json.loads(request.form.get("dict_nut_json"))
+
+			else:
+				dict_nut_boundaries = {
+					"protein_min" : request.form.get('proteinMin'),
+					"protein_max" : request.form.get('proteinMax'),
+					"fat_min" : request.form.get('fatMin'),
+					"fat_max" : request.form.get('fatMax'),
+					"energy_min" : request.form.get('energyMin'),
+					"energy_max" : request.form.get('energyMax'),
+					"carb_min" : request.form.get('carbMin'),
+					"carb_max" : request.form.get('CarbMax')
+				}
+
+			# print(request.form.get("dict_nut_json"))
+
+			rows, heading, num_recipes = exec_query(name, region, Sub_region, page,ings,not_ings,category, notcategory, "recipe_search", include_nutrBorders, dict_nut_boundaries)
+			# print(str(num_recipes) + " recipes found")
+
+			if len(rows) == 0:
+				page = int(page) - 1
+				rows, heading, num_recipes = exec_query(name, region, Sub_region, page,ings,not_ings,category, notcategory, "recipe_search")
+			if page == 0:
+				page = 1
+			page_num_list, to_delete = get_page_num_list(page, num_recipes)
+			bold_num = get_bold_num(page, page_num_list)
+			if(len(rows) == 0):
+				return render_template("home.html", empty = "yes")
+			return render_template("list_recipes.html", rows = rows, heading = heading, name = name, cuisine = Sub_region, region = region, ings = ings,not_ings=not_ings, pagenum = page, page_num_info = page_num_list, boldbuttonnum = bold_num, to_delete = to_delete, include_nutrBorders=include_nutrBorders, dict_nut_boundaries=json.dumps(dict_nut_boundaries), category=category, not_category=notcategory)
+		except:
+			return render_template("home.html", empty="yes")
 
 @app.route('/recipedb/autocomplete_recipe', methods=['GET'])
 def autocomplete_recipe():
