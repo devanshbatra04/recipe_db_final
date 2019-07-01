@@ -575,6 +575,14 @@ def search_recipeInfo(id):
 	if row[0]['img_url']=="https://geniuskitchen.sndimg.com/gk/img/gk-shareGraphic.png" or row[0]['img_url']=="https://images.media-allrecipes.com/images/79591.png":
 		row[0]['img_url']="/recipedb/static/recipe_temp.jpg"
 	print(row[0]['img_url'])
+	print(row[0]['url'])
+	x=row[0]['url'].split('/')
+	print(x)
+	if x[0]=="http:":
+		x[0]='https:'
+		x='/'.join(x)
+		row[0]['url']=x
+
 	return render_template("recipeInfo.html",row=row,heading=heading, instructions=recipeSteps, ing_names=ing_names, full_profile=full_profile)
 
 
