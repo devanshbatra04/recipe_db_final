@@ -570,6 +570,7 @@ def search_recipeInfo(id):
 		recipeSteps = next((x['steps'] for x in stepsJSON if x['Recipe_id'] == id), "Recipe Steps are not available.")
 	if row[0]['img_url']=="https://geniuskitchen.sndimg.com/gk/img/gk-shareGraphic.png" or row[0]['img_url']=="https://images.media-allrecipes.com/images/79591.png":
 		row[0]['img_url']="/recipedb/static/recipe_temp.jpg"
+
 	print(row[0]['img_url'])
 	print(row[0]['url'])
 	x=row[0]['url'].split('/')
