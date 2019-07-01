@@ -237,28 +237,12 @@ def load_Ingstats():
 
 @app.route('/recipedb/')
 def home():
-	import random
-	from datetime import date
-	today = date.today()
-	choose=[2614,2618,2888,2887]
-	print(today)
-	# today="2019-07-03"
-	today=(hash(today))
-	print(today)
-
-	if today<-1:
-		today=today*(-1)
-	today=today//1009795955354653
-	print(today)
-		# today=32s000
-	if today<2610:
-		today=2614
-	today=str(today)
+	import datetime
+	dayOfYear = datetime.datetime.today().timetuple().tm_yday
 	con = sql.connect("recipe2-final.db")
 	con.row_factory = sql.Row
-	print(today)
 
-	query='SELECT * from recipes2 where Recipe_id="' + today + '"'
+	query='select * from recipes2 where img_url like "%img.snd%" limit 1 offset ' + str(dayOfYear)
 	print(query)
 	# heading="Nutritional Profile of Recipe " + id + " is "
 
