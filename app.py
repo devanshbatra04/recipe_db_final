@@ -55,6 +55,7 @@ def get_bold_num(page, page_num_list):
 #function to query for Ingredients
 
 def exec_query(name, region, Sub_region, page,ings,not_ings, category, not_category, recipe_ids,include_nutrBorders=None, dict_nut_boundaries={}):
+	print("hahahahaha")
 	limit = " LIMIT 20 OFFSET " + str(((int(page)-1) * 20))
 	con = sql.connect("recipe2-final.db")
 	con.row_factory = sql.Row
@@ -284,8 +285,8 @@ def all_recipes():
 
 @app.route('/recipedb/search_recipe', methods = ['GET', 'POST'])
 def search_recipe():
-	if request.method == 'POST':
-		try:
+	try:
+		if request.method == 'POST':
 			# print("ee ka hai")
 			page = 1
 			# print( "lol")
@@ -306,11 +307,11 @@ def search_recipe():
 			# print(ings)
 			not_ings = request.form.get('autocomplete_noningredient') if request.form.get("autocomplete_noningredient") else ""
 			# print(5)
-			if ings.replace(",", "").strip().lower() == not_ings.replace(",", "").strip().lower():
+			if len(ings) and ings.replace(",", "").strip().lower() == not_ings.replace(",", "").strip().lower():
 				return render_template("home.html", empty="yes")
 			category = request.form.get('autocomplete_category') if request.form.get("autocomplete_category") else ""
 			notcategory = request.form.get('autocomplete_noncategory') if request.form.get("autocomplete_noncategory") else ""
-			if category.replace(",", "").strip().lower() == notcategory.replace(",", "").strip().lower():
+			if len(category) and category.replace(",", "").strip().lower() == notcategory.replace(",", "").strip().lower():
 				return render_template("home.html", empty="yes")
 
 			include_nutrBorders = request.form.get('nutrRangeOn')
@@ -346,8 +347,8 @@ def search_recipe():
 			if(len(rows) == 0):
 				return render_template("home.html", empty = "yes")
 			return render_template("list_recipes.html", rows = rows, heading = heading, name = name, cuisine = Sub_region, region = region, ings = ings,not_ings=not_ings, pagenum = page, page_num_info = page_num_list, boldbuttonnum = bold_num, to_delete = to_delete, include_nutrBorders=include_nutrBorders, dict_nut_boundaries=json.dumps(dict_nut_boundaries), category=category, not_category=notcategory)
-		except:
-			return render_template("home.html", empty="yes")
+	except:
+		return render_template("home.html", empty="yes")
 
 @app.route('/recipedb/autocomplete_recipe', methods=['GET'])
 def autocomplete_recipe():

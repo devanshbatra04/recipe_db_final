@@ -754,7 +754,7 @@
 
               include_nutrBorders_field.attr("type", "hidden");
               include_nutrBorders_field.attr("name", "nutrRangeOn");
-              include_nutrBorders_field.attr("value", include_nutrBorders);
+              include_nutrBorders_field.attr("value", include_nutrBorders.trim());
 
               form.append(include_nutrBorders_field);
 
@@ -807,6 +807,7 @@
             var notCategoryVal = document.getElementById("not_category").innerHTML;
             var non_ings = document.getElementById("non_INGS").innerHTML;
             var include_nutrBorders = document.getElementById("include_nutrBorders").innerHTML;
+            console.log("button is " + include_nutrBorders);
             var dict_nut_boundaries = document.getElementById("dict_nut_boundaries").innerHTML;
             var nums = ["first", "second", "third", "fourth", "fifth", "sixth", "seventh"];
             var currPage = 0;
@@ -889,7 +890,7 @@
 
               include_nutrBorders_field.attr("type", "hidden");
               include_nutrBorders_field.attr("name", "nutrRangeOn");
-              include_nutrBorders_field.attr("value", include_nutrBorders);
+              include_nutrBorders_field.attr("value", include_nutrBorders.trim());
 
               var dict_nut_boundaries_field = $('<input></input>');
 
@@ -899,7 +900,7 @@
 
               form.append(dict_nut_boundaries_field);
 
-            form.append(dict_nut_boundaries_field);
+            form.append(include_nutrBorders_field);
 
             var category_field = $('<input></input>');
 
@@ -916,7 +917,7 @@
               not_category_field.attr("value", notCategoryVal);
 
               form.append(not_category_field);
-
+            console.log(form);
             $(document.body).append(form);
             form.submit();
           }
