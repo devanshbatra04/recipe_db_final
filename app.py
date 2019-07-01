@@ -482,16 +482,6 @@ def search_ingre(id):
 	ingredient_id=list_args[2]
 	name_Ingre=list_args[1]
 
-# WRITE QUERY FOR THE CASE WHEN WE GET TO INGREDIENT PAGE FROM CATEGORY PAGE. AFTER CLICKING ON CAROUSELS.
-
-	# if ndb_id=="id":
-	# 	query=''
-	# 	heading=name_Ingre
-	# else:
-	# 	query='SELECT * from nutrients where ndb_id="' + ndb_id + '" AND Recipe_id="' + Recipe_id + '"'
-	# 	query1='SELECT DISTINCT Recipe_title from recipes2 where Recipe_id="' + Recipe_id + '"'
-	# 	query2='SELECT * from nutrients where Recipe_id="' + Recipe_id + '"ORDER BY RANDOM() LIMIT 1 '
-	# 	heading=name_Ingre
 	def dict_factory(cursor, row):
 		d = {}
 		for idx, col in enumerate(cursor.description):
@@ -543,13 +533,20 @@ def search_recipeInfo(id):
 	all_nutr = [dict(k) for k in cur.fetchall()]
 	con = sql.connect("recipe2-final.db")
 	con.row_factory = sql.Row
-
-	cur.execute(
-		"select * from 'Recipe_nutrition_full' where Recipe_id = '" + id + "'")
-	full_profile = dict(cur.fetchone())
-
-	rows1 = [d for d in all_ing if str(d["Recipe_id"]).strip() == str(id).strip()]
-	rows2 = [d for d in all_nutr if str(d["Recipe_id"]).strip() == str(id).strip()]
+	try:
+		cur.execute(
+			"select * from 'Recipe_nutrition_full' where Recipe_id = '" + id + "'")
+		full_profile = dict(cur.fetchone())
+	except:
+		full_profile = {}
+	try:
+		rows1 = [d for d in all_ing if str(d["Recipe_id"]).strip() == str(id).strip()]
+	except:
+		rows1 = []
+	try:
+		rows2 = [d for d in all_nutr if str(d["Recipe_id"]).strip() == str(id).strip()]
+	except:
+		rows2 = []
 
 	ing_names = []
 

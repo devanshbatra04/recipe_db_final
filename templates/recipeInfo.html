@@ -61,19 +61,19 @@
                    {% for key, value in dict_item.items() %}
 
                    {% if key=="Energy(kcal)" %}
-                      <tr class="smallRows"><td><strong>Energy (kCal)</strong></td><td>{{value}}</td>
+                      <tr class="smallRows"><td><strong>Energy (kCal)</strong></td><td>{{value if value else "N/A"}}</td>
                     </tr>
 
                    {% elif key =="Protein(g)" %}
-                      <tr class="smallRows"><td><strong>Protein (g)</strong></td><td>{{value}}</td>
+                      <tr class="smallRows"><td><strong>Protein (g)</strong></td><td>{{value if value else "N/A"}}</td>
                     </tr>
 
                    {% elif key=="Carbohydratebydifference(g)" %}
-                      <tr class="smallRows"><td><strong>Carbohydrates (g)</strong></td><td>{{value}}</td>
+                      <tr class="smallRows"><td><strong>Carbohydrates (g)</strong></td><td>{{value if value else "N/A"}}</td>
                     </tr>
 
                    {% elif key=="Totallipid(fat)(g)" %}
-                      <tr class="smallRows"><td><strong>Total fats (g)</strong></td><td>{{value}}</td>
+                      <tr class="smallRows"><td><strong>Total fats (g)</strong></td><td>{{value if value else "N/A"}}</td>
                     </tr>
 
                   {% endif %}
