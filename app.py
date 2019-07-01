@@ -305,9 +305,12 @@ def search_recipe():
 		# print(ings)
 		not_ings = request.form.get('autocomplete_noningredient') if request.form.get("autocomplete_noningredient") else ""
 		# print(5)
+		if ings.replace(",", "").strip().lower() == not_ings.replace(",", "").strip().lower():
+			return render_template("home.html", empty="yes")
 		category = request.form.get('autocomplete_category') if request.form.get("autocomplete_category") else ""
 		notcategory = request.form.get('autocomplete_noncategory') if request.form.get("autocomplete_noncategory") else ""
-
+		if category.replace(",", "").strip().lower() == notcategory.replace(",", "").strip().lower():
+			return render_template("home.html", empty="yes")
 
 		include_nutrBorders = request.form.get('nutrRangeOn')
 		# print(6)
@@ -625,60 +628,12 @@ def category(id):
 	# print(row[0])
 	cur.execute(query1)
 	row2=cur.fetchall()
-	# print(row[4])
-	#FARZI KAAM 30TH KE BAAD HATAAAAAAOOOO
 
 	query2='SELECT * from recipes2 where Recipe_id in (Select Recipe_id from ingredients where ingredient_name="' + row[0]['Ing_name'] + '" OR ingredient_name="' + row[1]['Ing_name'] + '" OR ingredient_name="' + row[2]['Ing_name'] + '" OR ingredient_name="' + row[3]['Ing_name'] + '" LIMIT 21 )'
-	# print(query2)
-	# query3='SELECT Recipe_id from ingredients where ingredient_name="' + row[1]['Ing_name'] + '" LIMIT 4 '
-	# query4='SELECT Recipe_id from ingredients where ingredient_name="' + row[2]['Ing_name'] + '" LIMIT 4 '
-	# query5='SELECT Recipe_id from ingredients where ingredient_name="' + row[3]['Ing_name'] + '" LIMIT 4 '
-	# query6='SELECT Recipe_id from ingredients where ingredient_name="' + row[4]['Ing_name'] + '" LIMIT 4 '
-
-
 	cur.execute(query2)
 	rec2=cur.fetchall()
 	# print(rec2)
 	show=len(rec2)
-	# print(show)
-	# cur.execute(query3)
-	# rec3=cur.fetchall()
-	# cur.execute(query4)
-	# rec4=cur.fetchall()
-	# cur.execute(query5)
-	# rec5=cur.fetchall()
-	# print(rec5)
-	# cur.execute(query6)
-	# rec6=cur.fetchall()
-	# fin=[]
-	# for x,y in enumerate(rec2):
-	# 	queryx='SELECT * from recipes2 where Recipe_id="' + (rec2[x]['Recipe_id']) + '"'
-	# 	# print(queryx)
-	# 	cur.execute(queryx)
-	# 	fin.append(cur.fetchall())
-	# for x,y in enumerate(rec3):
-	# 	queryx='SELECT * from recipes2 where Recipe_id="' + (rec3[x]['Recipe_id']) + '"'
-	# 	# print(queryx)
-	# 	cur.execute(queryx)
-	# 	fin.append(cur.fetchall())
-	# for x,y in enumerate(rec4):
-	# 	queryx='SELECT * from recipes2 where Recipe_id="' + (rec4[x]['Recipe_id']) + '"'
-	# 	# print(queryx)
-	# 	cur.execute(queryx)
-	# 	fin.append(cur.fetchall())
-	# for x,y in enumerate(rec5):
-	# 	queryx='SELECT * from recipes2 where Recipe_id="' + (rec5[x]['Recipe_id']) + '"'
-	# 	# print(queryx)
-	# 	cur.execute(queryx)
-	# 	fin.append(cur.fetchall())
-	# for x,y in enumerate(rec6):
-	# 	queryx='SELECT * from recipes2 where Recipe_id="' + (rec6[x]['Recipe_id']) + '"'
-	# 	# print(queryx)
-	# 	cur.execute(queryx)
-	# 	fin.append(cur.fetchall())
-	# print("hello")
-	# print(fin[6][0]['Recipe_title'])
-	# title="lol"
 
 	queryimg='SELECT cat_Image from cat_Img where "Category" like "' + id + '"'
 	cur.execute(queryimg)
