@@ -108,7 +108,7 @@
                     <th>Ingredient form</th>
                     <th>Region</th>
                     <th>Sub Region</th>
-                    <th>Dietary Style</th>
+                    <!--<th>Dietary Style</th>-->
                     <th>Source</th>
                   </tr>
                 </thead>
@@ -119,7 +119,7 @@
                         <td style="text-transform: capitalize">{{ (recipe["state"].strip() + " " + recipe["ingredient_name"].strip()).strip() }}</td>
                         <td>{{ recipe["Region"] }}</td>
                         <td>{{ recipe["Sub_region"] }}</td>
-                        <td>Unavailable</td>
+                        <!--<td>Unavailable</td>-->
                         <td>{{ recipe["Source"] }}</td>
                     </tr>
                 {% endfor %}
