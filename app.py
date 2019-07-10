@@ -580,7 +580,7 @@ def search_recipeInfo(id):
 
 @app.route('/recipedb/SimilarRecipes/<string:id>',  methods = ['GET', 'POST'])
 def SimilarRecipes(id):
-	print(id)
+	# print(id)
 	return render_template("Sim_Recipes.html",id=id)
 
 @app.route('/recipedb/FAQ',  methods = ['GET', 'POST'])
