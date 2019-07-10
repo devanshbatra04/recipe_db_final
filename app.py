@@ -562,7 +562,7 @@ def search_recipeInfo(id):
 	import re
 	useCase = re.findall('[A-Z][^A-Z]*', row[0]['Source'])
 	print(useCase)
-	row[0]['Source']= useCase[0] + " " + useCase[1] 
+	row[0]['Source']= useCase[0] + " " + useCase[1]
 	print(row[0]['Source'])
 	x=row[0]['url'].split('/')
 	# print(x)
@@ -598,8 +598,8 @@ def stats():
 def category(id):
 	con = sql.connect("recipe2-final.db")
 	con.row_factory = sql.Row
-	query='SELECT * from unique_ingredients where "Category-F-DB" like "' + id + '" and NOT aliases="" LIMIT 5'
-	query1='SELECT * from unique_ingredients where "Category-F-DB" like "' + id + '" and NOT aliases="" LIMIT 20'
+	query='SELECT * from unique_ingredients where "Category-F-DB" like "' + id + '" and NOT aliases="" GROUP BY aliases ORDER By length(Ing_id), Ing_id LIMIT 10'
+	query1='SELECT * from unique_ingredients where "Category-F-DB" like "' + id + '" and NOT aliases="" GROUP BY aliases ORDER By length(Ing_id), Ing_id LIMIT 20'
 	# print(query)
 	heading="" + id + ""
 	# print(heading)
