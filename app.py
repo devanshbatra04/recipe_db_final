@@ -578,6 +578,11 @@ def search_recipeInfo(id):
 	return render_template("recipeInfo.html",row=row,heading=heading, instructions=recipeSteps, ing_names=ing_names, full_profile=full_profile)
 
 
+@app.route('/recipedb/SimilarRecipes/<string:id>',  methods = ['GET', 'POST'])
+def SimilarRecipes(id):
+	print(id)
+	return render_template("Sim_Recipes.html",id=id)
+
 @app.route('/recipedb/FAQ',  methods = ['GET', 'POST'])
 def FAQ():
 	return render_template("FAQ.html")
