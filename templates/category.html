@@ -105,7 +105,7 @@
             <th>Region</th>
             <th>Country</th>
             <!-- <th>Dietary Style</th> -->
-            <th>Source</th>
+            <!-- <th>Source</th> -->
           </tr>
         </thead>
         <tbody style="">
@@ -116,7 +116,7 @@
                 <td><a href='/recipedb/search_region/{{fin[x]["Region"]}}' target="_blank">{{fin[x]['Region']}}</a></td>
                 <td><a href='/recipedb/search_subregion/{{fin[x]["Sub_region"]}}' target="_blank">{{ fin[x]["Sub_region"] }}</a></td>
                 <!-- <td>Unavailable</td> -->
-                <td>{{ fin[x]["Source"] }}</td>
+                <!-- <td>{{ fin[x]["Source"] }}</td> -->
               </tr>
           {% endfor %}
         </tbody>
