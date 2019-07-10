@@ -558,10 +558,14 @@ def search_recipeInfo(id):
 	if row[0]['img_url']=="https://geniuskitchen.sndimg.com/gk/img/gk-shareGraphic.png" or row[0]['img_url']=="https://images.media-allrecipes.com/images/79591.png":
 		row[0]['img_url']="/recipedb/static/recipe_temp.jpg"
 
-	print(row[0]['img_url'])
-	print(row[0]['url'])
+	# print(row[0]['img_url'])
+	import re
+	useCase = re.findall('[A-Z][^A-Z]*', row[0]['Source'])
+	print(useCase)
+	row[0]['Source']= useCase[0] + " " + useCase[1] 
+	print(row[0]['Source'])
 	x=row[0]['url'].split('/')
-	print(x)
+	# print(x)
 	if x[0]=="http:":
 		x[0]='https:'
 		x='/'.join(x)
