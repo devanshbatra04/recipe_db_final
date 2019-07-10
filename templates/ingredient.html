@@ -48,7 +48,7 @@
                 <p style="text-align: center;">{{"Source: Wikipedia" if generic_ingredient_info["WikiImage"] else ""}}</p>
               </div>
                                 <div class="col s12 m8">
-                                    <h5>Ingredient Overview</h5>
+                                    <!-- <h5> Ingredient Overview </h5> -->
                 <ul class="collection">
                 <li class="collection-item avatar">
                   <i class="fa fa-list-alt circle" style="background-color: #ee6e73;" aria-hidden="true"></i>
@@ -117,8 +117,8 @@
                     <tr>
                         <td><a href="/recipedb/search_recipeInfo/{{recipe["Recipe_id"]}}">{{ recipe["Recipe_title"] }}</a></td>
                         <td style="text-transform: capitalize">{{ (recipe["state"].strip() + " " + recipe["ingredient_name"].strip()).strip() }}</td>
-                        <td>{{ recipe["Region"] }}</td>
-                        <td>{{ recipe["Sub_region"] }}</td>
+                        <td><a href='/recipedb/search_region/{{ recipe["Region"] }}' target="_blank">{{ recipe["Region"] }}</a></td>
+                        <td><a href='/recipedb/search_subregion/{{ recipe["Sub_region"] }}' target="_blank">{{ recipe["Sub_region"] }}</a></td>
                         <!--<td>Unavailable</td>-->
                         <td>{{ recipe["Source"] }}</td>
                     </tr>
