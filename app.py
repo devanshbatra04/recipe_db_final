@@ -560,10 +560,11 @@ def search_recipeInfo(id):
 
 	# print(row[0]['img_url'])
 	import re
-	useCase = re.findall('[A-Z][^A-Z]*', row[0]['Source'])
-	print(useCase)
-	row[0]['Source']= useCase[0] + " " + useCase[1]
-	print(row[0]['Source'])
+	if row[0]['Source']=='AllRecipes':
+		useCase = re.findall('[A-Z][^A-Z]*', row[0]['Source'])
+		print(useCase)
+		row[0]['Source']= useCase[0] + " " + useCase[1]
+		print(row[0]['Source'])
 	x=row[0]['url'].split('/')
 	# print(x)
 	if x[0]=="http:":
