@@ -595,6 +595,7 @@ def SimilarRecipes(id):
 	query_Sim_Nums='SELECT * from similar_recipe_process_cosine where Recipe_id= "' + id + '" '
 	cur.execute(ini_Query)
 	heading=cur.fetchone()
+	heading=heading['Recipe_title']
 	cur.execute(query)
 	all_Rec_Id= cur.fetchall()
 	cur.execute(query_Sim_Nums)
@@ -630,6 +631,7 @@ def SimilarRecipesCat(id):
 	query_Sim_Nums='SELECT * from similar_recipe_process_cosine where Recipe_id= "' + id + '" '
 	cur.execute(ini_Query)
 	heading=cur.fetchone()
+	heading=heading['Recipe_title']
 	cur.execute(query)
 	all_Rec_Id= cur.fetchall()
 	cur.execute(query_Sim_Nums)
