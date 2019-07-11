@@ -591,20 +591,23 @@ def SimilarRecipes(id):
 	con.row_factory = dict_factory
 	cur = con.cursor()
 	query='SELECT * from sim_recPro where Recipe_id= "' + id + '" '
+	query_Sim_Nums='SELECT * from similar_recipe_process_cosine where Recipe_id= "' + id + '" '
 	cur.execute(query)
 	all_Rec_Id= cur.fetchall()
-	print(len(all_Rec_Id[0])-2)
-	print(all_Rec_Id[0])
+	cur.execute(query_Sim_Nums)
+	all_Rec_Sim_Nums= cur.fetchall()
+	print(len(all_Rec_Sim_Nums[0])-2)
+	print(all_Rec_Sim_Nums[0])
 	All_recipes=[]
 	for x in range(len(all_Rec_Id[0])-1):
 		# x=''+ str(x) +''
-		print(x)
+		# print(x)
 		queryX='SELECT * from recipes2 where Recipe_id="' + str(all_Rec_Id[0][str(x)]) + '"'
-		print(queryX)
+		# print(queryX)
 		cur.execute(queryX)
 		All_recipes.append(cur.fetchall())
-		print(All_recipes)
-	return render_template("Sim_Recipes.html",id=id,data=All_recipes)
+		# print(All_recipes)
+	return render_template("Sim_Recipes.html",id=id,data=All_recipes, sim_Nums=all_Rec_Sim_Nums)
 
 
 @app.route('/recipedb/SimilarRecipesCat/<string:id>',  methods = ['GET', 'POST'])
