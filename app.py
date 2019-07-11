@@ -590,8 +590,11 @@ def SimilarRecipes(id):
 		return d
 	con.row_factory = dict_factory
 	cur = con.cursor()
+	ini_Query='SELECT Recipe_title from recipes2 where Recipe_id= "' + id + '" '
 	query='SELECT * from sim_recPro where Recipe_id= "' + id + '" '
 	query_Sim_Nums='SELECT * from similar_recipe_process_cosine where Recipe_id= "' + id + '" '
+	cur.execute(ini_Query)
+	heading=cur.fetchone()
 	cur.execute(query)
 	all_Rec_Id= cur.fetchall()
 	cur.execute(query_Sim_Nums)
@@ -607,7 +610,7 @@ def SimilarRecipes(id):
 		cur.execute(queryX)
 		All_recipes.append(cur.fetchall())
 		# print(All_recipes)
-	return render_template("Sim_Recipes.html",id=id,data=All_recipes, sim_Nums=all_Rec_Sim_Nums)
+	return render_template("Sim_Recipes.html",id=id,data=All_recipes, sim_Nums=all_Rec_Sim_Nums,heading=heading)
 
 
 @app.route('/recipedb/SimilarRecipesCat/<string:id>',  methods = ['GET', 'POST'])
@@ -622,8 +625,11 @@ def SimilarRecipesCat(id):
 		return d
 	con.row_factory = dict_factory
 	cur = con.cursor()
+	ini_Query='SELECT Recipe_title from recipes2 where Recipe_id= "' + id + '" '
 	query='SELECT * from recipe_sim_Cat where Recipe_id= "' + id + '" '
 	query_Sim_Nums='SELECT * from similar_recipe_process_cosine where Recipe_id= "' + id + '" '
+	cur.execute(ini_Query)
+	heading=cur.fetchone()
 	cur.execute(query)
 	all_Rec_Id= cur.fetchall()
 	cur.execute(query_Sim_Nums)
@@ -639,7 +645,7 @@ def SimilarRecipesCat(id):
 		cur.execute(queryX)
 		All_recipes.append(cur.fetchall())
 		# print(All_recipes)
-	return render_template("Sim_RecCat.html",id=id,data=All_recipes,sim_Nums=all_Rec_Sim_Nums)
+	return render_template("Sim_RecCat.html",id=id,data=All_recipes,sim_Nums=all_Rec_Sim_Nums,heading=heading)
 
 @app.route('/recipedb/FAQ',  methods = ['GET', 'POST'])
 def FAQ():
