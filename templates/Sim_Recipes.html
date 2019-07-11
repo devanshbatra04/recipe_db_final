@@ -64,7 +64,7 @@
 
                       <td><a href='/recipedb/search_region/{{x[0]["Region"]}}' target="_blank">{{x[0]['Region']}}</a></td>
                       <td><a href='/recipedb/search_subregion/{{x[0]["Sub_region"]}}' target="_blank">{{x[0]['Sub_region']}}</a></td>
-                      <td>{{sim_Nums[0][(loop.index-1)|string]}}</td>
+                      <td>{{'%0.2f' % sim_Nums[0][(loop.index-1)|string]}}</td>
 
                     </tr>
                 {% endfor %}
