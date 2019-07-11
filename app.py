@@ -596,8 +596,8 @@ def SimilarRecipes(id):
 	all_Rec_Id= cur.fetchall()
 	cur.execute(query_Sim_Nums)
 	all_Rec_Sim_Nums= cur.fetchall()
-	print(len(all_Rec_Sim_Nums[0])-2)
-	print(all_Rec_Sim_Nums[0])
+	# print(len(all_Rec_Sim_Nums[0])-2)
+	# print(all_Rec_Sim_Nums[0])
 	All_recipes=[]
 	for x in range(len(all_Rec_Id[0])-1):
 		# x=''+ str(x) +''
