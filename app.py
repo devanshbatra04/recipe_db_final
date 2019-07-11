@@ -567,7 +567,7 @@ def search_recipeInfo(id):
 		print(row[0]['Source'])
 
 	elif row[0]['Source']=='Geniuskitchen':
-		row[0]['Source']='Genius Kitchen'
+		row[0]['Source']='Genius Kitchen(food.com)'
 	x=row[0]['url'].split('/')
 	# print(x)
 	if x[0]=="http:":
