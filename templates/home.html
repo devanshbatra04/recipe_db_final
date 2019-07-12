@@ -141,6 +141,11 @@
       <div id="test5" class="col s12">
       <form class="col s12 search-form" action = "{{ url_for('search_recipe') }}" method="POST">
          <div class="row">
+             <div class="input-field col s4">
+            <h5>Continent</h5>
+            <input href="/recipedb" type="text" name="autocomplete_continent" id="Regs"
+            placeholder="Enter any continent's name (e.g. Asian)"><br>
+          </div>
            <div class="input-field col s4">
             <h5>Region</h5>
             <input href="/recipedb" type="text" name="autocomplete_region" id="Regs"
@@ -151,7 +156,9 @@
             <input href="/recipedb" type="text" name="autocomplete_cuisine" id="cities" 
             placeholder="Enter any cuisine's name (e.g. Indonesian)"><br>
            </div>
-            <div class="input-field col s4">
+          </div>
+          <div class="row">
+              <div class="input-field col s4">
               <h5>Recipe Title</h5>
  							<input href="/recipedb" type="text" name="autocomplete_recipe" class="form-control query-field"
  							placeholder="Enter any recipe's name (e.g. Prawn nasi goreng)" id="autocomplete_recipe"> <br>
