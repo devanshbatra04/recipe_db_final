@@ -323,6 +323,7 @@ def search_recipe():
 			# print(str(num_recipes) + " recipes found")
 
 			if len(rows) == 0:
+				return render_template("home.html", empty="yes")
 				page = int(page) - 1
 				rows, heading, num_recipes = exec_query(name, region, Sub_region, page,ings,not_ings,category, notcategory,continent, process, utensil, "recipe_search")
 			if page == 0:
