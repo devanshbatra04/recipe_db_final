@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+   <head>
+     <style type="text/css">
+       primary-footer{margin-top:10px;}
+       .footer-wrap{ background:#1a202c;padding-top:50px; margin-top:50px; padding-bottom:50px;}
+       .footer .panel{float:left; background:none; width:300px;}
+       .footer .panel .title h1{ color:#ffffff;}
+       .footer .panel .content{padding-top:25px;}
+       .footer .panel .content p{ color:#435059;}
+       .footer .panel .content .button a{ margin-top:30px; background:#d13f31;}
+       .footer .panel .content .button a:hover{ margin-top:30px; background:#1f7872;}
+       .footer .panel .content ul li{ list-style:url(/flavordb/static/images/arrow.png) inside;}
+       .footer .panel .content ul li a{text-decoration:none; color:#435059;}
+       .footer .panel .content ul li a:hover{color:#d13f31;}
+       .copyright-wrap{ background:#1f7872; overflow:hidden; padding:40px 0px 40px 0px;}
+       .copyright-wrap .panel{margin:0 auto; background:none;}
+       .copyright-wrap .panel .content p{ color:#ffffff; text-align:center; font-size:12px;}
+       .copyright-wrap .panel .content p a{ text-decoration:none; color:#ffffff;}
+       .copyright-wrap .panel .content p a:hover{ color:#1a202c;}
+       #more {display: none;}
+        #process_info .collection .collection-item:nth-child(odd) {
+                         background: rgba(242,242,242,0.5);
+                     }
+     </style>
+   </head>
+   <body>
+      {% extends 'nav.html' %}
+      {% block content %}
+      <div class="container">
+          <div class="row">
+              
+          </div>
+      </div>
+
+
+          <footer class="primary-footer">
+          	<div class="copyright-wrap">
+          		<div class="panel">
+          			<div class="content">
+          				<p><img alt="" src="/flavordb/static/images/iiitd.png"></p>
+          				<p>Copyright © 2019 &nbsp; All rights reserved.<br><br>
+          					<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png"></a><br>This work is licensed under a <a style="font-weight: bold;" rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
+          				</p>
+                                    <p style="text-align: center;">All material on this website is a product of research and is provided for your information only and may not be construed as medical advice or instruction. <br> No action or inaction should be taken based solely on the contents of this information; instead, readers should consult appropriate health professionals on any matter relating to their health and well-being.</p>
+
+          				<p><a href="https://iiitd.ac.in/" target="_blank"><strong>Indraprastha Institute of Information Technology Delhi (IIIT-Delhi)</strong></a> | <a href="http://faculty.iiitd.ac.in/~bagler/" target="_blank">Dr. Ganesh Bagler</a></p>
+          				<p><a target="_blank" href="https://www.facebook.com/ganesh.bagler"></a>
+          					<a target="_blank" href="https://twitter.com/gansbags"></a>
+          					<a target="_blank" href="https://www.linkedin.com/in/ganeshbagler"></a>
+          				</p>
+
+          			</div>
+          		</div>
+          	</div>
+          </footer>
+          {% endblock %}
+      </body>
+      </html>

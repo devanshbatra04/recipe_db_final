@@ -583,6 +583,11 @@ def SimilarRecipes(id):
 	# print(id)
 	return render_template("Sim_Recipes.html",id=id)
 
+@app.route('/recipedb/designRecipe',  methods = ['GET', 'POST'])
+def design_recipe():
+	# print(id)
+	return render_template("design_recipe.html")
+
 @app.route('/recipedb/FAQ',  methods = ['GET', 'POST'])
 def FAQ():
 	return render_template("FAQ.html")
