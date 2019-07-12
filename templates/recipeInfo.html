@@ -109,40 +109,39 @@
             </div>
             <div id="recipe_info" class="col s12">
                 <ul class="collection">
-                <li class="collection-item avatar">
-                  <i class="fa fa-globe circle" style="background-color: #ee6e73;" aria-hidden="true"></i>
-                  <!--<img src="images/yuna.jpg" alt="" class="circle">-->
-                  <span class="title"><strong>Cuisine</strong></span>
-                  <p>{{row[0]["Continent"]}} >> {{row[0]["Region"]}} >> {{row[0]["Sub_region"]}}
-                  </p>
-                </li>
-                <li class="collection-item avatar">
-                  <i class="fa fa-cutlery circle" style="background-color: #ee6e73;" aria-hidden="true"></i>
-                  <!--<i class="material-icons circle">folder</i>-->
-                  <span class="title"><strong>Dietary Style</strong></span>
-                  <p id="dietary-text">
-                  </p>
-                </li>
+                    <li class="collection-item avatar">
+                      <i class="fa fa-globe circle" style="background-color: #ee6e73;" aria-hidden="true"></i>
+                      <span class="title"><strong>Cuisine</strong></span>
+                      <p>{{row[0]["Continent"]}} >> {{row[0]["Region"]}} >> {{row[0]["Sub_region"]}}
+                      </p>
+                    </li>
+                    <li class="collection-item avatar">
+                      <i class="fa fa-cutlery circle" style="background-color: #ee6e73;" aria-hidden="true"></i>
+                      <!--<i class="material-icons circle">folder</i>-->
+                      <span class="title"><strong>Dietary Style</strong></span>
+                      <p id="dietary-text">
+                      </p>
+                    </li>
                     {% if (row[0]["cook_time"]) != "0" and (row[0]["prep_time"]) != "0" %}
-                <li class="collection-item avatar">
-                  <i class="fa fa-clock-o circle" style="background-color: #ee6e73;"></i>
-                  <span class="title"><strong>Preparation Time</strong></span>
-                  <p>Cooking Time - {{row[0]["cook_time"]}} minutes, Preparation Time - {{row[0]["prep_time"]}} minutes
-                  </p>
-                </li>
+                    <li class="collection-item avatar">
+                      <i class="fa fa-clock-o circle" style="background-color: #ee6e73;"></i>
+                      <span class="title"><strong>Preparation Time</strong></span>
+                      <p>Cooking Time - {{row[0]["cook_time"]}} minutes, Preparation Time - {{row[0]["prep_time"]}} minutes
+                      </p>
+                    </li>
                     {% endif %}
-                <li class="collection-item avatar">
-                  <i class="fa fa-search circle" style="background-color: #ee6e73;"></i>
-                  <span class="title"><strong>Source</strong></span>
-                  <p>
-                  <a href="{{row[0]["url"]}}" target="_blank">
-                      {{row[0]["Source"]}}
+                    <li class="collection-item avatar">
+                      <i class="fa fa-search circle" style="background-color: #ee6e73;"></i>
+                      <span class="title"><strong>Source</strong></span>
+                      <p>
+                      <a href="{{row[0]["url"]}}" target="_blank">
+                          {{row[0]["Source"]}}
 
-                    <i class="fa fa-external-link"></i>
-                  </a>
+                        <i class="fa fa-external-link"></i>
+                      </a>
 
-                  </p>
-                </li>
+                      </p>
+                    </li>
               </ul>
             </div>
             <div id="process_info" class="col s12">
@@ -275,6 +274,10 @@
                     }
                     return out;
                 }
+                var utensils = ["bowl","pan","oven","skillet","pot","saucepan","cup","dish","sheet","processor","fork","knife","plate","tablespoon","mixer","container","spatula","spoon","cooker","whisk","board","microwave","platter","sieve","boiler","jar","casserole","masher","skewer","cutter","frypan","strainer","stockpot","ladle","shaker","crockpot","peeler","crock","tray","blender","saucepot","basket","teaspoon","saucer","jug","ramekin","mug","bottle","kettle","beater","scoop","foil","paddle","blade","corer","processer","fryer","frying-pan","grinder","saucpan","box","pestle","shell","sauceboat","disc","suacepan","marzipan","steamer","basin"];
+                var processes = ["absorbed" ,"add" ,"al dente" ,"arrange" ,"assemble" ,"bake" ,"barbecue" ,"baste" ,"beat" ,"blanch" ,"blend" ,"blitz" ,"blot" ,"boil" ,"braise" ,"break" ,"broil" ,"broil" ,"brush" ,"bubble" ,"bubbling" ,"burn" ,"butter" ,"caramelize" ,"caramelized" ,"carve" ,"char" ,"charred" ,"check" ,"chill" ,"chop" ,"clean" ,"coat" ,"combine" ,"condensed" ,"cook" ,"cool" ,"cover" ,"cream" ,"crimp" ,"crockpot" ,"crumble" ,"crush" ,"curdle" ,"cut" ,"dash" ,"decorate" ,"deflate" ,"defrost" ,"deglaze" ,"devein" ,"dice" ,"dip" ,"dissolve" ,"distribute" ,"divide" ,"dollop" ,"drain" ,"dredge" ,"dress" ,"dressing" ,"drip" ,"dripping" ,"drizzle" ,"drop" ,"dry" ,"dump" ,"dust" ,"evaporate" ,"evaporated" ,"fill" ,"flake" ,"flatten" ,"flavoring" ,"flip" ,"floured" ,"foam" ,"foil" ,"fold" ,"freezing" ,"frost" ,"fry" ,"garnish" ,"glaze" ,"grate" ,"grease" ,"griddle" ,"grind" ,"handle" ,"heat" ,"hold" ,"ice" ,"immerse" ,"insert" ,"invert" ,"knead" ,"ladle" ,"lard" ,"marinade" ,"marinate" ,"mash" ,"massage" ,"measure" ,"meld" ,"melt" ,"mince" ,"minced" ,"mix" ,"moist" ,"moisten" ,"mould" ,"mound" ,"move" ,"muddle" ,"note" ,"open" ,"overcook" ,"overmix" ,"pack" ,"pan-fry" ,"parboil" ,"pat" ,"peel" ,"pick" ,"pierce" ,"place" ,"poach" ,"poke" ,"pop" ,"pour" ,"powdered" ,"pre-heat" ,"preheat" ,"prepare" ,"presentation" ,"press" ,"pressure" ,"prick" ,"Process" ,"process" ,"pull" ,"punch" ,"puree" ,"push" ,"put" ,"raise" ,"reduce" ,"refrigerate" ,"reheat" ,"remove" ,"repeat" ,"replace" ,"reserve" ,"rest" ,"rinse" ,"rise" ,"rising" ,"roast" ,"roll" ,"rotate" ,"roux" ,"rub" ,"saute" ,"save" ,"scald" ,"scatter" ,"scoop" ,"scorching" ,"scramble" ,"scrape" ,"scrub" ,"seal" ,"sear" ,"season" ,"seasoning" ,"select" ,"separate" ,"serve" ,"set" ,"settle" ,"shake" ,"shape" ,"shred" ,"sieve" ,"sift" ,"simmer" ,"sit" ,"sizzle" ,"skim" ,"skin" ,"slash" ,"slather" ,"slice" ,"slit" ,"smash" ,"smear" ,"smoke" ,"smoking" ,"smooth" ,"snap" ,"soak" ,"soften" ,"sort" ,"splash" ,"split" ,"splutter" ,"spray" ,"spread" ,"sprinkle" ,"sprout" ,"square" ,"squash" ,"squeeze" ,"stack" ,"stand" ,"start" ,"steam" ,"steep" ,"sterilize" ,"stew" ,"stir" ,"stir-fry" ,"stirring" ,"stop" ,"store" ,"strain" ,"stream" ,"stretch" ,"strip" ,"stuff" ,"style" ,"submerge" ,"sweat" ,"sweeten" ,"swirl" ,"take" ,"taste" ,"tear" ,"test" ,"thaw" ,"thicken" ,"thread" ,"throw" ,"tie" ,"tilt" ,"toast" ,"top" ,"toss" ,"touch" ,"transfer" ,"trim" ,"tuck" ,"turn" ,"twist" ,"uncover" ,"uncovered" ,"unfold" ,"unmold" ,"unroll" ,"unwrap" ,"wait" ,"warm" ,"wash" ,"wet" ,"whip" ,"whirl" ,"whisk" ,"wilt" ,"wipe" ,"wok" ,"wrap" ,"yield" ,"zest"]
+                cookingUtensils = cookingUtensils.filter(utensil => utensils.includes(utensil.toLowerCase()));
+                cookingProcesses = cookingProcesses.filter(process => processes.includes(process.toLowerCase()));
                 console.log(cookingUtensils);
                 cookingProcesses = chunkify(cookingProcesses, 3, true);
                 cookingUtensils = (cookingUtensils && cookingUtensils.length && cookingUtensils[0] !== "") ? cookingUtensils : ["No utensils found"];
@@ -325,7 +328,8 @@
 
               var btn = document.getElementById("myBtn")
               if (btn.textContent === "Show More") btn.textContent = "Show Less";
-              else btn.textContent = "Show More"
+              else btn.textContent = "Show More";
+
             }
           </script>
           <footer class="primary-footer">
