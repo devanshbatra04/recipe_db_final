@@ -190,7 +190,7 @@
             <div>
                 <div class="input-field col s6">
                     <h6>Utensil</h6>
-                <input href="/recipedb" type="text" name="utensil" class="form-control query-field"
+                <input href="/recipedb" type="text" name="utensil" class="autocomplete_utensils" id="autocomplete_input"
 							placeholder="Enter any utensil's name (e.g. oven)" >
                 </div>
             </div>
@@ -908,6 +908,14 @@
 
           });
         });
+
+        document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.autocomplete_utensils');
+        var instances = M.Autocomplete.init(elems, {
+
+          data: {"bowl" : null, "pan" : null, "oven" : null, "skillet" : null, "pot" : null, "saucepan" : null, "cup" : null, "dish" : null, "sheet" : null, "processor" : null, "fork" : null, "knife" : null, "plate" : null, "tablespoon" : null, "mixer" : null, "container" : null, "spatula" : null, "spoon" : null, "cooker" : null, "whisk" : null, "board" : null, "microwave" : null, "platter" : null, "sieve" : null, "boiler" : null, "jar" : null, "casserole" : null, "masher" : null, "skewer" : null, "cutter" : null, "frypan" : null, "strainer" : null, "stockpot" : null, "ladle" : null, "shaker" : null, "crockpot" : null, "peeler" : null, "crock" : null, "tray" : null, "blender" : null, "saucepot" : null, "basket" : null, "teaspoon" : null, "saucer" : null, "jug" : null, "ramekin" : null, "mug" : null, "bottle" : null, "kettle" : null, "beater" : null, "scoop" : null, "foil" : null, "paddle" : null, "blade" : null, "corer" : null, "processer" : null, "fryer" : null, "frying-pan" : null, "grinder" : null, "saucpan" : null, "box" : null, "pestle" : null, "shell" : null, "sauceboat" : null, "disc" : null, "suacepan" : null, "marzipan" : null, "steamer" : null, "basin": "null"}
+        });
+      });
 
         document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.autocomplete_continent');
