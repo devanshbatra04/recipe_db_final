@@ -111,9 +111,9 @@
         <h5 style="display: none" id="bold_button">{{boldbuttonnum}}</h5>
         <h5 style="display: none;" id="delete">{{to_delete}}</h5>
         <h5 style="display: none;" id="include_nutrBorders">{{include_nutrBorders}}
-        <h5 style="display: none;" id="continent">{{include_nutrBorders}}
-        <h5 style="display: none;" id="process">{{include_nutrBorders}}
-        <h5 style="display: none;" id="utensil">{{include_nutrBorders}}
+        <h5 style="display: none;" id="continent">{{continent}}
+        <h5 style="display: none;" id="process">{{process}}
+        <h5 style="display: none;" id="utensil">{{utensil}}
         </h5>
         <h5 style="display: none;" id="dict_nut_boundaries">{{dict_nut_boundaries}}</h5>
 
@@ -698,6 +698,9 @@
             var not_ings = document.getElementById("non_INGS").innerHTML;
             var categoryVal = document.getElementById("category").innerHTML;
             var notCategoryVal = document.getElementById("not_category").innerHTML;
+            var continent = document.getElementById("continent").innerHTML;
+            var process = document.getElementById("process").innerHTML;
+            var utensil = document.getElementById("utensil").innerHTML;
             var include_nutrBorders = document.getElementById("include_nutrBorders").innerHTML;
             var dict_nut_boundaries = document.getElementById("dict_nut_boundaries").innerHTML;
             var page_number = document.getElementById(num).childNodes[0].innerHTML;
@@ -728,6 +731,30 @@
               cuisine_field.attr("value", cuisine);
 
               form.append(cuisine_field);
+
+              var continent_field = $('<input></input>');
+
+              continent_field.attr("type", "hidden");
+              continent_field.attr("name", "autocomplete_continent");
+              continent_field.attr("value", continent);
+
+              form.append(continent_field);
+
+              var process_field = $('<input></input>');
+
+              process_field.attr("type", "hidden");
+              process_field.attr("name", "process");
+              process_field.attr("value", process);
+
+              form.append(process_field);
+
+              var utensil_field = $('<input></input>');
+
+              utensil_field.attr("type", "hidden");
+              utensil_field.attr("name", "process");
+              utensil_field.attr("value", utensil);
+
+              form.append(utensil_field);
 
               var region_field = $('<input></input>');
 
@@ -810,7 +837,9 @@
             var notCategoryVal = document.getElementById("not_category").innerHTML;
             var non_ings = document.getElementById("non_INGS").innerHTML;
             var include_nutrBorders = document.getElementById("include_nutrBorders").innerHTML;
-            console.log("button is " + include_nutrBorders);
+            var continent = document.getElementById("continent").innerHTML.trim();
+            var process = document.getElementById("process").innerHTML.trim();
+            var utensil = document.getElementById("utensil").innerHTML.trim();
             var dict_nut_boundaries = document.getElementById("dict_nut_boundaries").innerHTML;
             var nums = ["first", "second", "third", "fourth", "fifth", "sixth", "seventh"];
             var currPage = 0;
@@ -860,6 +889,30 @@
             region_field.attr("value", region);
 
             form.append(region_field);
+
+            var continent_field = $('<input></input>');
+
+              continent_field.attr("type", "hidden");
+              continent_field.attr("name", "autocomplete_continent");
+              continent_field.attr("value", continent);
+
+              form.append(continent_field);
+
+              var process_field = $('<input></input>');
+
+              process_field.attr("type", "hidden");
+              process_field.attr("name", "process");
+              process_field.attr("value", process);
+
+              form.append(process_field);
+
+              var utensil_field = $('<input></input>');
+
+              utensil_field.attr("type", "hidden");
+              utensil_field.attr("name", "process");
+              utensil_field.attr("value", utensil);
+
+              form.append(utensil_field);
 
             var ings_field = $('<input></input>');
 

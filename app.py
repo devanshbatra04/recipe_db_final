@@ -331,7 +331,7 @@ def search_recipe():
 			bold_num = get_bold_num(page, page_num_list)
 			if(len(rows) == 0):
 				return render_template("home.html", empty = "yes")
-			return render_template("list_recipes.html", rows = rows, heading = heading, name = name, cuisine = Sub_region, region = region, ings = ings,not_ings=not_ings, pagenum = page, page_num_info = page_num_list, boldbuttonnum = bold_num, to_delete = to_delete, include_nutrBorders=include_nutrBorders, dict_nut_boundaries=json.dumps(dict_nut_boundaries), category=category, not_category=notcategory)
+			return render_template("list_recipes.html", rows = rows, heading = heading, name = name, cuisine = Sub_region, region = region, ings = ings,not_ings=not_ings, pagenum = page, page_num_info = page_num_list, boldbuttonnum = bold_num, to_delete = to_delete, include_nutrBorders=include_nutrBorders, dict_nut_boundaries=json.dumps(dict_nut_boundaries), category=category, not_category=notcategory, continent=continent, process=process, utensil=utensil)
 	except:
 		return render_template("home.html", empty="yes")
 
