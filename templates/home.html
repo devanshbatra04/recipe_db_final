@@ -143,7 +143,7 @@
          <div class="row">
              <div class="input-field col s4">
             <h5>Continent</h5>
-            <input href="/recipedb" type="text" name="autocomplete_continent" class="autocomplete_continent" id="autocomplete_input"
+            <input href="/recipedb" type="text" name="autocomplete_continent"  id="continents"
             placeholder="Enter any continent's name (e.g. Asian)"><br>
           </div>
            <div class="input-field col s4">
@@ -637,7 +637,7 @@
             var conti_Lat_Ame=[{"value": "Mexican", "id":1 },{"value": "Caribbean", "id":2 },{"value": "South American", "id":3 },{"value": "Central American", "id":4 }];
             var conti_Eur=[{"value": "Eastern European", "id":1 },{"value": "Scandinavian", "id":2 },{"value": "UK", "id":3 },{"value": "Belgian", "id":4 },{"value": "Deutschland ", "id":5 },{"value": "Greek", "id":6 },{"value": "French", "id":7 },{"value": "Irish", "id":8 },{"value": "Italian", "id":9 },{"value": "Spanish and Portuguese", "id":10 }];
             var conti_Nor_Ame=[{"value": "Canadian", "id":1 },{"value": "US", "id":2 }]
-            
+
             var cities =[{"value": "Angolan", "id":1 },
                             {"value": "Argentine", "id":2 },
                             {"value": "Australian", "id":3 },
@@ -771,6 +771,12 @@
 
         var cities_US=[{"value":"US" , "id":1 }];
 
+        $( "#continents" ).autocomplete({
+          source: continents,
+    			select: function( event, ui ) {
+            update_source_cont(ui.item.id);
+    			}
+    });
         $( "#Regs" ).autocomplete({
       source: Regs,
       select: function( event, ui ) {
@@ -796,6 +802,22 @@
             console.log(ui.item.value + " Selected");
           }
     });
+
+    function update_source_cont(continent){
+      if(continent == 1){
+        $( "#Regs" ).autocomplete('option', 'source', conti_Afri)
+      } else if(continent == 2){
+        $( "#Regs" ).autocomplete('option', 'source', conti_Asian)
+      }else if(continent == 3){
+        $( "#Regs" ).autocomplete('option', 'source', conti_Australasian)
+      }else if(continent == 4){
+        $( "#Regs" ).autocomplete('option', 'source', conti_Lat_Ame)
+      }else if(continent == 5){
+        $( "#Regs" ).autocomplete('option', 'source', conti_Eur)
+      }else if(continent == 6){
+        $( "#Regs" ).autocomplete('option', 'source', conti_Nor_Ame)
+      }
+      }
 
       function update_source(country){
       if(country == 1){
