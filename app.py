@@ -54,8 +54,7 @@ def get_bold_num(page, page_num_list):
 
 #function to query for Ingredients
 
-def exec_query(name, region, Sub_region, page,ings,not_ings, category, not_category, recipe_ids,include_nutrBorders=None, dict_nut_boundaries={}):
-	print("hahahahaha")
+def exec_query(name, region, Sub_region, page,ings,not_ings, category, not_category, continent, process, utensil, recipe_ids,include_nutrBorders=None, dict_nut_boundaries={}):
 	limit = " LIMIT 20 OFFSET " + str(((int(page)-1) * 20))
 	con = sql.connect("recipe2-final.db")
 	con.row_factory = sql.Row
@@ -140,8 +139,8 @@ def exec_query(name, region, Sub_region, page,ings,not_ings, category, not_categ
 		subq = "and \"Protein(g)\" BETWEEN {} and {} and \"Energy(kcal)\" BETWEEN {} and {} and \"Totallipid(fat)(g)\" BETWEEN {} and {} and \"Carbohydratebydifference(g)\" BETWEEN {} and {}".format(int(float(protein_min)), int(float(protein_max)), int(float(energy_min)), int(float(energy_max)), int(float(fat_min)), int(float(fat_max)), int(float(carb_min)), int(float(carb_max)))
 
 	queries = [
-		"select Distinct(recipes2.Recipe_id) from recipes2 where Recipe_title like \"%{}%\" and Region like \"%{}%\" and Sub_region like \"%{}%\" {}".format(name, region, Sub_region, subq),
-		"select Distinct(recipes2.Recipe_id) from recipes2 natural join ingredients where ingredient_name like \"%{}%\" and Recipe_title like \"%{}%\" and Sub_region like \"%{}%\" and Region like \"%{}%\" {}".format(ings, name, Sub_region, region, subq),
+		"select Distinct(recipes2.Recipe_id) from recipes2 where Recipe_title like \"%{}%\" and Region like \"%{}%\" and Sub_region like \"%{}%\" and Continent like \"%{}%\" and Processes like \"%{}%\" and Utensils like \"%{}%\" {}".format(name, region, Sub_region, continent, process, utensil, subq),
+		"select Distinct(recipes2.Recipe_id) from recipes2 natural join ingredients where ingredient_name like \"%{}%\" and Recipe_title like \"%{}%\" and Sub_region like \"%{}%\" and Region like \"%{}%\" and Continent like \"%{}%\" and Processes like \"%{}%\" and Utensils like \"%{}%\" {}".format(ings, name, Sub_region, region, continent, process, utensil, subq),
 		"select Distinct(recipes2.Recipe_id) from recipes2 where recipe_id not in (select recipe_id from ingredients where ingredient_name = \" {}\"){}",
 		"select DISTINCT(Recipe_id) from ingredients where Ing_id in (select Ing_ID from unique_ingredients where " + ("unique_ingredients.\"Category-F-DB\" like \"{}\"".format(category) if len(category) else "")+ (" and " if (len(category) and len(not_category)) else "") + ("Ing_id not in (select Ing_ID from unique_ingredients where unique_ingredients.\"Category-F-DB\" like \"{}\")".format(not_category) if len(not_category) else "") + ")"
 
@@ -258,9 +257,9 @@ def home():
 
 @app.route('/recipedb/all_recipes', methods=['GET'])
 def all_recipes():
-	rows, heading, num_recipes = exec_query("", "", "", 1,"","","", "recipe_search")
+	rows, heading, num_recipes = exec_query("", "", "", 1,"","","","", "", "", "recipe_search")
 	if len(rows) == 0:
-		rows, heading, num_recipes = exec_query(name, region, Sub_region, 1,"","", "recipe_search")
+		rows, heading, num_recipes = exec_query(name, region, Sub_region, 1,"","","", "", "", "recipe_search")
 	page_num_list, to_delete = get_page_num_list(1, num_recipes)
 	bold_num = get_bold_num(1, page_num_list)
 	if(len(rows) == 0):
@@ -285,8 +284,10 @@ def search_recipe():
 			# print(1)
 
 			Sub_region = request.form.get('autocomplete_cuisine') if request.form.get("autocomplete_cuisine") else ""
-			# print(2)
+			continent = request.form.get('autocomplete_continent') if request.form.get("autocomplete_continent") else ""
 			region = request.form.get('autocomplete_region') if request.form.get("autocomplete_region") else ""
+			process = request.form.get('process') if request.form.get("process") else ""
+			utensil = request.form.get('utensil') if request.form.get("utensil") else ""
 			ings = request.form.get('autocomplete_ingredient') if request.form.get("autocomplete_ingredient") else ""
 			# print(ings)
 			not_ings = request.form.get('autocomplete_noningredient') if request.form.get("autocomplete_noningredient") else ""
@@ -318,12 +319,12 @@ def search_recipe():
 
 			# print(request.form.get("dict_nut_json"))
 
-			rows, heading, num_recipes = exec_query(name, region, Sub_region, page,ings,not_ings,category, notcategory, "recipe_search", include_nutrBorders, dict_nut_boundaries)
+			rows, heading, num_recipes = exec_query(name, region, Sub_region, page,ings,not_ings,category, notcategory, continent, process, utensil, "recipe_search", include_nutrBorders, dict_nut_boundaries)
 			# print(str(num_recipes) + " recipes found")
 
 			if len(rows) == 0:
 				page = int(page) - 1
-				rows, heading, num_recipes = exec_query(name, region, Sub_region, page,ings,not_ings,category, notcategory, "recipe_search")
+				rows, heading, num_recipes = exec_query(name, region, Sub_region, page,ings,not_ings,category, notcategory,continent, process, utensil, "recipe_search")
 			if page == 0:
 				page = 1
 			page_num_list, to_delete = get_page_num_list(page, num_recipes)
@@ -391,11 +392,11 @@ def search_region(id):
 	ings=""
 	not_ings=""
 
-	rows, heading, num_recipes = exec_query(name, region, Sub_region, page,ings,not_ings,"","", "recipe_search")
+	rows, heading, num_recipes = exec_query(name, region, Sub_region, page,ings,not_ings,"","","","","", "recipe_search")
 
 	if len(rows) == 0:
 		page = int(page) - 1
-		rows, heading, num_recipes = exec_query(name, region, Sub_region, page,ings,not_ings,"","", "recipe_search")
+		rows, heading, num_recipes = exec_query(name, region, Sub_region, page,ings,not_ings,"","","","","", "recipe_search")
 	if page == 0:
 		page = 1
 	page_num_list, to_delete = get_page_num_list(page, num_recipes)
@@ -440,11 +441,11 @@ def search_subregion(id):
 	ings=""
 	not_ings=""
 
-	rows, heading, num_recipes = exec_query(name, region, Sub_region, page,ings,not_ings,"","", "recipe_search")
+	rows, heading, num_recipes = exec_query(name, region, Sub_region, page,ings,not_ings,"","","","","", "recipe_search")
 
 	if len(rows) == 0:
 		page = int(page) - 1
-		rows, heading, num_recipes = exec_query(name, region, Sub_region, page,ings,not_ings,"","", "recipe_search")
+		rows, heading, num_recipes = exec_query(name, region, Sub_region, page,ings,not_ings,"","","","","", "recipe_search")
 	if page == 0:
 		page = 1
 	page_num_list, to_delete = get_page_num_list(page, num_recipes)
