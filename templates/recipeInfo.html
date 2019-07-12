@@ -123,12 +123,14 @@
                   <p id="dietary-text">
                   </p>
                 </li>
+                    {% if (row[0]["cook_time"]) != "0" and (row[0]["prep_time"]) != "0" %}
                 <li class="collection-item avatar">
                   <i class="fa fa-clock-o circle" style="background-color: #ee6e73;"></i>
                   <span class="title"><strong>Preparation Time</strong></span>
                   <p>Cooking Time - {{row[0]["cook_time"]}} minutes, Preparation Time - {{row[0]["prep_time"]}} minutes
                   </p>
                 </li>
+                    {% endif %}
                 <li class="collection-item avatar">
                   <i class="fa fa-search circle" style="background-color: #ee6e73;"></i>
                   <span class="title"><strong>Source</strong></span>
