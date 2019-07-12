@@ -143,7 +143,7 @@
          <div class="row">
              <div class="input-field col s4">
             <h5>Continent</h5>
-            <input href="/recipedb" type="text" name="autocomplete_continent"
+            <input href="/recipedb" type="text" name="autocomplete_continent" class="autocomplete_continent" id="autocomplete_input"
             placeholder="Enter any continent's name (e.g. Asian)"><br>
           </div>
            <div class="input-field col s4">
@@ -909,6 +909,18 @@
           });
         });
 
+        document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.autocomplete_continent');
+        var instances = M.Autocomplete.init(elems, {
+
+          data: {"African": null,
+                  "Asian": null,
+                  "Australasian": null,
+                  "Latin American": null,
+                  "European":null,
+                  "North American":null}
+        });
+      });
         document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.autocomplete_cuisine');
         var instances = M.Autocomplete.init(elems, {
