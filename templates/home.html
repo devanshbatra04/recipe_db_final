@@ -143,7 +143,7 @@
          <div class="row">
              <div class="input-field col s4">
             <h5>Continent</h5>
-            <input href="/recipedb" type="text" name="autocomplete_continent" id="Regs"
+            <input href="/recipedb" type="text" name="autocomplete_continent"
             placeholder="Enter any continent's name (e.g. Asian)"><br>
           </div>
            <div class="input-field col s4">
@@ -152,8 +152,8 @@
             placeholder="Enter any region's name (e.g. Southeast Asian)"><br>
           </div>
           <div class="input-field col s4">
-            <h5>Subregion</h5>
-            <input href="/recipedb" type="text" name="autocomplete_cuisine" id="cities" 
+            <h5>Country</h5>
+            <input href="/recipedb" type="text" name="autocomplete_cuisine" id="cities"
             placeholder="Enter any cuisine's name (e.g. Indonesian)"><br>
            </div>
           </div>
@@ -294,12 +294,12 @@
               </div>
 
                <h5>Region</h5>
-               <input href="/recipedb" type="text" name="autocomplete_region" id="Regs"
+               <input href="/recipedb" type="text" name="autocomplete_region" id="Regs1"
                placeholder="Enter any region's name (e.g. Southeast Asian)"><br>
              </div>
              <div class="input-field col s4">
                <h5>Country</h5>
-               <input href="/recipedb" type="text" name="autocomplete_cuisine" id="cities"
+               <input href="/recipedb" type="text" name="autocomplete_cuisine" id="cities1"
                placeholder="Enter any cuisine's name (e.g. Indonesian)"><br>
               </div>
               <div class="input-field col s4">
@@ -577,7 +577,8 @@
 
           document.addEventListener('DOMContentLoaded', function() {
           var elems = document.querySelectorAll('select');
-          var instances = M.FormSelect.init(elems, options);
+          var instances = M.FormSelect.init(elems, {
+          });
         });
 
           document.addEventListener('DOMContentLoaded', function() {
@@ -622,6 +623,81 @@
                     {"value": "Thai" ,"id":24},
                     {"value": "UK" ,"id":25},
                     {"value": "US" ,"id":26}];
+            var cities =[{"value": "Angolan", "id":1 },
+                            {"value": "Argentine", "id":2 },
+                            {"value": "Australian", "id":3 },
+                            {"value": "Austrian", "id":4 },
+                            {"value": "Belgian", "id": 5},
+                            {"value": "Bangladeshi" , "id":6 },
+                            {"value": "Brazilian" , "id": 7},
+                            {"value": "Canadian" , "id":8 },
+                            {"value": "Rest Caribbean" , "id":9 },
+                            {"value": "Swiss" , "id":10 },
+                            {"value": "Chilean" , "id":11 },
+                            {"value": "Chinese" , "id":12 },
+                            {"value": "Colombian" , "id":13 },
+                            {"value": "Costa Rican" , "id":14 },
+                            {"value": "Cuban" , "id":15 },
+                            {"value": "Czech" , "id":16 },
+                            {"value": "German" , "id":17 },
+                            {"value": "Danish" , "id":18 },
+                            {"value": "Ecuadorean" , "id":19 },
+                            {"value": "Rest Eastern Europe" , "id":20 },
+                            {"value": "Egyptian" , "id":21 },
+                            {"value": "English" , "id":22 },
+                            {"value": "Spanish" , "id":23 },
+                            {"value": "Ethiopian" , "id":24 },
+                            {"value": "Finnish" , "id":25 },
+                            {"value": "French" , "id":26 },
+                            {"value": "Greek" , "id":27 },
+                            {"value": "Guatemalan" , "id":28 },
+                            {"value": "Honduran" , "id":29 },
+                            {"value": "Hungarian" , "id":30 },
+                            {"value": "Indonesian" , "id":31 },
+                            {"value": "Indian" , "id":32 },
+                            {"value": "Irish" , "id":33 },
+                            {"value": "Iraqi" , "id": 34},
+                            {"value": "Icelandic" , "id":35 },
+                            {"value": "Israeli" , "id":36 },
+                            {"value": "Italian" , "id":37 },
+                            {"value": "Jamaican" , "id":38 },
+                            {"value": "Japanese" , "id":39 },
+                            {"value": "Cambodian" , "id":40 },
+                            {"value": "Korean" , "id":41 },
+                            {"value": "Laotian" , "id":42 },
+                            {"value": "Lebanese" , "id":43 },
+                            {"value": "Libyan" , "id":44 },
+                            {"value": "Moroccan" , "id":45 },
+                            {"value": "Rest Middle Eastern" , "id":46 },
+                            {"value": "Mexican" , "id":47 },
+                            {"value": "Mongolian" , "id":48 },
+                            {"value": "Malaysian" , "id":49 },
+                            {"value": "Namibian" , "id":50 },
+                            {"value": "Nigerian" , "id":51 },
+                            {"value": "Dutch" , "id":52 },
+                            {"value": "Norwegian" , "id":53 },
+                            {"value": "Nepalese" , "id":54 },
+                            {"value": "New Zealander" , "id":55 },
+                            {"value": "Pakistani" , "id":56 },
+                            {"value": "Peruvian" , "id":57 },
+                            {"value": "Filipino" , "id":58 },
+                            {"value": "Polish" , "id":59 },
+                            {"value": "Puerto Rican" , "id":60 },
+                            {"value": "Portuguese" , "id":61 },
+                            {"value": "Palestinian" , "id":62 },
+                            {"value": "Russian" , "id":63 },
+                            {"value": "Saudi Arabian" , "id":64 },
+                            {"value": "Scottish" , "id":65 },
+                            {"value": "Sudanese" , "id":66 },
+                            {"value": "Somalian" , "id":67 },
+                            {"value": "Swedish" , "id":68 },
+                            {"value": "Thai" , "id":69 },
+                            {"value": "Turkish" , "id":70 },
+                            {"value": "US" , "id":71 },
+                            {"value": "Venezuelan" , "id":72 },
+                            {"value": "Vietnamese" , "id":73 },
+                            {"value": "Welsh", "id":74}];
+
         var cities_NF=[{"value":"Moroccan" , "id":1 }, {"value":"Libyan" , "id":2 }];
 
         var cities_RA=[{"value":"Nigerian" , "id":1 },{"value":"Somalian" , "id":2 },{"value":"Namibian" , "id":3 },{"value":"Angolan" , "id":4 },
@@ -679,6 +755,7 @@
         var cities_UK=[{"value":"Scottish" , "id":1 },{"value":"English" , "id":2 },{"value":"Welsh" , "id":3 },{"value":"UK" , "id":4 }];
 
         var cities_US=[{"value":"US" , "id":1 }];
+
         $( "#Regs" ).autocomplete({
       source: Regs,
       select: function( event, ui ) {
@@ -686,11 +763,24 @@
        }
       });
       $( "#cities" ).autocomplete({
-            source: cities_ME,
+            source: cities,
             select: function( event, ui ) {
               console.log(ui.item.value + " Selected");
             }
       });
+
+      $( "#Regs1" ).autocomplete({
+    source: Regs,
+    select: function( event, ui ) {
+      update_source(ui.item.id);
+     }
+    });
+    $( "#cities1" ).autocomplete({
+          source: cities,
+          select: function( event, ui ) {
+            console.log(ui.item.value + " Selected");
+          }
+    });
 
       function update_source(country){
       if(country == 1){
