@@ -141,24 +141,17 @@
       <div id="test5" class="col s12">
       <form class="col s12 search-form" action = "{{ url_for('search_recipe') }}" method="POST">
          <div class="row">
-             <div class="input-field col s4">
-                <h5>Continent</h5>
-                <input href="/recipedb" type="text" name="autocomplete_continent" class="autocomplete_cuisine"
-                placeholder="Enter any Continent's name (e.g. Asian)"><br>
-           </div>
            <div class="input-field col s4">
             <h5>Region</h5>
-            <input href="/recipedb" type="text" name="autocomplete_region" id="autocomplete-input" class="autocomplete_region"
+            <input href="/recipedb" type="text" name="autocomplete_region" id="Regs"
             placeholder="Enter any region's name (e.g. Southeast Asian)"><br>
           </div>
           <div class="input-field col s4">
             <h5>Subregion</h5>
-            <input href="/recipedb" type="text" name="autocomplete_cuisine" id="autocomplete-input" class="autocomplete_cuisine"
+            <input href="/recipedb" type="text" name="autocomplete_cuisine" id="cities" 
             placeholder="Enter any cuisine's name (e.g. Indonesian)"><br>
            </div>
-          </div>
-          <div class="row">
-              <div class="input-field col s4">
+            <div class="input-field col s4">
               <h5>Recipe Title</h5>
  							<input href="/recipedb" type="text" name="autocomplete_recipe" class="form-control query-field"
  							placeholder="Enter any recipe's name (e.g. Prawn nasi goreng)" id="autocomplete_recipe"> <br>
@@ -294,12 +287,12 @@
               </div>
 
                <h5>Region</h5>
-               <input href="/recipedb" type="text" name="autocomplete_region" id="autocomplete-input" class="autocomplete_region"
+               <input href="/recipedb" type="text" name="autocomplete_region" id="Regs"
                placeholder="Enter any region's name (e.g. Southeast Asian)"><br>
              </div>
              <div class="input-field col s4">
                <h5>Country</h5>
-               <input href="/recipedb" type="text" name="autocomplete_cuisine" id="autocomplete-input" class="autocomplete_cuisine"
+               <input href="/recipedb" type="text" name="autocomplete_cuisine" id="cities"
                placeholder="Enter any cuisine's name (e.g. Indonesian)"><br>
               </div>
               <div class="input-field col s4">
@@ -505,12 +498,6 @@
             var elems = document.querySelectorAll('#search .tabs');
             var instance = M.Tabs.init(elems, {});
 
-            // setTimeout(() => {
-            //     var elems = document.querySelectorAll('#stats .tabs');
-            //     var instance = M.Tabs.init(elems, {});
-            //     }
-            // ,5000)
-
             var elems = document.querySelectorAll('#stats .tabs');
                 var instance = M.Tabs.init(elems, {
                     onShow: (tab) => {
@@ -598,6 +585,187 @@
 
           });
         });
+
+
+        // TRYING THE PURE AUTOCOMPLETE //
+
+        var Regs = [{"value": "Northern Africa" ,"id":1},
+                    {"value": "Rest Africa" ,"id":2},
+                    {"value": "Australian" ,"id":3},
+                    {"value": "Belgian","id":4},
+                    {"value": "Central American" ,"id":5},
+                    {"value": "Canadian" ,"id":6},
+                    {"value": "Caribbean" ,"id":7},
+                    {"value": "Chinese and Mongolian" ,"id":8},
+                    {"value": "Deutschland " ,"id":9},
+                    {"value": "Eastern European" ,"id":10},
+                    {"value": "French" ,"id":11},
+                    {"value": "Greek" ,"id":12},
+                    {"value": "Indian Subcontinent" ,"id":13},
+                    {"value": "Irish" ,"id":14},
+                    {"value": "Italian" ,"id":15},
+                    {"value": "Japanese" ,"id":16},
+                    {"value": "Korean" ,"id":17},
+                    {"value": "Middle Eastern" ,"id":18},
+                    {"value": "Mexican" ,"id":19},
+                    {"value": "South American" ,"id":20},
+                    {"value": "Scandinavian" ,"id":21},
+                    {"value": "Southeast Asian" ,"id":22},
+                    {"value": "Spanish and Portuguese" ,"id":23},
+                    {"value": "Thai" ,"id":24},
+                    {"value": "UK" ,"id":25},
+                    {"value": "US" ,"id":26}];
+        var cities_NF=[{"value":"Moroccan" , "id":1 }, {"value":"Libyan" , "id":2 }];
+
+        var cities_RA=[{"value":"Nigerian" , "id":1 },{"value":"Somalian" , "id":2 },{"value":"Namibian" , "id":3 },{"value":"Angolan" , "id":4 },
+        {"value":"Sudanese" ,"id":5},{"value":"Ethiopian" , "id": 6}];
+
+        var cities_Aus=[{"value":"Australian" , "id":1 }, {"value":"New Zealander" , "id":2 }];
+
+        var cities_Bel=[{"value":"Belgian" , "id":1 }, {"value":"Dutch" , "id":2 }];
+
+        var cities_CA=[{"value":"Honduran" , "id":1 }, {"value":"Costa Rican" , "id":2 }, {"value":"Guatemalan" , "id":3 }];
+
+        var cities_Can=[{"value":"Canadian" , "id":1 }];
+
+        var cities_Car=[{"value":"Rest Caribbean" , "id":1 },{"value":"Puerto Rican" , "id":2 },{"value":"Jamaican" , "id":3 },{"value":"Cuban" , "id":4 }];
+
+        var cities_Ch_Mo=[{"value":"Chinese" , "id":1 }, {"value":"Mongolian" , "id": 2}];
+
+        var cities_Deu=[{"value":"Austrian" , "id":1 }, {"value":"Swiss" , "id":2 }, {"value":"German" , "id":3 }];
+
+        var cities_EE=[{"value":"Russian" , "id":1 },{"value":"Hungarian" , "id":2 },{"value":"Polish" , "id":3 },{"value":"Rest Eastern European" , "id":4 },{"value":"Czech" , "id":5 }];
+
+        var cities_Fre=[{"value":"French" , "id":1 }];
+
+        var cities_Gre=[{"value":"Greek" , "id":1 }];
+
+        var cities_IS=[{"value":"Bangladeshi" , "id":1 },{"value":"Indian" , "id": 2},{"value":"Pakistani" , "id":3 },{"value":"Nepalese" , "id":4 }];
+
+        var cities_Iri=[{"value":"Irish" , "id":1 }];
+
+        var cities_Ita=[{"value":"Italian" , "id":1 }];
+
+        var cities_Jap=[{"value":"Japanese" , "id":1 }];
+
+        var cities_Kor=[{"value":"Korean" , "id":1 }];
+
+        var cities_ME=[{"value":"Egyptian" , "id":1 },{"value":"Rest Middle Eastern" , "id":2 },{"value":"Israeli" , "id":3 },{"value":"Lebanese" , "id":4 },{"value":"Turkish" , "id":5 },{"value":"Palestinian" , "id":6 },{"value":"Saudi Arabian" , "id":7 },{"value":"Iraqi" , "id":8 }];
+
+        var cities_Mex=[{"value":"Mexican" , "id":1 }];
+
+        var cities_SA=[{"value":"Argentine" , "id":1 },{"value":"Ecuadorean" , "id":2 },{"value":"Brazilian" , "id":3 },
+        {"value":"Colombian" , "id": 4},
+        {"value":"Chilean" , "id": 5},
+        {"value":"Peruvian" , "id": 6},
+        {"value":"Venezuelan" , "id":7 }
+      ];
+
+        var cities_Sca=[{"value":"Icelandic" , "id":1 },{"value":"Swedish" , "id":2 },{"value":"Norwegian" , "id":3 },{"value":"Finnish" , "id":4 },{"value":"Danish" , "id":5 }];
+
+        var cities_Sou_A=[{"value":"Cambodian" , "id":1 },{"value":"Indonesian" , "id":2 },{"value":"Vietnamese" , "id":3 },{"value":"Filipino" , "id":4 },{"value":"Malaysian" , "id":5 },{"value":"Laotian" , "id":6 }];
+
+        var cities_S_P=[{"value":"Spanish" , "id":1 }, {"value":"Portuguese" , "id":2 }];
+
+        var cities_Tha=[{"value":"Thai" , "id":1 }];
+
+        var cities_UK=[{"value":"Scottish" , "id":1 },{"value":"English" , "id":2 },{"value":"Welsh" , "id":3 },{"value":"UK" , "id":4 }];
+
+        var cities_US=[{"value":"US" , "id":1 }];
+        $( "#Regs" ).autocomplete({
+      source: Regs,
+      select: function( event, ui ) {
+        update_source(ui.item.id);
+       }
+      });
+      $( "#cities" ).autocomplete({
+            source: cities_ME,
+            select: function( event, ui ) {
+              console.log(ui.item.value + " Selected");
+            }
+      });
+
+      function update_source(country){
+      if(country == 1){
+      $( "#cities" ).autocomplete('option', 'source', cities_NF)
+        } else if(country == 2){
+            $( "#cities" ).autocomplete('option', 'source', cities_RA)
+        }
+          else if(country == 3){
+            $( "#cities" ).autocomplete('option', 'source', cities_Aus)
+        }
+          else if(country == 4){
+            $( "#cities" ).autocomplete('option', 'source', cities_Bel)
+        }
+          else if(country == 5){
+            $( "#cities" ).autocomplete('option', 'source', cities_CA)
+        }
+          else if(country == 6){
+            $( "#cities" ).autocomplete('option', 'source', cities_Can)
+        }
+          else if(country == 7){
+            $( "#cities" ).autocomplete('option', 'source', cities_Car)
+        }
+          else if(country == 8){
+            $( "#cities" ).autocomplete('option', 'source', cities_Ch_Mo)
+        }
+          else if(country == 9){
+            $( "#cities" ).autocomplete('option', 'source', cities_Deu)
+        }
+          else if(country == 10){
+            $( "#cities" ).autocomplete('option', 'source', cities_EE)
+        }
+          else if(country == 11){
+            $( "#cities" ).autocomplete('option', 'source', cities_Fre)
+        }
+          else if(country == 12){
+            $( "#cities" ).autocomplete('option', 'source', cities_Gre)
+        }
+        else if(country == 13){
+            $( "#cities" ).autocomplete('option', 'source', cities_IS)
+        }
+          else if(country == 14){
+            $( "#cities" ).autocomplete('option', 'source', cities_Iri)
+        }
+          else if(country == 15){
+            $( "#cities" ).autocomplete('option', 'source', cities_Ita)
+        }
+          else if(country == 16){
+            $( "#cities" ).autocomplete('option', 'source', cities_Jap)
+        }
+          else if(country == 17){
+            $( "#cities" ).autocomplete('option', 'source', cities_Kor)
+        }
+          else if(country == 18){
+            $( "#cities" ).autocomplete('option', 'source', cities_ME)
+        }
+          else if(country == 19){
+            $( "#cities" ).autocomplete('option', 'source', cities_Mex)
+        }
+          else if(country == 20){
+            $( "#cities" ).autocomplete('option', 'source', cities_SA)
+        }
+          else if(country == 21){
+            $( "#cities" ).autocomplete('option', 'source', cities_Sca)
+        }
+          else if(country == 22){
+            $( "#cities" ).autocomplete('option', 'source', cities_Sou_A)
+        }
+          else if(country == 23){
+            $( "#cities" ).autocomplete('option', 'source', cities_S_P)
+        }
+          else if(country == 24){
+            $( "#cities" ).autocomplete('option', 'source', cities_Tha)
+        }
+          else if(country == 25){
+            $( "#cities" ).autocomplete('option', 'source', cities_UK)
+        }
+          else if(country == 26){
+            $( "#cities" ).autocomplete('option', 'source', cities_US)
+        }
+      }
+
+
 
         document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.autocomplete_region');
@@ -725,6 +893,8 @@
           "Welsh" : null}
         });
       });
+
+
 
       includeHTML();
 	</script>
