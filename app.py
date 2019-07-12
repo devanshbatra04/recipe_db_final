@@ -567,7 +567,7 @@ def search_recipeInfo(id):
 		print(row[0]['Source'])
 
 	elif row[0]['Source']=='Geniuskitchen':
-		row[0]['Source']='Genius Kitchen'
+		row[0]['Source']='Genius Kitchen(food.com)'
 	x=row[0]['url'].split('/')
 	# print(x)
 	if x[0]=="http:":
@@ -581,7 +581,73 @@ def search_recipeInfo(id):
 @app.route('/recipedb/SimilarRecipes/<string:id>',  methods = ['GET', 'POST'])
 def SimilarRecipes(id):
 	# print(id)
-	return render_template("Sim_Recipes.html",id=id)
+	con = sql.connect("recipe2-final.db")
+	con.row_factory = sql.Row
+	def dict_factory(cursor, row):
+		d = {}
+		for idx, col in enumerate(cursor.description):
+			d[col[0]] = row[idx]
+		return d
+	con.row_factory = dict_factory
+	cur = con.cursor()
+	ini_Query='SELECT Recipe_title from recipes2 where Recipe_id= "' + id + '" '
+	query='SELECT * from sim_recPro where Recipe_id= "' + id + '" '
+	query_Sim_Nums='SELECT * from similar_recipe_process_cosine where Recipe_id= "' + id + '" '
+	cur.execute(ini_Query)
+	heading=cur.fetchone()
+	heading=heading['Recipe_title']
+	cur.execute(query)
+	all_Rec_Id= cur.fetchall()
+	cur.execute(query_Sim_Nums)
+	all_Rec_Sim_Nums= cur.fetchall()
+	# print(len(all_Rec_Sim_Nums[0])-2)
+	# print(all_Rec_Sim_Nums[0])
+	All_recipes=[]
+	for x in range(len(all_Rec_Id[0])-1):
+		# x=''+ str(x) +''
+		# print(x)
+		queryX='SELECT * from recipes2 where Recipe_id="' + str(all_Rec_Id[0][str(x)]) + '"'
+		# print(queryX)
+		cur.execute(queryX)
+		All_recipes.append(cur.fetchall())
+		# print(All_recipes)
+	return render_template("Sim_Recipes.html",id=id,data=All_recipes, sim_Nums=all_Rec_Sim_Nums,heading=heading)
+
+
+@app.route('/recipedb/SimilarRecipesCat/<string:id>',  methods = ['GET', 'POST'])
+def SimilarRecipesCat(id):
+	# print(id)
+	con = sql.connect("recipe2-final.db")
+	con.row_factory = sql.Row
+	def dict_factory(cursor, row):
+		d = {}
+		for idx, col in enumerate(cursor.description):
+			d[col[0]] = row[idx]
+		return d
+	con.row_factory = dict_factory
+	cur = con.cursor()
+	ini_Query='SELECT Recipe_title from recipes2 where Recipe_id= "' + id + '" '
+	query='SELECT * from recipe_sim_Cat where Recipe_id= "' + id + '" '
+	query_Sim_Nums='SELECT * from similar_recipe_process_cosine where Recipe_id= "' + id + '" '
+	cur.execute(ini_Query)
+	heading=cur.fetchone()
+	heading=heading['Recipe_title']
+	cur.execute(query)
+	all_Rec_Id= cur.fetchall()
+	cur.execute(query_Sim_Nums)
+	all_Rec_Sim_Nums= cur.fetchall()
+	# print(len(all_Rec_Id[0])-2)
+	# print(all_Rec_Id[0])
+	All_recipes=[]
+	for x in range(len(all_Rec_Id[0])-1):
+		# x=''+ str(x) +''
+		# print(x)
+		queryX='SELECT * from recipes2 where Recipe_id="' + str(all_Rec_Id[0][str(x)]) + '"'
+		# print(queryX)
+		cur.execute(queryX)
+		All_recipes.append(cur.fetchall())
+		# print(All_recipes)
+	return render_template("Sim_RecCat.html",id=id,data=All_recipes,sim_Nums=all_Rec_Sim_Nums,heading=heading)
 
 @app.route('/recipedb/designRecipe',  methods = ['GET', 'POST'])
 def design_recipe():
