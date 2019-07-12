@@ -217,7 +217,7 @@
                 <div class="input-field col s12 m8">
                   <div class="range-field">
 
-                    <div id="rr3" class="test-slider"></div>
+                    <div id="rr3" data-left="30" data-right="800" data-min="0" data-max="1200" date class="test-slider"></div>
                       <span class="example-val" id="rr3-val"></span>
                     <input name="energyMin" class="min" style="display:none;" />
                     <input name="energyMax" class="max" style="display:none;" />
@@ -233,7 +233,7 @@
                 <div class="input-field col s12 m8">
                   <div class="range-field">
 
-                    <div id="rr4" class="test-slider"></div>
+                    <div id="rr4" data-left="30" data-right="120" data-min="0" data-max="200" class="test-slider"></div>
                       <span class="example-val" id="rr4-val"></span>
                     <input name="carbMin" class="min" style="display:none;" />
                     <input name="CarbMax" class="max" style="display:none;" />
@@ -248,7 +248,7 @@
                   </div>
                   <div class="input-field col s12 m8">
                     <div class="range-field">
-                      <div id="rr1" class="test-slider"></div>
+                      <div id="rr1" data-left="30" data-right="120" data-min="0" data-max="200" class="test-slider"></div>
                         <span class="example-val" id="rr1-val"></span>
                       <input name="proteinMin" class="min" style="display:none;" />
                       <input name="proteinMax" class="max" style="display:none;" />
@@ -264,7 +264,7 @@
                   <div class="input-field col s12 m8">
                     <div class="range-field">
 
-                      <div id="rr2" class="test-slider"></div>
+                      <div id="rr2" data-left="30" data-right="120" data-min="0" data-max="200" class="test-slider"></div>
                         <span class="example-val" id="rr2-val"></span>
                       <input name="fatMin" class="min" style="display:none;" />
                       <input name="fatMax" class="max" style="display:none;" />
@@ -388,7 +388,7 @@
                 <div class="input-field col s12 m8">
                   <div class="range-field">
 
-                    <div id="rr3" class="test-slider"></div>
+                    <div id="rr3" data-left="30" data-right="800" data-min="0" data-max="1200" class="test-slider"></div>
                       <span class="example-val" id="rr3-val"></span>
                     <input name="energyMin" class="min" style="display:none;" />
                     <input name="energyMax" class="max" style="display:none;" />
@@ -404,7 +404,7 @@
                 <div class="input-field col s12 m8">
                   <div class="range-field">
 
-                    <div id="rr4" class="test-slider"></div>
+                    <div id="rr4" data-left="30" data-right="120" data-min="0" data-max="200" class="test-slider"></div>
                       <span class="example-val" id="rr4-val"></span>
                     <input name="carbMin" class="min" style="display:none;" />
                     <input name="CarbMax" class="max" style="display:none;" />
@@ -419,7 +419,7 @@
                   </div>
                   <div class="input-field col s12 m8">
                     <div class="range-field">
-                      <div id="rr1" class="test-slider"></div>
+                      <div id="rr1" data-left="30" data-right="120" data-min="0" data-max="200" class="test-slider"></div>
                         <span class="example-val" id="rr1-val"></span>
                       <input name="proteinMin" class="min" style="display:none;" />
                       <input name="proteinMax" class="max" style="display:none;" />
@@ -435,7 +435,7 @@
                   <div class="input-field col s12 m8">
                     <div class="range-field">
 
-                      <div id="rr2" class="test-slider"></div>
+                      <div id="rr2" data-left="30" data-right="120" data-min="0" data-max="200" class="test-slider"></div>
                         <span class="example-val" id="rr2-val"></span>
                       <input name="fatMin" class="min" style="display:none;" />
                       <input name="fatMax" class="max" style="display:none;" />
@@ -522,18 +522,18 @@
             $(document.body).append(form);
             form.submit();
         }
-        [...document.getElementsByClassName("min")].forEach(elem => (elem.value = "0"));
-        [...document.getElementsByClassName("max")].forEach(elem => (elem.value = "100"));
+        [...document.getElementsByClassName("min")].forEach(elem => (elem.value = Number(elem.parentElement.querySelector("div").dataset.left)));
+        [...document.getElementsByClassName("max")].forEach(elem => (elem.value = Number(elem.parentElement.querySelector("div").dataset.right)));
         [...document.getElementsByClassName('range-field')].forEach(rangeGroup => {
           slider = rangeGroup.getElementsByClassName("test-slider")[0]
           noUiSlider.create(slider, {
-           start: [0, 100],
+           start: [Number(slider.dataset.left), Number(slider.dataset.right)],
            connect: true,
            step: 1,
            orientation: 'horizontal', // 'horizontal' or 'vertical'
            range: {
-             'min': 0,
-             'max': 100
+             'min': Number(slider.dataset.min),
+             'max': Number(slider.dataset.max)
            },
               pips: {
                 mode: 'count',
