@@ -700,17 +700,28 @@ def category(id):
 	cur.execute(query1)
 	row2=cur.fetchall()
 
-	query2='SELECT * from recipes2 where Recipe_id in (Select Recipe_id from ingredients where ingredient_name="' + row[0]['Ing_name'] + '" OR ingredient_name="' + row[1]['Ing_name'] + '" OR ingredient_name="' + row[2]['Ing_name'] + '" OR ingredient_name="' + row[3]['Ing_name'] + '" LIMIT 21 )'
+	# query2='SELECT * from recipes2 where Recipe_id in (Select Recipe_id from ingredients where ingredient_name="' + row[0]['Ing_name'] + '" OR ingredient_name="' + row[1]['Ing_name'] + '" OR ingredient_name="' + row[2]['Ing_name'] + '" OR ingredient_name="' + row[3]['Ing_name'] + '" LIMIT 21 )'
+	query2='SELECT * from cat_top_recipe where Recipe_id like "' + id + '" '
 	cur.execute(query2)
 	rec2=cur.fetchall()
 	# print(rec2)
-	show=len(rec2)
-
+	show=len(rec2[0])-2
+	All_recipes=[]
+	for x in range(len(rec2[0])-1):
+		# x=''+ str(x) +''
+		# print(x)
+		queryX='SELECT * from recipes2 where Recipe_id="' + str(rec2[0][str(x)]) + '"'
+		# print(queryX)
+		cur.execute(queryX)
+		All_recipes.append(cur.fetchall())
+		# print(All_recipes)
 	queryimg='SELECT cat_Image from cat_Img where "Category" like "' + id + '"'
 	cur.execute(queryimg)
 	# print(queryimg)
 	img=cur.fetchone()
 	# print(img)
-	return render_template("category.html", row=row,heading=heading,row2=row2,fin=rec2,img=img,show=show)
+	# print(All_recipes)
+	# print(show)
+	return render_template("category.html", row=row,heading=heading,row2=row2,fin=All_recipes,img=img,show=show)
 if __name__ == '__main__':
   app.run(debug=True)

@@ -111,14 +111,13 @@
           </tr>
         </thead>
         <tbody style="">
-          {% for x in range(0,show) %}
+          {% for x in fin %}
               <tr>
-                <td><a href="/recipedb/search_recipeInfo/{{fin[x]["Recipe_id"]}}">{{fin[x]['Recipe_title']}}</a></td>
+                <td><a href="/recipedb/search_recipeInfo/{{x[0]["Recipe_id"]}}" target="_blank">{{x[0]['Recipe_title']}}</a></td>
 
-                <td><a href='/recipedb/search_region/{{fin[x]["Region"]}}' target="_blank">{{fin[x]['Region']}}</a></td>
-                <td><a href='/recipedb/search_subregion/{{fin[x]["Sub_region"]}}' target="_blank">{{ fin[x]["Sub_region"] }}</a></td>
-                <!-- <td>Unavailable</td> -->
-                <!-- <td>{{ fin[x]["Source"] }}</td> -->
+                <td><a href='/recipedb/search_region/{{x[0]["Region"]}}' target="_blank">{{x[0]['Region']}}</a></td>
+                <td><a href='/recipedb/search_subregion/{{x[0]["Sub_region"]}}' target="_blank">{{ x[0]["Sub_region"] }}</a></td>
+
               </tr>
           {% endfor %}
         </tbody>
