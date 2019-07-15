@@ -631,12 +631,12 @@
                             {"value" : "European", "id":5},
                             {"value" : "North American","id":6}];
 
-            var conti_Afri=[{"value": "Middle Eastern", "id":1 },{"value": "Rest Africa", "id":2 },{"value": "Northern Africa", "id":3 }];
-            var conti_Asian=[{"value": "Middle Eastern", "id":1 },{"value": "Chinese and Mongolian", "id":2 },{"value": "Thai", "id":3 },{"value": "Southeast Asian", "id":4 },{"value": "Indian Subcontinent", "id":5 },{"value": "Korean", "id":6 },{"value": "Japanese", "id":7 }];
-            var conti_Australasian=[{"value": "Australian", "id":1 }];
-            var conti_Lat_Ame=[{"value": "Mexican", "id":1 },{"value": "Caribbean", "id":2 },{"value": "South American", "id":3 },{"value": "Central American", "id":4 }];
-            var conti_Eur=[{"value": "Eastern European", "id":1 },{"value": "Scandinavian", "id":2 },{"value": "UK", "id":3 },{"value": "Belgian", "id":4 },{"value": "Deutschland ", "id":5 },{"value": "Greek", "id":6 },{"value": "French", "id":7 },{"value": "Irish", "id":8 },{"value": "Italian", "id":9 },{"value": "Spanish and Portuguese", "id":10 }];
-            var conti_Nor_Ame=[{"value": "Canadian", "id":1 },{"value": "US", "id":2 }]
+            var conti_Afri=[{"value": "Middle Eastern", "id":18 },{"value": "Rest Africa", "id":2 },{"value": "Northern Africa", "id":1 }];
+            var conti_Asian=[{"value": "Middle Eastern", "id":18 },{"value": "Chinese and Mongolian", "id":8 },{"value": "Thai", "id":24 },{"value": "Southeast Asian", "id":22 },{"value": "Indian Subcontinent", "id":13 },{"value": "Korean", "id":17 },{"value": "Japanese", "id":16 }];
+            var conti_Australasian=[{"value": "Australian", "id":3 }];
+            var conti_Lat_Ame=[{"value": "Mexican", "id":19 },{"value": "Caribbean", "id":7 },{"value": "South American", "id":20 },{"value": "Central American", "id":5 }];
+            var conti_Eur=[{"value": "Eastern European", "id":10 },{"value": "Scandinavian", "id":21 },{"value": "UK", "id":25 },{"value": "Belgian", "id":4 },{"value": "Deutschland ", "id":9 },{"value": "Greek", "id":12 },{"value": "French", "id":11 },{"value": "Irish", "id":14 },{"value": "Italian", "id":15 },{"value": "Spanish and Portuguese", "id":23 }];
+            var conti_Nor_Ame=[{"value": "Canadian", "id":6 },{"value": "US", "id":26 }]
 
             var cities =[{"value": "Angolan", "id":1 },
                             {"value": "Argentine", "id":2 },
@@ -774,13 +774,16 @@
         $( "#continents" ).autocomplete({
           source: continents,
     			select: function( event, ui ) {
+            console.log(ui.item.id + " Selected");
             update_source_cont(ui.item.id);
     			}
     });
         $( "#Regs" ).autocomplete({
       source: Regs,
       select: function( event, ui ) {
+        console.log(ui.item.id + " Selected");
         update_source(ui.item.id);
+
        }
       });
       $( "#cities" ).autocomplete({
