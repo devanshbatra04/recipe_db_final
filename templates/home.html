@@ -793,7 +793,7 @@
       $( "#Regs1" ).autocomplete({
     source: Regs,
     select: function( event, ui ) {
-      update_source(ui.item.id);
+      update_source1(ui.item.id);
      }
     });
     $( "#cities1" ).autocomplete({
@@ -899,7 +899,85 @@
         }
       }
 
-
+      function update_source1(country){
+      if(country == 1){
+      $( "#cities1" ).autocomplete('option', 'source', cities_NF)
+        } else if(country == 2){
+            $( "#cities1" ).autocomplete('option', 'source', cities_RA)
+        }
+          else if(country == 3){
+            $( "#cities1" ).autocomplete('option', 'source', cities_Aus)
+        }
+          else if(country == 4){
+            $( "#cities1" ).autocomplete('option', 'source', cities_Bel)
+        }
+          else if(country == 5){
+            $( "#cities1" ).autocomplete('option', 'source', cities_CA)
+        }
+          else if(country == 6){
+            $( "#cities1" ).autocomplete('option', 'source', cities_Can)
+        }
+          else if(country == 7){
+            $( "#cities1" ).autocomplete('option', 'source', cities_Car)
+        }
+          else if(country == 8){
+            $( "#cities1" ).autocomplete('option', 'source', cities_Ch_Mo)
+        }
+          else if(country == 9){
+            $( "#cities1" ).autocomplete('option', 'source', cities_Deu)
+        }
+          else if(country == 10){
+            $( "#cities1" ).autocomplete('option', 'source', cities_EE)
+        }
+          else if(country == 11){
+            $( "#cities1" ).autocomplete('option', 'source', cities_Fre)
+        }
+          else if(country == 12){
+            $( "#cities1" ).autocomplete('option', 'source', cities_Gre)
+        }
+        else if(country == 13){
+            $( "#cities1" ).autocomplete('option', 'source', cities_IS)
+        }
+          else if(country == 14){
+            $( "#cities1" ).autocomplete('option', 'source', cities_Iri)
+        }
+          else if(country == 15){
+            $( "#cities1" ).autocomplete('option', 'source', cities_Ita)
+        }
+          else if(country == 16){
+            $( "#cities1" ).autocomplete('option', 'source', cities_Jap)
+        }
+          else if(country == 17){
+            $( "#cities1" ).autocomplete('option', 'source', cities_Kor)
+        }
+          else if(country == 18){
+            $( "#cities1" ).autocomplete('option', 'source', cities_ME)
+        }
+          else if(country == 19){
+            $( "#cities1" ).autocomplete('option', 'source', cities_Mex)
+        }
+          else if(country == 20){
+            $( "#cities1" ).autocomplete('option', 'source', cities_SA)
+        }
+          else if(country == 21){
+            $( "#cities1" ).autocomplete('option', 'source', cities_Sca)
+        }
+          else if(country == 22){
+            $( "#cities1" ).autocomplete('option', 'source', cities_Sou_A)
+        }
+          else if(country == 23){
+            $( "#cities1" ).autocomplete('option', 'source', cities_S_P)
+        }
+          else if(country == 24){
+            $( "#cities1" ).autocomplete('option', 'source', cities_Tha)
+        }
+          else if(country == 25){
+            $( "#cities1" ).autocomplete('option', 'source', cities_UK)
+        }
+          else if(country == 26){
+            $( "#cities1" ).autocomplete('option', 'source', cities_US)
+        }
+      }
 
         document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.autocomplete_region');
