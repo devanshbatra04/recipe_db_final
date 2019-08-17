@@ -676,6 +676,11 @@ def how():
 def stats():
 	return render_template("stats.html")
 
+@app.route("/recipedb/designdiet")
+def hello():
+    return render_template('designdiet.html')
+
+
 @app.route('/recipedb/category/<string:id>',  methods = ['GET', 'POST'])
 def category(id):
 	con = sql.connect("recipe2-final.db")
