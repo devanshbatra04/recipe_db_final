@@ -629,8 +629,8 @@ def SimilarRecipesCat(id):
 	con.row_factory = dict_factory
 	cur = con.cursor()
 	ini_Query='SELECT Recipe_title from recipes2 where Recipe_id= "' + id + '" '
-	query='SELECT * from recipe_sim_Cat where Recipe_id= "' + id + '" '
-	query_Sim_Nums='SELECT * from similar_recipe_process_cosine where Recipe_id= "' + id + '" '
+	query='SELECT * from RS_cat where Recipe_id= "' + id + '" '
+	query_Sim_Nums='SELECT * from CS_cat where Recipe_id= "' + id + '" '
 	cur.execute(ini_Query)
 	heading=cur.fetchone()
 	heading=heading['Recipe_title']
