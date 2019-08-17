@@ -594,7 +594,7 @@ def SimilarRecipes(id):
 	cur = con.cursor()
 	ini_Query='SELECT Recipe_title from recipes2 where Recipe_id= "' + id + '" '
 	query='SELECT * from SR_pro where Recipe_id= "' + id + '" '
-	query_Sim_Nums='SELECT * from similar_recipe_process_cosine where Recipe_id= "' + id + '" '
+	query_Sim_Nums='SELECT * from CS_pro where Recipe_id= "' + id + '" '
 	cur.execute(ini_Query)
 	heading=cur.fetchone()
 	heading=heading['Recipe_title']
