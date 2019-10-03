@@ -63,19 +63,19 @@
                    {% for key, value in dict_item.items() %}
 
                    {% if key=="Energy(kcal)" %}
-                      <tr class="smallRows"><td><strong>Energy (kCal)</strong></td><td>{{value if value else "N/A"}}</td>
+                      <tr class="smallRows"><td><strong>Energy (kCal)</strong></td><td>{{value if value else "-"}}</td>
                     </tr>
 
                    {% elif key =="Protein(g)" %}
-                      <tr class="smallRows"><td><strong>Protein (g)</strong></td><td>{{value if value else "N/A"}}</td>
+                      <tr class="smallRows"><td><strong>Protein (g)</strong></td><td>{{value if value else "-"}}</td>
                     </tr>
 
                    {% elif key=="Carbohydratebydifference(g)" %}
-                      <tr class="smallRows"><td><strong>Carbohydrates (g)</strong></td><td>{{value if value else "N/A"}}</td>
+                      <tr class="smallRows"><td><strong>Carbohydrates (g)</strong></td><td>{{value if value else "-"}}</td>
                     </tr>
 
                    {% elif key=="Totallipid(fat)(g)" %}
-                      <tr class="smallRows"><td><strong>Total fats (g)</strong></td><td>{{value if value else "N/A"}}</td>
+                      <tr class="smallRows"><td><strong>Total fats (g)</strong></td><td>{{value if value else "-"}}</td>
                     </tr>
 
                   {% endif %}
@@ -216,7 +216,7 @@
                 {% endfor %}
                 </tbody>
               </table>
-                <p>N/A - Suitable USDA nutrition profile could not be mapped for this ingredient-unit combination.</p>
+                <p>- Means that suitable USDA nutrition profile could not be mapped for this ingredient-unit combination.</p>
               </div>
               </div>
 
@@ -345,7 +345,7 @@
           				<p><a href="https://iiitd.ac.in/" target="_blank"><strong>Indraprastha Institute of Information Technology Delhi (IIIT-Delhi)</strong></a> | <a href="http://faculty.iiitd.ac.in/~bagler/" target="_blank">Dr. Ganesh Bagler</a></p>
           				<p><a target="_blank" href="https://www.facebook.com/ganesh.bagler"></a>
           					<a target="_blank" href="https://twitter.com/gansbags"></a>
-          					<a target="_blank" href="https://www.linkedin.com/in/ganeshbagler"></a>
+          					<a target="_blank" href="https://www.linkedin.com/in/ganeshbagler"><
           				</p>
 
           			</div>

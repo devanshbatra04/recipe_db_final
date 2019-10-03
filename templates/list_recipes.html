@@ -262,10 +262,10 @@
                     </table>
                   </li></ul></div>
                     </div>
-                    <div class="row" style="margin-bottom: 0px">
-                      <div class="col s4"></div>
-
-                      <div class="col s4"></div>
+                    <div class="row center" style="margin-bottom: 0px">
+                      The nutritional profile was estimated using the protocol mentioned in <a href="/recipedb/FAQ#nutritional-faq">FAQs</a>.
+                    </div>
+                    <div id="buttons" class="center">
                     </div>
                   </li>
 
@@ -472,6 +472,9 @@
             idElem.setAttribute('href', `/recipedb/search_recipeInfo/${id}`);
             idElem.setAttribute('target', '_blank');
             document.getElementById('modalRecipeTitle').appendChild(titleElem);
+            document.getElementById("buttons").innerHTML = `<a class=\"waves-effect red btn-small\" href=\"/recipedb/SimilarRecipes/${id}\" target=\"_blank\">Similar Recipes by Processes</a>
+                                         <a class=\"waves-effect red btn-small\" href=\"/recipedb/SimilarRecipesCat/${id}\" target=\"_blank\">Similar Recipes by Category Composition</a>
+                                       `
           }
 
           // old - 18.June.2019
@@ -494,10 +497,10 @@
                     const anchorTag = anchorTagForIngredientName(val, ndbId);
                     tableData.appendChild(anchorTag);
                   } else {
-                    tableData.innerHTML = "N/A";
+                    tableData.innerHTML = "-";
                   }
                 } else {
-                  tableData.innerHTML = ingredient[key] ? ingredient[key].trim() : "N/A";
+                  tableData.innerHTML = ingredient[key] ? ingredient[key].trim() : "-";
                 }
                 tableRow.appendChild(tableData);
               }
@@ -507,7 +510,7 @@
 
           // new - 19.June.2019
           function addRowDataToModalTable(ingredients) { // 'ingredients' is an Array.
-            console.log(ingredients)
+            // console.log(ingredients)
             for (var ingredient of ingredients) { // Iterating over an 'ingredient' in 'ingredients'. 'ingredients' is an Array.
               let tableRow = document.createElement("TR");
 
@@ -535,11 +538,11 @@
                     // Checking Whether The Trim Is Happening Or Not!
                     // console.log(`Value Before Trim: ${val}. Length Before Trim: ${val.length}. Value After Trim: ${val.trim()}. Length After Trim: ${val.trim().length}.`)
                     } else {
-                      tableData.innerHTML = "N/A"; // Using Hyphen, when there's no Data.
+                      tableData.innerHTML = "-"; // Using Hyphen, when there's no Data.
                     }
                   } else {
                     // Item will be trimmed if the key is in the Array in the If-Condition.
-                    tableData.innerHTML = ingredient[key] ? ingredient[key].trim() : "N/A";
+                    tableData.innerHTML = ingredient[key] ? ingredient[key].trim() : "-";
                   }
                 } else {
                     const val = ingredient['nutrient_info'];
@@ -552,7 +555,7 @@
 
                       tableData.innerHTML = dataVal;
                     } else {
-                      tableData.innerHTML = "N/A"; // Using Hyphen, when there's no Data.
+                      tableData.innerHTML = "-"; // Using Hyphen, when there's no Data.
                     }
                 }
                 tableRow.appendChild(tableData);

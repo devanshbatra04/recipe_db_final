@@ -541,10 +541,10 @@ def search_recipeInfo(id):
 		dict_row = dict(rp)
 		ndb_id = rp["ndb_id"]
 		nutr = {
-			"Carbohydrate, by difference (g)": "N/A",
-			"Energy (kcal)": "N/A",
-			"Protein (g)": "N/A",
-			"Total lipid (fat) (g)": "N/A",
+			"Carbohydrate, by difference (g)": "-",
+			"Energy (kcal)": "-",
+			"Protein (g)": "-",
+			"Total lipid (fat) (g)": "-",
 		}
 		for rowl in rows2:
 			if str(dict(rowl)["ndb_id"]) == str(ndb_id):
@@ -686,8 +686,8 @@ def stats():
 def category(id):
 	con = sql.connect("recipe2-final.db")
 	con.row_factory = sql.Row
-	query='SELECT * from unique_ingredients where "Category-F-DB" like "' + id + '" and NOT aliases="" GROUP BY aliases ORDER By length(Ing_id), Ing_id LIMIT 10'
-	query1='SELECT * from unique_ingredients where "Category-F-DB" like "' + id + '" and NOT aliases="" GROUP BY aliases ORDER By length(Ing_id), Ing_id LIMIT 20'
+	query='SELECT * from unique_ingredients where "Category-F-DB" like "' + id + '" LIMIT 10'
+	query1='SELECT * from unique_ingredients where "Category-F-DB" like "' + id + '" LIMIT 20'
 	# print(query)
 	heading="" + id + ""
 	# print(heading)
