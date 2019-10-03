@@ -165,11 +165,11 @@
                       <td>
                         {{row["Servings"]}}
                       </td>
-                      <td>
+                      <td class="roundOff">
                         {{row["Energy(kcal)"]}}
                       </td>
-                      <td>{{row["Protein(g)"]}}</td>
-                      <td>{{row["Totallipid(fat)(g)"]}}</td>
+                      <td class="roundOff">{{row["Protein(g)"]}}</td>
+                      <td class="roundOff">{{row["Totallipid(fat)(g)"]}}</td>
                       <td><a href=""></a>
                         <button
                           data-target="modal1"
@@ -988,6 +988,7 @@
           function prevPage(){
             makeRequest(-1, "");
           }
+          [...document.getElementsByClassName("roundOff")].forEach(el => el.innerText ? el.innerText = limitDecimalPlaces(el.innerText) : el.innerText = "-")
         </script>
         <footer class="primary-footer">
           <div class="copyright-wrap">
