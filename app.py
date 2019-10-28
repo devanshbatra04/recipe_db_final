@@ -141,7 +141,7 @@ def exec_query(name, region, Sub_region, page,ings,not_ings, category, not_categ
 	queries = [
 		"select Distinct(recipes2.Recipe_id) from recipes2 where Recipe_title like \"%{}%\" and Region like \"%{}%\" and Sub_region like \"%{}%\" and Continent like \"%{}%\" and Processes like \"%{}%\" and Utensils like \"%{}%\" {}".format(name, region, Sub_region, continent, process, utensil, subq),
 		"select Distinct(recipes2.Recipe_id) from recipes2 natural join ingredients where ingredient_name like \"%{}%\" and Recipe_title like \"%{}%\" and Sub_region like \"%{}%\" and Region like \"%{}%\" and Continent like \"%{}%\" and Processes like \"%{}%\" and Utensils like \"%{}%\" {}".format(ings, name, Sub_region, region, continent, process, utensil, subq),
-		"select Distinct(recipes2.Recipe_id) from recipes2 where recipe_id not in (select recipe_id from ingredients where ingredient_name = \" {}\"){}",
+		"select Distinct(recipes2.Recipe_id) from recipes2 where recipe_id not in (select recipe_id from ingredients where ingredient_name = \"{}\"){}",
 		"select DISTINCT(Recipe_id) from ingredients where Ing_id in (select Ing_ID from unique_ingredients where " + ("unique_ingredients.\"Category-F-DB\" like \"{}\"".format(category) if len(category) else "")+ (" and " if (len(category) and len(not_category)) else "") + ("Ing_id not in (select Ing_ID from unique_ingredients where unique_ingredients.\"Category-F-DB\" like \"{}\")".format(not_category) if len(not_category) else "") + ")"
 
 	]
