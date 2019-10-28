@@ -65,19 +65,19 @@
                    {% for key, value in dict_item.items() %}
 
                    {% if key=="Energy(kcal)" %}
-                      <tr class="smallRows"><td><strong>Energy (kCal)</strong></td><td>{{value if value else "-"}}</td>
+                      <tr class="smallRows"><td><strong>Energy (kCal)</strong></td><td class="roundOff">{{value if value else "-"}}</td>
                     </tr>
 
                    {% elif key =="Protein(g)" %}
-                      <tr class="smallRows"><td><strong>Protein (g)</strong></td><td>{{value if value else "-"}}</td>
+                      <tr class="smallRows"><td><strong>Protein (g)</strong></td><td class="roundOff">{{value if value else "-"}}</td>
                     </tr>
 
                    {% elif key=="Carbohydratebydifference(g)" %}
-                      <tr class="smallRows"><td><strong>Carbohydrates (g)</strong></td><td>{{value if value else "-"}}</td>
+                      <tr class="smallRows"><td><strong>Carbohydrates (g)</strong></td><td class="roundOff">{{value if value else "-"}}</td>
                     </tr>
 
                    {% elif key=="Totallipid(fat)(g)" %}
-                      <tr class="smallRows"><td><strong>Total fats (g)</strong></td><td>{{value if value else "-"}}</td>
+                      <tr class="smallRows"><td><strong>Total fats (g)</strong></td><td class="roundOff">{{value if value else "-"}}</td>
                     </tr>
 
                   {% endif %}
@@ -89,7 +89,7 @@
                 <!--{% for dict_item in row %}-->
                {% for key, value in full_profile.items() %}
                     {% if key !="Recipe_id" %}
-                  <tr class="bigRows" style="display:none;"><td><strong>{{key}}</strong></td><td>{{value}}</td>
+                  <tr class="bigRows" style="display:none;"><td><strong>{{key}}</strong></td><td class="roundOff">{{value}}</td>
                       {% endif %}
                {% endfor %}
             <!--{% endfor %}-->
@@ -210,10 +210,10 @@
                     <td>{{v["quantity"]}}</td>
                     <td>{{v["unit"]}}</td>
                     <td>{{v["state"]}}</td>
-                    <td>{{v["nutrient_info"]["Energy (kcal)"]}}</td>
-                    <td>{{v["nutrient_info"]["Carbohydrate, by difference (g)"]}}</td>
-                    <td>{{v["nutrient_info"]["Protein (g)"]}}</td>
-                    <td>{{v["nutrient_info"]["Total lipid (fat) (g)"]}}</td>
+                    <td class="roundOff">{{v["nutrient_info"]["Energy (kcal)"]}}</td>
+                    <td class="roundOff">{{v["nutrient_info"]["Carbohydrate, by difference (g)"]}}</td>
+                    <td class="roundOff">{{v["nutrient_info"]["Protein (g)"]}}</td>
+                    <td class="roundOff">{{v["nutrient_info"]["Total lipid (fat) (g)"]}}</td>
                   </tr>
                 {% endfor %}
                 </tbody>
@@ -333,6 +333,25 @@
               else btn.textContent = "Show More";
 
             }
+            function limitDecimalPlaces(data) {
+                if (data !== "0.0") {
+                  dataList = data.split('.');
+
+                  // console.log('1.', dataList); // Checking.
+
+                  let decimalVal = dataList[1]; // First item in dataList.
+                    if (dataList.length === 1) return (decimalVal ? decimalVal : "-");
+                  if (decimalVal.length > 2) {
+                    // console.log('2.', dataList); // Checking.
+
+                    decimalVal = decimalVal.slice(0, 2);
+                  }
+                  data = dataList[0] + '.' + decimalVal; // Concatenation.
+                }
+                return data
+          }
+
+            [...document.getElementsByClassName("roundOff")].forEach(el => el.innerText ? el.innerText = limitDecimalPlaces(el.innerText) : el.innerText = "-")
           </script>
           <footer class="primary-footer">
           	<div class="copyright-wrap">
