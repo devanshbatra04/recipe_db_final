@@ -730,4 +730,4 @@ def category(id):
 	# print(show)
 	return render_template("category.html", row=row,heading=heading,row2=row2,fin=All_recipes,img=img,show=show)
 if __name__ == '__main__':
-  app.run(debug=True)
+  app.run(host="0.0.0.0", port=5000, debug=False)
