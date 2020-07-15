@@ -252,7 +252,7 @@
 
           drxLinks = "{{generic_ingredient_info["DietRX-link"]}}"
           try {
-              document.getElementById("drx-text").innerHTML = [...drxLinks.match(/([A-Za-z\s]{1,}~[^\s]*)/g)].map(str => {
+              document.getElementById("drx-text").innerHTML = [...drxLinks.match(/([A-Za-z\s]{1,}~[^|]*)/g)].map(str => {
                       var name = str.split("~").map(st => st.trim()) [0];
                       var url = str.split("~").map(st => st.trim()) [1];
                       return (`<a href="${url}" target="_blank" style="text-transform: capitalize">${name} <i class="fa fa-external-link"></i></a>`);
